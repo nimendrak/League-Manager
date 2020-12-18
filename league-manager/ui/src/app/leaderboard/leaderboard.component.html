@@ -1,0 +1,101 @@
+<div class="mat-elevation-z8">
+  <nav class="navbar navbar-default" style="background-color: #424242; border-style: hidden;">
+    <div class="container-fluid">
+      <div class="navbar-header" style="padding-left: 25px">
+        <button type="button" class="navbar-toggle" (click)="collapsed = !collapsed">
+          <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
+        </button>
+        <a routerLink="/" class="navbar-brand" style="margin-top: 25px; color: white">Sort according to</a>
+      </div>
+      <div class="navbar-collapse" style="margin-top: 12px" [class.collapse]="collapsed" (window:resize)="collapsed = true">
+        <ul class="nav navbar-nav">
+
+          <li>
+            <mat-form-field appearance="fill" color="primary">
+              <mat-label>Type</mat-label>
+              <mat-select>
+                <mat-option value="accent" *ngFor="let option of dropDownOptionsOne" [value]="option.value">
+                  {{option.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </li>
+
+          <li>
+            <mat-form-field appearance="fill">
+              <mat-label>Order</mat-label>
+              <mat-select>
+                <mat-option value="accent" *ngFor="let option of dropDownOptionsTwo" [value]="option.value">
+                  {{option.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </li>
+
+          <li>
+            <button mat-raised-button color="primary" style="padding: 7px; margin-top: 3px">Go</button>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+
+    <ng-container matColumnDef="Club">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Club</th>
+      <td mat-cell *matCellDef="let row">{{row.clubName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="Location">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Location</th>
+      <td mat-cell *matCellDef="let row">{{row.clubLocation}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="MP">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>MP</th>
+      <td mat-cell *matCellDef="let row">{{row.numOfMatchesPlayed}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="W">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>W</th>
+      <td mat-cell *matCellDef="let row">{{row.seasonWins}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="L">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>L</th>
+      <td mat-cell *matCellDef="let row">{{row.seasonDefeats}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="D">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>D</th>
+      <td mat-cell *matCellDef="let row">{{row.seasonDraws}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="GS">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>GS</th>
+      <td mat-cell *matCellDef="let row">{{row.numOfGoalsScored}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="GR">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>GR</th>
+      <td mat-cell *matCellDef="let row">{{row.numOfGoalsReceived}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="PTS">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>PTS</th>
+      <td mat-cell *matCellDef="let row">{{row.numOfPointsGained}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator #paginator
+                 [length]="dataSource?.data.length"
+                 [pageIndex]="0"
+                 [pageSize]="10"
+                 [pageSizeOptions]="[1, 5, 10, 15]">
+  </mat-paginator>
