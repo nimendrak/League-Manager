@@ -1,4 +1,4 @@
-package controllers;
+package utils;
 
 import models.FootballClub;
 import services.PremierLeagueManager;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class ConsoleApplication {
+public class ApplicationUtil {
     static PremierLeagueManager premierLeagueManager = PremierLeagueManager.getInstance();
     final static Scanner sc = new Scanner(System.in);
 

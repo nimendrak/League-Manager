@@ -1,3 +1,4 @@
 [debug] "not up to date. inChanged = true, force = false
-[debug] Updating ProjectRef(uri("file:/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/"), "angular-play-app")...
-[debug] Done updating ProjectRef(uri("file:/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/"), "angular-play-app")
+[debug] Updating ProjectRef(uri("file:/Users/nimendra/Desktop/test-play/"), "root")...
+[debug] Done updating ProjectRef(uri("file:/Users/nimendra/Desktop/test-play/"), "root")
+[warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
