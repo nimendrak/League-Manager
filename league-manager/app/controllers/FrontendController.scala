@@ -4,10 +4,6 @@ import java.awt.Desktop.Action
 
 import javax.inject._
 
-import play.api.Configuration
-import play.api.http.HttpErrorHandler
-import play.api.mvc._
-
 /**
  * Frontend controller managing all static resource associate routes.
  *
