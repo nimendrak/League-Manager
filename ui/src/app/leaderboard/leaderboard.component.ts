@@ -4,6 +4,7 @@ import {MatSort} from '@angular/material/sort';
 import {MatTable} from '@angular/material/table';
 import {LeaderboardDataSource} from './leaderboard-datasource';
 import {ClubModel} from './club.model';
+import {AppService} from "../app.service";
 
 @Component({
   selector: 'app-leaderboard',
@@ -25,6 +26,10 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
     // @ts-ignore
     {value: 'ascending', viewValue: 'Ascending'}, {value: 'descending', viewValue: 'Descending'}
   ];
+
+  constructor(private readonly appService: AppService) {
+    this.appService = appService;
+  }
 
   /** Columns displayed in the table. */
   displayedColumns = ['Club', 'Location', 'MP', 'W', 'L', 'D', 'GS', 'GR', 'PTS'];

@@ -1,25 +1,25 @@
 package models;
 
 public class FootballClub extends SportsClub implements Comparable<FootballClub> {
+    private int numOfMatchesPlayed;
     private int seasonWins;
     private int seasonDefeats;
     private int seasonDraws;
     private int numOfGoalsReceived;
     private int numOfGoalsScored;
     private int numOfPointsGained;
-    private int numOfMatchesPlayed;
 
     public FootballClub(String clubName, String clubLocation, int numOfMatchesPlayed, int seasonWins, int seasonDefeats, int seasonDraws,
                         int numOfGoalsReceived, int numOfGoalsScored, int numOfPointsGained) {
         super(clubName, clubLocation);
 
+        this.numOfMatchesPlayed = numOfMatchesPlayed;
         this.seasonWins = seasonWins;
         this.seasonDefeats = seasonDefeats;
         this.seasonDraws = seasonDraws;
         this.numOfGoalsReceived = numOfGoalsReceived;
         this.numOfGoalsScored = numOfGoalsScored;
         this.numOfPointsGained = numOfPointsGained;
-        this.numOfMatchesPlayed = numOfMatchesPlayed;
     }
 
     public int getSeasonWins() {

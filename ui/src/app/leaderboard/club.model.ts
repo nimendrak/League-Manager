@@ -7,24 +7,23 @@
 export class ClubModel {
   public clubName: string;
   public clubLocation: string;
+  public numOfMatchesPlayed: number;
   public seasonWins: number;
   public seasonDefeats: number;
   public seasonDraws: number;
   public numOfGoalsReceived: number;
   public numOfGoalsScored: number;
   public numOfPointsGained: number;
-  public numOfMatchesPlayed: number;
 
-  constructor(clubName: string, clubLocation: string, seasonWins: number, seasonDefeats: number, seasonDraws: number,
-              numOfGoalsReceived: number, numOfGoalsScored: number, numOfPointsGained: number, numOfMatchesPlayed: number) {
+  constructor(clubName: string, clubLocation: string, numOfMatchesPlayed: number, seasonWins: number, seasonDefeats: number,
+              seasonDraws: number, numOfGoalsReceived: number, numOfGoalsScored: number, numOfPointsGained: number) {
     this.clubName = clubName;
     this.clubLocation = clubLocation;
+    this.numOfMatchesPlayed = numOfMatchesPlayed;
     this.seasonWins = seasonWins;
     this.seasonDefeats = seasonDefeats;
     this.seasonDraws = seasonDraws;
     this.numOfGoalsReceived = numOfGoalsReceived;
     this.numOfGoalsScored = numOfGoalsScored;
-    this.numOfPointsGained = numOfPointsGained;
-    this.numOfMatchesPlayed = numOfMatchesPlayed;
-  }
+    this.numOfPointsGained = numOfPointsGained;}
 }

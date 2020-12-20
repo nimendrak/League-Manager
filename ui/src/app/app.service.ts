@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { map } from "rxjs/operators";
 
 /**
  * Class representing application service.
@@ -23,7 +24,9 @@ export class AppService {
     return this.http.post(this.postRandomMatchUrl, {});
   }
 
-  public receiveDataLeaderboard(): Observable<any> {
-    return this.http.get(this.getLeaderboardDataUrl, {});
+  public receiveDataLeaderboard() {
+    return this.http.get(this.getLeaderboardDataUrl).pipe(
+      map(response => response)
+    );
   }
 }
