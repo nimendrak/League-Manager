@@ -1,13 +1,15 @@
-import {DataSource} from '@angular/cdk/collections';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {merge, Observable, of as observableOf} from 'rxjs';
-import {ClubModel} from './club.model';
-import {AppService} from "../app.service";
-import {map} from "rxjs/operators";
+import { DataSource } from '@angular/cdk/collections';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { map } from 'rxjs/operators';
+import { Observable, of as observableOf, merge } from 'rxjs';
+import { ClubModel } from './club.model';
 
 // data source
-// const DATA: ClubModel[] = this.populateLeaderboard();
+const DATA: ClubModel[] = [
+  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
+    1, 10, 10, 20),
+];
 
 
 /**
@@ -16,32 +18,12 @@ import {map} from "rxjs/operators";
  * (including sorting, pagination, and filtering).
  */
 export class LeaderboardDataSource extends DataSource<ClubModel> {
-  // data: ClubModel[] = DATA;
-  data: ClubModel[] = [];
+  data: ClubModel[] = DATA;
   paginator: MatPaginator;
   sort: MatSort;
-  appService: AppService;
-  res: any;
 
   constructor() {
     super();
-  }
-
-  public populateLeaderboard(): Observable<ClubModel[]> {
-    this.res = this.appService.receiveDataLeaderboard();
-    return this.res.map(res => {
-      res.map(() => new ClubModel(
-        res.clubName,
-        res.clubLocation,
-        res.numOfMatchesPlayed,
-        res.seasonWins,
-        res.seasonDefeats,
-        res.seasonDraws,
-        res.numOfGoalsReceived,
-        res.numOfGoalsScored,
-        res.numOfPointsGained
-      ));
-    });
   }
 
   /**
@@ -67,8 +49,7 @@ export class LeaderboardDataSource extends DataSource<ClubModel> {
    *  Called when the table is being destroyed. Use this function, to clean up
    * any open connections or free any held resources that were set up during connect.
    */
-  disconnect() {
-  }
+  disconnect() {}
 
   /**
    * Paginate the data (client-side). If you're using server-side pagination,
@@ -91,14 +72,10 @@ export class LeaderboardDataSource extends DataSource<ClubModel> {
     return data.sort((a, b) => {
       const isAsc = this.sort.direction === 'asc';
       switch (this.sort.active) {
-        case 'W':
-          return compare(a.seasonWins, b.seasonWins, isAsc);
-        case 'GS':
-          return compare(a.numOfGoalsScored, b.numOfGoalsScored, isAsc);
-        case 'PTS':
-          return compare(+a.numOfPointsGained, +b.numOfPointsGained, isAsc);
-        default:
-          return 0;
+        case 'W': return compare(a.seasonWins, b.seasonWins, isAsc);
+        case 'GS': return compare(a.numOfGoalsScored, b.numOfGoalsScored, isAsc);
+        case 'PTS': return compare(+a.numOfPointsGained, +b.numOfPointsGained, isAsc);
+        default: return 0;
       }
     });
   }

@@ -44,6 +44,7 @@ export class AppComponent {
   public getData(): void {
     this.appService.receiveDataLeaderboard().subscribe((data: any) => {
       this.getRequestResponse = data.content;
+      console.log(this.getRequestResponse);
     });
   }
 }
