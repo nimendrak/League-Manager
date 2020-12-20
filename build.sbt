@@ -1,3 +1,5 @@
+import sbt.util.Cache.cache;
+
 name := """angular-play-app"""
 organization := "com.nimendra"
 

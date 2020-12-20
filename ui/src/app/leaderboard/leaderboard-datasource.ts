@@ -9,27 +9,9 @@ import { ClubModel } from './club.model';
 const DATA: ClubModel[] = [
   new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
   1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
-  new ClubModel ('Hydrogen', 'Galle', 1, 1, 1,
-    1, 10, 10, 20),
 ];
+
+
 
 /**
  * Data source for the Leaderboard view. This class should
@@ -97,12 +79,6 @@ export class LeaderboardDataSource extends DataSource<ClubModel> {
         default: return 0;
       }
     });
-  }
-
-  // connect to the backend
-  // tslint:disable-next-line:typedef
-  private populateClubData(data: ClubModel[]) {
-
   }
 }
 

@@ -1,25 +1,4 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/league-manager/app/controllers/FrontendController.scala:14:141: not found: type AbstractController[0m
-[0m[[0m[31merror[0m] [0m[0mclass FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandler, config: Configuration, cc: ControllerComponents) extends AbstractController(cc) {[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                                                                                            ^[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/league-manager/app/controllers/FrontendController.scala:14:66: not found: type HttpErrorHandler[0m
-[0m[[0m[31merror[0m] [0m[0mclass FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandler, config: Configuration, cc: ControllerComponents) extends AbstractController(cc) {[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                 ^[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/league-manager/app/controllers/FrontendController.scala:14:92: not found: type Configuration[0m
-[0m[[0m[31merror[0m] [0m[0mclass FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandler, config: Configuration, cc: ControllerComponents) extends AbstractController(cc) {[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                                           ^[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/league-manager/app/controllers/FrontendController.scala:14:111: not found: type ControllerComponents[0m
-[0m[[0m[31merror[0m] [0m[0mclass FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandler, config: Configuration, cc: ControllerComponents) extends AbstractController(cc) {[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                                                              ^[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/league-manager/app/controllers/FrontendController.scala:14:160: no arguments allowed for nullary constructor Object: (): Object[0m
-[0m[[0m[31merror[0m] [0m[0mclass FrontendController @Inject()(assets: Assets, errorHandler: HttpErrorHandler, config: Configuration, cc: ControllerComponents) extends AbstractController(cc) {[0m
-[0m[[0m[31merror[0m] [0m[0m                                                                                                                                                               ^[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/league-manager/app/controllers/FrontendController.scala:16:14: java.awt.Desktop.Action does not take type parameters[0m
-[0m[[0m[31merror[0m] [0m[0m  def index: Action[AnyContent] = assets.at("index.html")[0m
-[0m[[0m[31merror[0m] [0m[0m             ^[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/league-manager/app/controllers/FrontendController.scala:18:41: java.awt.Desktop.Action does not take type parameters[0m
-[0m[[0m[31merror[0m] [0m[0m  def assetOrDefault(resource: String): Action[AnyContent] = if (resource.startsWith(config.get[String]("apiPrefix"))) {[0m
-[0m[[0m[31merror[0m] [0m[0m                                        ^[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/league-manager/app/controllers/FrontendController.scala:19:12: value async is not a member of object java.awt.Desktop.Action[0m
-[0m[[0m[31merror[0m] [0m[0m    Action.async(r => errorHandler.onClientError(r, NOT_FOUND, "Not found"))[0m
-[0m[[0m[31merror[0m] [0m[0m           ^[0m
-[0m[[0m[31merror[0m] [0m[0m8 errors found[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes:9:1: not enough arguments for method create: (request: play.mvc.Http.Request): play.mvc.Result.[0m
+[0m[[0m[31merror[0m] [0m[0mUnspecified value parameter request.[0m
+[0m[[0m[31merror[0m] [0m[0mPOST        /add/random        controllers.LeagueController.create()[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

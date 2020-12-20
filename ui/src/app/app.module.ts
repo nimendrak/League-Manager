@@ -22,13 +22,17 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
-import { SearchMatchComponent } from './search-match/search-match.component';
-import { ViewAllMatchesComponent } from './view-all-matches/view-all-matches.component';
+import {SearchMatchComponent} from './search-match/search-match.component';
+import {ViewAllMatchesComponent} from './view-all-matches/view-all-matches.component';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
+
+import {AppService} from './app.service';
+import {AppHttpInterceptorService} from './http-interceptor.service';
 
 const appRoutes: Routes = [
   {path: 'leaderboard', component: LeaderboardComponent},
   {path: 'match-table', component: ViewAllMatchesComponent},
-  {path : 'search', component: SearchMatchComponent}
+  {path: 'search', component: SearchMatchComponent}
 ];
 
 @NgModule({
@@ -59,9 +63,19 @@ const appRoutes: Routes = [
     MatMenuModule,
     MatInputModule,
     MatSnackBarModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'Csrf-Token',
+      headerName: 'Csrf-Token',
+    })
   ],
-  providers: [],
+  providers: [AppService,
+    {
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppHttpInterceptorService,
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

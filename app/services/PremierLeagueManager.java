@@ -5,10 +5,7 @@ import models.Match;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.ConcurrentModificationException;
-import java.util.List;
+import java.util.*;
 
 public class PremierLeagueManager implements LeagueManager {
 
@@ -103,7 +100,6 @@ public class PremierLeagueManager implements LeagueManager {
         }
     }
 
-
     @Override
     public void deleteClub(String clubName) {
         try {
@@ -136,16 +132,17 @@ public class PremierLeagueManager implements LeagueManager {
     }
 
     @Override
-    public void displayLeagueTable() {
+    public List<FootballClub> displayLeagueTable() {
         Collections.sort(teamList, Collections.reverseOrder());
-        if (!teamList.isEmpty()) {
-            for (FootballClub f : teamList) {
-                System.out.println(f);
-                System.out.println("- - - - - - - - - - - - - - - - - - - - -");
-            }
-        } else {
-            System.out.println("No Team has played a Match yet");
-        }
+//        if (!teamList.isEmpty()) {
+//            for (FootballClub f : teamList) {
+//                System.out.println(f);
+//                System.out.println("- - - - - - - - - - - - - - - - - - - - -");
+//            }
+//        } else {
+//            System.out.println("No Team has played a Match yet");
+//        }
+        return teamList;
     }
 
     @Override
@@ -215,6 +212,51 @@ public class PremierLeagueManager implements LeagueManager {
         } else {
             System.out.println("No Data Available!");
         }
+    }
+
+//  delete
+    static boolean oneTime = false;
+
+    public Match addRandomMatch() {
+
+        // delete
+        if (!oneTime) {
+            sampleData();
+            oneTime = true;
+        }
+
+        FootballClub randomTeamOne, randomTeamTwo;
+        int randomScoreOne, randomScoreTwo;
+        LocalDate randomLocalDate;
+
+//      generating a random match
+        if (!teamList.isEmpty()) {
+            Random rand = new Random();
+            do {
+                int indexOne = new Random().nextInt(teamList.size());
+                int indexTwo = new Random().nextInt(teamList.size());
+
+                randomTeamOne = (teamList.get(indexOne));
+                randomTeamTwo = (teamList.get(indexTwo));
+
+                randomScoreOne = rand.nextInt(20);
+                randomScoreTwo = rand.nextInt(20);
+
+                int minDay = (int) LocalDate.of(2020, 1, 1).toEpochDay();
+                int maxDay = (int) LocalDate.of(2020, 12, 31).toEpochDay();
+                long randomDay = minDay + rand.nextInt(maxDay - minDay);
+
+                randomLocalDate = LocalDate.ofEpochDay(randomDay);
+
+            } while (randomTeamOne.getClubName().equals(randomTeamTwo.getClubName()));
+
+            Match match = new Match(randomTeamOne, randomTeamTwo, randomScoreOne,
+                    randomScoreTwo, randomLocalDate);
+            matchList.add(match);
+
+            return match;
+        }
+        return null;
     }
 
     public boolean isContain(String clubName) {

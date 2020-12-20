@@ -3,6 +3,8 @@ import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {HttpClient} from "@angular/common/http";
+import {AppService} from "./app.service";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class AppComponent {
   title = 'angular-client';
+  postRequestResponse: string;
+  getRequestResponse: string;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -18,12 +22,28 @@ export class AppComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver, private _snackBar: MatSnackBar) {
+  constructor(private breakpointObserver: BreakpointObserver, private _snackBar: MatSnackBar,
+              private http: HttpClient, private appService: AppService) {
   }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 2000,
+    });
+  }
+
+  /**
+   * This method is used to test the post request
+   */
+  public postData(): void {
+    this.appService.sendRandomMatch().subscribe((data: any) => {
+      this.postRequestResponse = data.content;
+    });
+  }
+
+  public getData(): void {
+    this.appService.receiveDataLeaderboard().subscribe((data: any) => {
+      this.getRequestResponse = data.content;
     });
   }
 }
