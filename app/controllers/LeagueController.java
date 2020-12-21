@@ -31,4 +31,11 @@ public class LeagueController extends Controller {
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 
+    public Result getPlayedMatches() {
+        List<Match> result = PremierLeagueManager.getInstance().getPlayedMatches();
+        logger.debug("In LeagueController.displayLeagueTable(), result is: {}", result.toString());
+        JsonNode jsonObject = Json.toJson(result);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
+
 }

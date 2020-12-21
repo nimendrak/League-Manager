@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpClient} from "@angular/common/http";
-import {AppService} from "./app.service";
+import {AppService} from "./app-services/app.service";
 
 @Component({
   selector: 'app-root',
@@ -38,13 +38,6 @@ export class AppComponent {
   public postData(): void {
     this.appService.sendRandomMatch().subscribe((data: any) => {
       this.postRequestResponse = data.content;
-    });
-  }
-
-  public getData(): void {
-    this.appService.receiveDataLeaderboard().subscribe((data: any) => {
-      this.getRequestResponse = data.content;
-      console.log(this.getRequestResponse);
     });
   }
 }

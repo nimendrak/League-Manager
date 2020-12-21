@@ -24,8 +24,12 @@ export class AppService {
     return this.http.post(this.postRandomMatchUrl, {});
   }
 
-  public receiveDataLeaderboard(): Observable<ClubModel[]> {
-    return this.http.get<ClubModel[]>(this.getLeaderboardDataUrl);
+  // public receiveDataLeaderboard(): Observable<ClubModel[]> {
+  //   return this.http.get<ClubModel[]>(this.getLeaderboardDataUrl);
+  // }
+
+  public receiveDataLeaderboard() {
+    return this.http.get<any>(this.getLeaderboardDataUrl);
   }
 
 }

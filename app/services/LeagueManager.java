@@ -12,6 +12,7 @@ public interface LeagueManager {
     void deleteClub(String clubName);
     void displayStatisticsForSpecificClub(String clubName);
     List displayLeagueTable();
+    List getPlayedMatches();
     void saveData(String fileName);
     void loadData(String fileName);
     Match addRandomMatch();

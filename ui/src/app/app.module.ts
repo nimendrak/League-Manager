@@ -25,9 +25,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {SearchMatchComponent} from './search-match/search-match.component';
 import {ViewAllMatchesComponent} from './view-all-matches/view-all-matches.component';
 import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
+import {AppService} from "./app-services/app.service";
+import {AppHttpInterceptorService} from "./app-services/http-interceptor.service";
 
-import {AppService} from './app.service';
-import {AppHttpInterceptorService} from './http-interceptor.service';
 
 const appRoutes: Routes = [
   {path: 'leaderboard', component: LeaderboardComponent},

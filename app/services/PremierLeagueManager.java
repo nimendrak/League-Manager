@@ -146,6 +146,11 @@ public class PremierLeagueManager implements LeagueManager {
     }
 
     @Override
+    public List<Match> getPlayedMatches() {
+        return matchList;
+    }
+
+    @Override
     public void saveData(String fileName) {
         try {
             File file = new File(fileName);
