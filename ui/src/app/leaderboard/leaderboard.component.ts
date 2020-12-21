@@ -3,9 +3,6 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {ClubModel} from './club.model';
-
-import {DataSource} from "@angular/cdk/collections";
-import {Observable} from "rxjs";
 import {AppService} from "../app-services/app.service";
 
 @Component({
@@ -16,14 +13,12 @@ import {AppService} from "../app-services/app.service";
 export class LeaderboardComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  // @ViewChild(MatTable) table: MatTable<ClubModel[]>;
+  @ViewChild(MatTable) table: MatTable<ClubModel[]>;
 
-  // dataSource: ClubModel[];
   collapsed: boolean;
 
+  clubModels: ClubModel[] = [];
   dataSource;
-  clubModel;
-  clubModels: ClubModel[];
 
   dropDownOptionsOne: string[] = [
     // @ts-ignore
@@ -44,14 +39,13 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   displayedColumns = ['Club', 'Location', 'MP', 'W', 'L', 'D', 'GS', 'GR', 'PTS'];
 
   ngOnInit() {
-
     this.appService.receiveDataLeaderboard()
       .subscribe((clubModels: ClubModel[]) => {
         this.clubModels = clubModels;
-
         // check response
         console.log(clubModels.response);
         this.dataSource = new MatTableDataSource(clubModels);
+
       }, error => console.error(error));
 
   }

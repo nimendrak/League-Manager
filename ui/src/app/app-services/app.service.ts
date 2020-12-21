@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { ClubModel } from "../leaderboard/club.model";
 
 /**
  * Class representing application service.
@@ -11,6 +10,8 @@ import { ClubModel } from "../leaderboard/club.model";
  */
 @Injectable()
 export class AppService {
+  // TABLE_API_URL = '${environment.API_BASE_URL}/api/';
+
   private postRandomMatchUrl = 'http://localhost:4200/api/add/random';
   private getLeaderboardDataUrl = 'http://localhost:4200/api/leaderboard/populate';
 
