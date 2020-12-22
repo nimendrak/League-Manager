@@ -17,9 +17,6 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
 
   collapsed: boolean;
 
-  clubModels: ClubModel[] = [];
-  dataSource;
-
   dropDownOptionsOne: string[] = [
     // @ts-ignore
     {value: 'goals', viewValue: 'Goals Scored'}, {value: 'wins', viewValue: 'Season Wins'}, {
@@ -38,6 +35,8 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   // /** Columns displayed in the table. */
   displayedColumns = ['Club', 'Location', 'MP', 'W', 'L', 'D', 'GS', 'GR', 'PTS'];
 
+  clubModels: ClubModel[] = [];
+  dataSource;
   ngOnInit() {
     this.appService.receiveDataLeaderboard()
       .subscribe((clubModels: ClubModel[]) => {
@@ -45,7 +44,6 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
         // check response
         console.log(clubModels.response);
         this.dataSource = new MatTableDataSource(clubModels);
-
       }, error => console.error(error));
 
   }
