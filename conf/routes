@@ -6,9 +6,9 @@
 GET         /                                    controllers.FrontendController.index()
 
 # APIs in LeagueController
-GET         /api/leaderboard/populate            controllers.LeagueController.showLeaderboard()
+GET         /api/leaderboard                     controllers.LeagueController.showLeaderboard()
 GET         /api/leaderboard/:sort/:order        controllers.LeagueController.getSortedLeaderboardData(sort:String, order:String)
-
+GET         /api/match-table                     controllers.LeagueController.showPlayedMatches()
 
 POST        /api/add/random                      controllers.LeagueController.addRandomMatch()
 

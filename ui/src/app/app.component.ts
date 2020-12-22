@@ -38,5 +38,6 @@ export class AppComponent {
     this.randomMatchService.postRandomMatch().subscribe((data: any) => {
       this.postRequestResponse = data.content;
     });
+    window.location.reload();
   }
 }

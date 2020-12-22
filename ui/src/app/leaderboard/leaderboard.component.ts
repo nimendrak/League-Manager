@@ -45,7 +45,6 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
 
   dataSource;
   clubModels: ClubModel[] = [];
-  selectedValueOne: any;
 
   ngOnInit() {
     this.leaderboardService.getTableData()

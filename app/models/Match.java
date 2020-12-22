@@ -1,5 +1,7 @@
 package models;
 
+import models.FootballClub;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 

@@ -4,20 +4,23 @@
 * table: MatTable<MatchModel>
 * */
 
-export class MatchModel {
-  public dateString: string;
-  public clubName: string;
-  public stats: string;
-  public goalsReceived: number;
-  public goalsScored: number;
-  public matchPoints: number;
+export interface MatchModel {
+  date: string,
+  teamScore: number;
 
-  constructor(dateString: string, clubName: string, stats: string, goalsReceived: number, goalsScored: number, points: number) {
-    this.dateString = dateString;
-    this.clubName = clubName;
-    this.stats = stats;
-    this.goalsReceived = goalsReceived;
-    this.goalsScored = goalsScored;
-    this.matchPoints = points;
+  clubOne: {
+    clubName: string,
+    stats: string,
+    numOfGoalsReceived: number,
+    numOfGoalsScored: number,
+    numOfPointsGained: number
   }
+  clubTwo: {
+    clubName: string,
+    stats: string,
+    numOfGoalsReceived: number,
+    numOfGoalsScored: number,
+    numOfPointsGained: number
+  }
+
 }

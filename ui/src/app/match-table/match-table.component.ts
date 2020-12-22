@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { MatchTableDataSource } from './match-table-datasource';
-import { MatchModel } from './match.model';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTable, MatTableDataSource} from '@angular/material/table';
+import {MatchModel} from './match.model';
+import {MatchTableService} from "../backend-services/match-table-services/match-table.service";
 
 @Component({
   selector: 'app-match-table',
@@ -14,20 +14,31 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatTable) table: MatTable<MatchModel>;
-  dataSource: MatchTableDataSource;
 
-  // table coloums
+  // table columns
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['Date', 'Club', 'Stats', 'GS', 'GR', 'PTS'];
+  displayedColumns = ['date', 'teamScore', 'clubName', 'numOfGoalsScored', 'numOfGoalsReceived', 'numOfPointsGained'];
+
+  constructor(private matchTableService: MatchTableService) {
+  }
+
+  dataSource;
+  matchModels: MatchModel[] = [];
 
   ngOnInit() {
-    this.dataSource = new MatchTableDataSource();
-    console.log(this.dataSource);
+    this.matchTableService.getTableData()
+      .subscribe((data: any) => {
+        this.matchModels = data;
+        // check response
+        console.log("match table");
+        console.log(data.response);
+        this.dataSource = new MatTableDataSource(data.response);
+      }, error => console.error(error));
   }
 
   ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    // this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.table.dataSource = this.dataSource;
   }
 }

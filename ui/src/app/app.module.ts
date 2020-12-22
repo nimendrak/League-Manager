@@ -28,7 +28,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from "@angula
 import {LeaderboardService} from "./backend-services/leaderboard-services/leaderboard.service";
 import {AppHttpInterceptorService} from "./backend-services/http-interceptor.service";
 import {RandomMatchService} from "./backend-services/generate-random-service/generate-random.service";
-
+import {MatchTableService} from "./backend-services/match-table-services/match-table.service";
 
 const appRoutes: Routes = [
   {path: 'leaderboard', component: LeaderboardComponent},
@@ -82,7 +82,14 @@ const appRoutes: Routes = [
       multi: true,
       provide: HTTP_INTERCEPTORS,
       useClass: AppHttpInterceptorService,
+    },
+    MatchTableService,
+    {
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppHttpInterceptorService,
     }],
+
   bootstrap: [AppComponent]
 })
 export class AppModule {

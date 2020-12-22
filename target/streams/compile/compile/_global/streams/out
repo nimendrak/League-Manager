@@ -1,2 +1,2 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/PremierLeagueManager.java:187:1: unreachable statement[0m
-[0m[[0m[31merror[0m] [0m[0mreturn null;[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/controllers/LeagueController.java:35:1: incompatible types: java.util.List<models.MatchModels.MatchModel> cannot be converted to java.util.List<models.MatchModels.Match>[0m
+[0m[[0m[31merror[0m] [0m[0mPremierLeagueManager.getInstance().getPlayedMatches()[0m

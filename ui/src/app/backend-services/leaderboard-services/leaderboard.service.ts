@@ -14,7 +14,7 @@ import {environment} from "../../../environments/environment";
 export class LeaderboardService {
   appRoot = environment.API_BASE_URL;
 
-  private getTableDataUrl = this.appRoot + '/leaderboard/populate';
+  private getTableDataUrl = this.appRoot + '/leaderboard';
   private getSortingDataUrl = this.appRoot + '/leaderboard';
 
   constructor(private http: HttpClient) {
@@ -29,7 +29,7 @@ export class LeaderboardService {
     params = params.append('/sort', sort);
     params = params.append('/order', order);
 
-    console.log(params.toString());
+    // console.log(params.toString());
 
     return this.http.get<ClubModel[]>(this.getSortingDataUrl + "/" + sort + "/" + order);
   }

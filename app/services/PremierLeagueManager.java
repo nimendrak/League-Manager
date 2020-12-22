@@ -2,6 +2,7 @@ package services;
 
 import models.FootballClub;
 import models.Match;
+import models.MatchModel;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -53,13 +54,13 @@ public class PremierLeagueManager implements LeagueManager {
         teamList.add(f2);
         teamList.add(f3);
 
-//        m1.updateStats();
-//        m2.updateStats();
-//        m3.updateStats();
-//
-//        matchList.add(m1);
-//        matchList.add(m2);
-//        matchList.add(m3);
+        m1.updateStats();
+        m2.updateStats();
+        m3.updateStats();
+
+        matchList.add(m1);
+        matchList.add(m2);
+        matchList.add(m3);
     }
 
     @Override
@@ -188,6 +189,36 @@ public class PremierLeagueManager implements LeagueManager {
 
     @Override
     public List<Match> getPlayedMatches() {
+//        List<MatchModel> getPlayMatches = new ArrayList<>();
+//
+//        String teamOneStats, teamTwoStats;
+//        FootballClub clubOne, clubTwo;
+//        LocalDate date;
+//
+//        for (Match m: matchList) {
+//            clubOne = m.getTeamOne();
+//            clubTwo = m.getTeamTwo();
+//            date = m.getDate();
+//
+//            if (m.getTeamOneScore() > m.getTeamTwoScore()) {
+//                teamOneStats = "Win";
+//                teamTwoStats = "Loss";
+//            } else if (m.getTeamOneScore() < m.getTeamTwoScore()) {
+//                teamOneStats = "Loss";
+//                teamTwoStats = "Win";
+//            } else {
+//                teamOneStats = "Draw";
+//                teamTwoStats = "Draw";
+//            }
+//            MatchModel modelOne = new MatchModel(String.valueOf(date), clubOne.getClubName(),teamOneStats,
+//                    clubOne.getNumOfGoalsReceived(), clubOne.getNumOfGoalsScored(), clubOne.getNumOfPointsGained());
+//            getPlayMatches.add(modelOne);
+//
+//            MatchModel modelTwo = new MatchModel("", clubTwo.getClubName(),teamTwoStats,
+//                    clubTwo.getNumOfGoalsReceived(), clubTwo.getNumOfGoalsScored(), clubTwo.getNumOfPointsGained());
+//            getPlayMatches.add(modelTwo);
+//        }
+
         return matchList;
     }
 
