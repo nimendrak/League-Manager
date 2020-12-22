@@ -16,6 +16,8 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   @ViewChild(MatTable) table: MatTable<ClubModel[]>;
 
   collapsed: boolean;
+  dropdownOne: boolean;
+  dropdownTwo: boolean;
 
   dropDownOptionsOne: string[] = [
     // @ts-ignore
@@ -24,42 +26,44 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
       viewValue: 'Season Points'
     }
   ];
+  selectedProfileOne = this.dropDownOptionsOne[0];
+
   dropDownOptionsTwo: string[] = [
     // @ts-ignore
     {value: 'ascending', viewValue: 'Ascending'}, {value: 'descending', viewValue: 'Descending'}
   ];
+  selectedProfileTwo = this.dropDownOptionsTwo[0];
 
   constructor(private appService: AppService) {
   }
 
   // /** Columns displayed in the table. */
-  displayedColumns = ['Club', 'Location', 'MP', 'W', 'L', 'D', 'GS', 'GR', 'PTS'];
+  displayedColumns = ['clubName', 'clubLocation', 'numOfMatchesPlayed', 'seasonWins', 'seasonDefeats', 'seasonDraws', 'numOfGoalsScored', 'numOfGoalsReceived', 'numOfPointsGained'];
 
-  clubModels: ClubModel[] = [];
   dataSource;
+  clubModels: ClubModel[] = [];
+  selectedValueOne: any;
+
   ngOnInit() {
     this.appService.receiveDataLeaderboard()
-      .subscribe((clubModels: ClubModel[]) => {
-        this.clubModels = clubModels;
+      .subscribe((data: any) => {
+        this.clubModels = data;
         // check response
-        console.log(clubModels.response);
-        this.dataSource = new MatTableDataSource(clubModels);
+        console.log(data.response);
+        this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
-
   }
 
   ngAfterViewInit() {
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
-    // this.table.dataSource = this.dataSource;
   }
 
-  // async populateTable() {
-  //   const data = await this.appService.receiveDataLeaderboard();
-  //   console.log(data.response);
-  //   this.dataSource = data.response;
-  //
-  // }
+  onSortAction(p1, p2) {
+    console.log(p1, p2);
+  }
+
+
 
 }
 

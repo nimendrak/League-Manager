@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import {ClubModel} from "../leaderboard/club.model";
 
 /**
  * Class representing application service.
@@ -25,12 +26,12 @@ export class AppService {
     return this.http.post(this.postRandomMatchUrl, {});
   }
 
-  // public receiveDataLeaderboard(): Observable<ClubModel[]> {
-  //   return this.http.get<ClubModel[]>(this.getLeaderboardDataUrl);
-  // }
-
-  public receiveDataLeaderboard() {
-    return this.http.get<any>(this.getLeaderboardDataUrl);
+  public receiveDataLeaderboard(): Observable<ClubModel[]> {
+    return this.http.get<ClubModel[]>(this.getLeaderboardDataUrl);
   }
+
+  // public receiveDataLeaderboard() {
+  //   return this.http.get<any>(this.getLeaderboardDataUrl).toPromise();
+  // }
 
 }
