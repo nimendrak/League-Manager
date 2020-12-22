@@ -25,8 +25,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {SearchMatchComponent} from './search-match/search-match.component';
 import {ViewAllMatchesComponent} from './view-all-matches/view-all-matches.component';
 import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
-import {AppService} from "./app-services/app.service";
-import {AppHttpInterceptorService} from "./app-services/http-interceptor.service";
+import {LeaderboardService} from "./backend-services/leaderboard-services/leaderboard.service";
+import {AppHttpInterceptorService} from "./backend-services/http-interceptor.service";
+import {RandomMatchService} from "./backend-services/generate-random-service/generate-random.service";
 
 
 const appRoutes: Routes = [
@@ -70,7 +71,13 @@ const appRoutes: Routes = [
       headerName: 'Csrf-Token',
     })
   ],
-  providers: [AppService,
+  providers: [LeaderboardService,
+    {
+      multi: true,
+      provide: HTTP_INTERCEPTORS,
+      useClass: AppHttpInterceptorService,
+    },
+    RandomMatchService,
     {
       multi: true,
       provide: HTTP_INTERCEPTORS,

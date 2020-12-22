@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpClient} from "@angular/common/http";
-import {AppService} from "./app-services/app.service";
+import {RandomMatchService} from "./backend-services/generate-random-service/generate-random.service";
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,6 @@ import {AppService} from "./app-services/app.service";
 export class AppComponent {
   title = 'angular-client';
   postRequestResponse: string;
-  getRequestResponse: string;
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -23,7 +22,7 @@ export class AppComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver, private _snackBar: MatSnackBar,
-              private http: HttpClient, private appService: AppService) {
+              private http: HttpClient, private randomMatchService: RandomMatchService) {
   }
 
   openSnackBar(message: string, action: string) {
@@ -36,7 +35,7 @@ export class AppComponent {
    * This method is used to test the post request
    */
   public postData(): void {
-    this.appService.sendRandomMatch().subscribe((data: any) => {
+    this.randomMatchService.postRandomMatch().subscribe((data: any) => {
       this.postRequestResponse = data.content;
     });
   }

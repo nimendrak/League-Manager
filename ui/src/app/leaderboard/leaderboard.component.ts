@@ -3,7 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {ClubModel} from './club.model';
-import {AppService} from "../app-services/app.service";
+import {LeaderboardService} from "../backend-services/leaderboard-services/leaderboard.service";
 
 @Component({
   selector: 'app-leaderboard',
@@ -18,6 +18,9 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   collapsed: boolean;
   dropdownOne: boolean;
   dropdownTwo: boolean;
+
+  p1: any;
+  p2: any;
 
   dropDownOptionsOne: string[] = [
     // @ts-ignore
@@ -34,7 +37,7 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   ];
   selectedProfileTwo = this.dropDownOptionsTwo[0];
 
-  constructor(private appService: AppService) {
+  constructor(private leaderboardService: LeaderboardService) {
   }
 
   // /** Columns displayed in the table. */
@@ -45,24 +48,31 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   selectedValueOne: any;
 
   ngOnInit() {
-    this.appService.receiveDataLeaderboard()
+    this.leaderboardService.getTableData()
       .subscribe((data: any) => {
         this.clubModels = data;
         // check response
+        console.log("not sorted");
         console.log(data.response);
         this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
   }
 
   ngAfterViewInit() {
-    // this.dataSource.sort = this.sort;
-    // this.dataSource.paginator = this.paginator;
   }
 
-  onSortAction(p1, p2) {
-    console.log(p1, p2);
-  }
+  onSortAction(p1: string, p2: string) {
+    this.leaderboardService.getSortingData(p1, p2)
+      .subscribe((data: any) => {
+        this.clubModels = data;
+        // check response
+        console.log("sorted according to - " + p1 + " " + p2);
+        console.log(data.response);
+        this.dataSource = new MatTableDataSource(data.response);
+      }, error => console.error(error));
 
+
+  }
 
 
 }

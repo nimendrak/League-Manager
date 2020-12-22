@@ -15,7 +15,8 @@
             <mat-form-field appearance="fill" color="primary">
               <mat-label>Type</mat-label>
               <mat-select [(value)]="selectedProfileOne">
-                <mat-option value="accent" (click)="dropdownOne = !dropdownOne" *ngFor="let option of dropDownOptionsOne" [value]="option">
+                <mat-option value="accent" (click)="dropdownOne = !dropdownOne"
+                            *ngFor="let option of dropDownOptionsOne" [value]="option">
                   {{option.viewValue}}
                 </mat-option>
               </mat-select>
@@ -26,18 +27,22 @@
             <mat-form-field appearance="fill">
               <mat-label>Order</mat-label>
               <mat-select [(value)]="selectedProfileTwo">
-                <mat-option value="accent" (click)="dropdownTwo = !dropdownTwo" *ngFor="let option of dropDownOptionsTwo" [value]="option">
+                <mat-option value="accent" (click)="dropdownTwo = !dropdownTwo"
+                            *ngFor="let option of dropDownOptionsTwo" [value]="option">
                   {{option.viewValue}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
           </li>
 
+          <!-- add this line to disable Go button
+               [disabled]="!dropdownOne && !dropdownTwo"
+              -->
+
           <li *ngIf="selectedProfileOne || selectedProfileTwo">
             <button mat-raised-button color="primary"
                     style="padding: 7px; margin-top: 3px"
                     (click)="onSortAction(selectedProfileOne.value, selectedProfileTwo.value)"
-                    [disabled]="!dropdownOne && !dropdownTwo"
             >Go
             </button>
           </li>

@@ -38,4 +38,11 @@ public class LeagueController extends Controller {
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 
+    public Result getSortedLeaderboardData(String sort, String order) {
+        List<FootballClub> result = PremierLeagueManager.getInstance().getSortedTableData(sort, order);
+        logger.debug("In LeagueController.displayLeagueTable(), result is: {}", result.toString());
+        JsonNode jsonObject = Json.toJson(result);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
+
 }

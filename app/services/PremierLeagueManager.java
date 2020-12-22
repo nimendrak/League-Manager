@@ -6,6 +6,7 @@ import models.Match;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PremierLeagueManager implements LeagueManager {
 
@@ -39,26 +40,26 @@ public class PremierLeagueManager implements LeagueManager {
     }
 
     //  delete
-    FootballClub f1 = new FootballClub("ccc3", "Colombo", 0, 10, 0, 0, 15, 0, 0);
-    FootballClub f2 = new FootballClub("aaa1", "Kelaniya", 0, 12, 0, 0, 13, 0, 0);
-    FootballClub f3 = new FootballClub("bbb2", "Moratuwa", 0, 8, 0, 0, 17, 0, 0);
+    FootballClub f1 = new FootballClub("ccc3", "Colombo", 0, 0, 0, 0, 0, 10, 0);
+    FootballClub f2 = new FootballClub("aaa1", "Kelaniya", 0, 0, 0, 0, 0, 5, 0);
+    FootballClub f3 = new FootballClub("bbb2", "Moratuwa", 0, 0, 0, 0, 0, 35, 0);
 
     Match m1 = new Match(f2, f1, 1, 1, LocalDate.of(2020, 12, 25));
     Match m2 = new Match(f1, f2, 2, 5, LocalDate.of(2020, 12, 24));
     Match m3 = new Match(f1, f3, 3, 0, LocalDate.of(2020, 12, 23));
 
     public void sampleData() {
-        teamList.add(f3);
         teamList.add(f1);
         teamList.add(f2);
+        teamList.add(f3);
 
-        m1.updateStats();
-        m2.updateStats();
-        m3.updateStats();
-
-        matchList.add(m1);
-        matchList.add(m2);
-        matchList.add(m3);
+//        m1.updateStats();
+//        m2.updateStats();
+//        m3.updateStats();
+//
+//        matchList.add(m1);
+//        matchList.add(m2);
+//        matchList.add(m3);
     }
 
     @Override
@@ -133,16 +134,56 @@ public class PremierLeagueManager implements LeagueManager {
 
     @Override
     public List<FootballClub> displayLeagueTable() {
-        Collections.sort(teamList, Collections.reverseOrder());
-//        if (!teamList.isEmpty()) {
-//            for (FootballClub f : teamList) {
-//                System.out.println(f);
-//                System.out.println("- - - - - - - - - - - - - - - - - - - - -");
-//            }
-//        } else {
-//            System.out.println("No Team has played a Match yet");
-//        }
+        // delete
+        if (!oneTime) {
+            sampleData();
+            oneTime = true;
+        }
+
+//      Collections.sort(teamList, Collections.reverseOrder());
         return teamList;
+    }
+
+    @Override
+    public List<FootballClub> getSortedTableData(String type, String order) {
+//      get a copy of current list and sorting the copy
+        List<FootballClub> sortedList = teamList;
+
+//      initialize three different comparators according to the sorting requirement
+//      comparator for scored goals
+        Comparator<FootballClub> compareByGoals = Comparator
+                .comparing(FootballClub::getNumOfGoalsScored)
+                .thenComparing(FootballClub::getNumOfGoalsScored);
+
+//      comparator for seasonal wins
+        Comparator<FootballClub> compareByWins = Comparator
+                .comparing(FootballClub::getSeasonWins)
+                .thenComparing(FootballClub::getSeasonWins);
+
+//      comparator for gained points
+        Comparator<FootballClub> compareByPoints = Comparator
+                .comparing(FootballClub::getNumOfGoalsScored)
+                .thenComparing(FootballClub::getNumOfGoalsScored);
+
+        if (type.equalsIgnoreCase("goals")) {
+            if (order.equalsIgnoreCase("ascending")) {
+                return sortedList.stream().sorted(compareByGoals).collect(Collectors.toList());
+            } else {
+                return sortedList.stream().sorted(compareByGoals.reversed()).collect(Collectors.toList());
+            }
+        } else if ((type.equalsIgnoreCase("wins"))) {
+            if (order.equalsIgnoreCase("ascending")) {
+                return sortedList.stream().sorted(compareByWins).collect(Collectors.toList());
+            } else {
+                return sortedList.stream().sorted(compareByWins.reversed()).collect(Collectors.toList());
+            }
+        } else {
+            if (order.equalsIgnoreCase("ascending")) {
+                return sortedList.stream().sorted(compareByPoints).collect(Collectors.toList());
+            } else {
+                return sortedList.stream().sorted(compareByPoints.reversed()).collect(Collectors.toList());
+            }
+        }
     }
 
     @Override
@@ -219,16 +260,10 @@ public class PremierLeagueManager implements LeagueManager {
         }
     }
 
-//  delete
+    //  delete
     static boolean oneTime = false;
 
     public Match addRandomMatch() {
-
-        // delete
-        if (!oneTime) {
-            sampleData();
-            oneTime = true;
-        }
 
         FootballClub randomTeamOne, randomTeamTwo;
         int randomScoreOne, randomScoreTwo;
