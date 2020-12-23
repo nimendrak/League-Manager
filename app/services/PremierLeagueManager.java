@@ -2,7 +2,6 @@ package services;
 
 import models.FootballClub;
 import models.Match;
-import models.MatchModel;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -45,9 +44,9 @@ public class PremierLeagueManager implements LeagueManager {
     FootballClub f2 = new FootballClub("aaa1", "Kelaniya", 0, 0, 0, 0, 0, 5, 0);
     FootballClub f3 = new FootballClub("bbb2", "Moratuwa", 0, 0, 0, 0, 0, 35, 0);
 
-    Match m1 = new Match(f2, f1, 1, 1, LocalDate.of(2020, 12, 25));
-    Match m2 = new Match(f1, f2, 2, 5, LocalDate.of(2020, 12, 24));
-    Match m3 = new Match(f1, f3, 3, 0, LocalDate.of(2020, 12, 23));
+    Match m1 = new Match(LocalDate.of(2020, 12, 25), "aaa1", "bbb2", 1, 2, "");
+//    MatchModel m2 = new MatchModel(f1, f2, 2, 5, LocalDate.of(2020, 12, 24));
+//    MatchModel m3 = new MatchModel(f1, f3, 3, 0, LocalDate.of(2020, 12, 23));
 
     public void sampleData() {
         teamList.add(f1);
@@ -55,12 +54,12 @@ public class PremierLeagueManager implements LeagueManager {
         teamList.add(f3);
 
         m1.updateStats();
-        m2.updateStats();
-        m3.updateStats();
-
+//        m2.updateStats();
+//        m3.updateStats();
+//
         matchList.add(m1);
-        matchList.add(m2);
-        matchList.add(m3);
+//        matchList.add(m2);
+//        matchList.add(m3);
     }
 
     @Override
@@ -80,19 +79,8 @@ public class PremierLeagueManager implements LeagueManager {
 
     @Override
     public void addPlayedMatch(String teamOneName, String teamTwoName, int teamOneGoalsScored, int teamTwoGoalsScored, LocalDate date) {
-        FootballClub clubOne = null;
-        FootballClub clubTwo = null;
-
         try {
-            for (FootballClub f : teamList) {
-                if (f.getClubName().equalsIgnoreCase(teamOneName)) {
-                    clubOne = f;
-                }
-                if (f.getClubName().equalsIgnoreCase(teamTwoName)) {
-                    clubTwo = f;
-                }
-            }
-            Match match = new Match(clubOne, clubTwo, teamOneGoalsScored, teamTwoGoalsScored, date);
+            Match match = new Match(date, teamOneName, teamTwoName, teamOneGoalsScored, teamTwoGoalsScored, "");
             match.updateStats();
             matchList.add(match);
 
@@ -189,36 +177,6 @@ public class PremierLeagueManager implements LeagueManager {
 
     @Override
     public List<Match> getPlayedMatches() {
-//        List<MatchModel> getPlayMatches = new ArrayList<>();
-//
-//        String teamOneStats, teamTwoStats;
-//        FootballClub clubOne, clubTwo;
-//        LocalDate date;
-//
-//        for (Match m: matchList) {
-//            clubOne = m.getTeamOne();
-//            clubTwo = m.getTeamTwo();
-//            date = m.getDate();
-//
-//            if (m.getTeamOneScore() > m.getTeamTwoScore()) {
-//                teamOneStats = "Win";
-//                teamTwoStats = "Loss";
-//            } else if (m.getTeamOneScore() < m.getTeamTwoScore()) {
-//                teamOneStats = "Loss";
-//                teamTwoStats = "Win";
-//            } else {
-//                teamOneStats = "Draw";
-//                teamTwoStats = "Draw";
-//            }
-//            MatchModel modelOne = new MatchModel(String.valueOf(date), clubOne.getClubName(),teamOneStats,
-//                    clubOne.getNumOfGoalsReceived(), clubOne.getNumOfGoalsScored(), clubOne.getNumOfPointsGained());
-//            getPlayMatches.add(modelOne);
-//
-//            MatchModel modelTwo = new MatchModel("", clubTwo.getClubName(),teamTwoStats,
-//                    clubTwo.getNumOfGoalsReceived(), clubTwo.getNumOfGoalsScored(), clubTwo.getNumOfPointsGained());
-//            getPlayMatches.add(modelTwo);
-//        }
-
         return matchList;
     }
 
@@ -321,8 +279,9 @@ public class PremierLeagueManager implements LeagueManager {
 
             } while (randomTeamOne.getClubName().equals(randomTeamTwo.getClubName()));
 
-            Match match = new Match(randomTeamOne, randomTeamTwo, randomScoreOne,
-                    randomScoreTwo, randomLocalDate);
+            Match match = new Match(randomLocalDate, randomTeamOne.getClubName(), randomTeamTwo.getClubName(),
+                    randomScoreOne, randomScoreTwo, "");
+            match.updateStats();
             matchList.add(match);
 
             return match;

@@ -5,6 +5,7 @@
         <button type="button" class="navbar-toggle" (click)="collapsed = !collapsed">
           <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
         </button>
+        <a routerLink="/" class="navbar-brand" style="margin-top: 28px; color: white">Get Match Data according to played Date </a>
       </div>
       <div class="navbar-collapse" style="margin-top: 12px" [class.collapse]="collapsed"
            (window:resize)="collapsed = true">
@@ -13,15 +14,18 @@
             <!--  search bar -->
             <mat-form-field appearance="fill">
               <mat-label>Search</mat-label>
-              <input matInput type="text" [(ngModel)]="value" (click)="value=''" >
-              <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear">
+              <label>
+                <input matInput type="text" [(ngModel)]="searchedValue" (click)="searchedValue=''" >
+              </label>
+              <button mat-button *ngIf="searchedValue" matSuffix mat-icon-button aria-label="Clear">
                 <mat-icon>keyboard_arrow_right</mat-icon>
               </button>
             </mat-form-field>
             <!--  search bar -->
           </li>
           <li>
-            <button mat-raised-button color="primary" style="padding: 7px; margin-top: 3px">Search</button>
+            <button mat-raised-button color="primary" style="padding: 7px; margin-top: 3px"
+            (click)="sendSearchStr(); searchBtnStat=!searchBtnStat" >Search</button>
           </li>
         </ul>
       </div>

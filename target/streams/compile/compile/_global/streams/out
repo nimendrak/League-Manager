@@ -1,2 +1,327 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/controllers/LeagueController.java:35:1: incompatible types: java.util.List<models.MatchModels.MatchModel> cannot be converted to java.util.List<models.MatchModels.Match>[0m
-[0m[[0m[31merror[0m] [0m[0mPremierLeagueManager.getInstance().getPlayedMatches()[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/PremierLeagueManager.java:12:1: services.PremierLeagueManager is not abstract and does not override abstract method addRandomMatch() in services.LeagueManager[0m
+[0m[[0m[31merror[0m] [0m[0mpublic class PremierLeagueManager implements LeagueManager {[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    final static int MAX_TEAMS = 20;[0m
+[0m[[0m[31merror[0m] [0m[0m    private List<FootballClub> teamList = new ArrayList<>();[0m
+[0m[[0m[31merror[0m] [0m[0m    private List<MatchModel> matchList = new ArrayList<>();[0m
+[0m[[0m[31merror[0m] [0m[0m    private int availableSlots = MAX_TEAMS;[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    public List<FootballClub> getTeamList() {[0m
+[0m[[0m[31merror[0m] [0m[0m        return teamList;[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    public List<MatchModel> getMatchList() {[0m
+[0m[[0m[31merror[0m] [0m[0m        return matchList;[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    private static PremierLeagueManager instance = null;[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    private PremierLeagueManager() {[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    public static PremierLeagueManager getInstance() {[0m
+[0m[[0m[31merror[0m] [0m[0m        if (instance == null) {[0m
+[0m[[0m[31merror[0m] [0m[0m            synchronized (PremierLeagueManager.class) {[0m
+[0m[[0m[31merror[0m] [0m[0m                if (instance == null) {[0m
+[0m[[0m[31merror[0m] [0m[0m                    instance = new PremierLeagueManager();[0m
+[0m[[0m[31merror[0m] [0m[0m                }[0m
+[0m[[0m[31merror[0m] [0m[0m            }[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m        return instance;[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    //  delete[0m
+[0m[[0m[31merror[0m] [0m[0m    FootballClub f1 = new FootballClub("ccc3", "Colombo", 0, 0, 0, 0, 0, 10, 0);[0m
+[0m[[0m[31merror[0m] [0m[0m    FootballClub f2 = new FootballClub("aaa1", "Kelaniya", 0, 0, 0, 0, 0, 5, 0);[0m
+[0m[[0m[31merror[0m] [0m[0m    FootballClub f3 = new FootballClub("bbb2", "Moratuwa", 0, 0, 0, 0, 0, 35, 0);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    MatchModel m1 = new MatchModel(LocalDate.of(2020, 12, 25), "aaa1", "bbb2", 1, 2, "");[0m
+[0m[[0m[31merror[0m] [0m[0m//    MatchModel m2 = new MatchModel(f1, f2, 2, 5, LocalDate.of(2020, 12, 24));[0m
+[0m[[0m[31merror[0m] [0m[0m//    MatchModel m3 = new MatchModel(f1, f3, 3, 0, LocalDate.of(2020, 12, 23));[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    public void sampleData() {[0m
+[0m[[0m[31merror[0m] [0m[0m        teamList.add(f1);[0m
+[0m[[0m[31merror[0m] [0m[0m        teamList.add(f2);[0m
+[0m[[0m[31merror[0m] [0m[0m        teamList.add(f3);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m        m1.updateStats();[0m
+[0m[[0m[31merror[0m] [0m[0m//        m2.updateStats();[0m
+[0m[[0m[31merror[0m] [0m[0m//        m3.updateStats();[0m
+[0m[[0m[31merror[0m] [0m[0m//[0m
+[0m[[0m[31merror[0m] [0m[0m        matchList.add(m1);[0m
+[0m[[0m[31merror[0m] [0m[0m//        matchList.add(m2);[0m
+[0m[[0m[31merror[0m] [0m[0m//        matchList.add(m3);[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    @Override[0m
+[0m[[0m[31merror[0m] [0m[0m    public void addClub(FootballClub footballClub) {[0m
+[0m[[0m[31merror[0m] [0m[0m        if (teamList.contains(footballClub)) {[0m
+[0m[[0m[31merror[0m] [0m[0m            System.out.println("\nTeam has been already added to the League!");[0m
+[0m[[0m[31merror[0m] [0m[0m        } else if (availableSlots == 0) {[0m
+[0m[[0m[31merror[0m] [0m[0m            System.out.println("\nNo available slots in the League!");[0m
+[0m[[0m[31merror[0m] [0m[0m        } else {[0m
+[0m[[0m[31merror[0m] [0m[0m            teamList.add(footballClub);[0m
+[0m[[0m[31merror[0m] [0m[0m            availableSlots -= 1;[0m
+[0m[[0m[31merror[0m] [0m[0m            System.out.println("\nTeam " + footballClub.getClubName() + " successfully added to the League!");[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m        System.out.println("\nThere are " + "\033[1;93m" + availableSlots + " available slots " + "\033[0m" + "in the League");[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    @Override[0m
+[0m[[0m[31merror[0m] [0m[0m    public void addPlayedMatch(String teamOneName, String teamTwoName, int teamOneGoalsScored, int teamTwoGoalsScored, LocalDate date) {[0m
+[0m[[0m[31merror[0m] [0m[0m        try {[0m
+[0m[[0m[31merror[0m] [0m[0m            MatchModel match = new MatchModel(date, teamOneName, teamTwoName, teamOneGoalsScored, teamTwoGoalsScored, "");[0m
+[0m[[0m[31merror[0m] [0m[0m            match.updateStats();[0m
+[0m[[0m[31merror[0m] [0m[0m            matchList.add(match);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m        } catch (NullPointerException e) {[0m
+[0m[[0m[31merror[0m] [0m[0m            e.printStackTrace();[0m
+[0m[[0m[31merror[0m] [0m[0m            System.out.println("Team not Found");[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    @Override[0m
+[0m[[0m[31merror[0m] [0m[0m    public void deleteClub(String clubName) {[0m
+[0m[[0m[31merror[0m] [0m[0m        try {[0m
+[0m[[0m[31merror[0m] [0m[0m            if (!teamList.isEmpty()) {[0m
+[0m[[0m[31merror[0m] [0m[0m                for (FootballClub f : teamList) {[0m
+[0m[[0m[31merror[0m] [0m[0m                    if (f.getClubName().equalsIgnoreCase(clubName)) {[0m
+[0m[[0m[31merror[0m] [0m[0m                        teamList.remove(f);[0m
+[0m[[0m[31merror[0m] [0m[0m                        System.out.println("\nTeam removed from the League!");[0m
+[0m[[0m[31merror[0m] [0m[0m                    }[0m
+[0m[[0m[31merror[0m] [0m[0m                }[0m
+[0m[[0m[31merror[0m] [0m[0m            } else {[0m
+[0m[[0m[31merror[0m] [0m[0m                System.out.println("No Team has added to the League yet");[0m
+[0m[[0m[31merror[0m] [0m[0m            }[0m
+[0m[[0m[31merror[0m] [0m[0m        } catch (ConcurrentModificationException e) {[0m
+[0m[[0m[31merror[0m] [0m[0m//            e.printStackTrace();[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    @Override[0m
+[0m[[0m[31merror[0m] [0m[0m    public void displayStatisticsForSpecificClub(String clubName) {[0m
+[0m[[0m[31merror[0m] [0m[0m        if (!teamList.isEmpty()) {[0m
+[0m[[0m[31merror[0m] [0m[0m            for (FootballClub f : teamList) {[0m
+[0m[[0m[31merror[0m] [0m[0m                if (f.getClubName().equalsIgnoreCase(clubName)) {[0m
+[0m[[0m[31merror[0m] [0m[0m                    System.out.println(f.toString());[0m
+[0m[[0m[31merror[0m] [0m[0m                }[0m
+[0m[[0m[31merror[0m] [0m[0m            }[0m
+[0m[[0m[31merror[0m] [0m[0m        } else {[0m
+[0m[[0m[31merror[0m] [0m[0m            System.out.println("No Team has played a Match yet");[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    @Override[0m
+[0m[[0m[31merror[0m] [0m[0m    public List<FootballClub> displayLeagueTable() {[0m
+[0m[[0m[31merror[0m] [0m[0m        // delete[0m
+[0m[[0m[31merror[0m] [0m[0m        if (!oneTime) {[0m
+[0m[[0m[31merror[0m] [0m[0m            sampleData();[0m
+[0m[[0m[31merror[0m] [0m[0m            oneTime = true;[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m//      Collections.sort(teamList, Collections.reverseOrder());[0m
+[0m[[0m[31merror[0m] [0m[0m        return teamList;[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    @Override[0m
+[0m[[0m[31merror[0m] [0m[0m    public List<FootballClub> getSortedTableData(String type, String order) {[0m
+[0m[[0m[31merror[0m] [0m[0m//      get a copy of current list and sorting the copy[0m
+[0m[[0m[31merror[0m] [0m[0m        List<FootballClub> sortedList = teamList;[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m//      initialize three different comparators according to the sorting requirement[0m
+[0m[[0m[31merror[0m] [0m[0m//      comparator for scored goals[0m
+[0m[[0m[31merror[0m] [0m[0m        Comparator<FootballClub> compareByGoals = Comparator[0m
+[0m[[0m[31merror[0m] [0m[0m                .comparing(FootballClub::getNumOfGoalsScored)[0m
+[0m[[0m[31merror[0m] [0m[0m                .thenComparing(FootballClub::getNumOfGoalsScored);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m//      comparator for seasonal wins[0m
+[0m[[0m[31merror[0m] [0m[0m        Comparator<FootballClub> compareByWins = Comparator[0m
+[0m[[0m[31merror[0m] [0m[0m                .comparing(FootballClub::getSeasonWins)[0m
+[0m[[0m[31merror[0m] [0m[0m                .thenComparing(FootballClub::getSeasonWins);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m//      comparator for gained points[0m
+[0m[[0m[31merror[0m] [0m[0m        Comparator<FootballClub> compareByPoints = Comparator[0m
+[0m[[0m[31merror[0m] [0m[0m                .comparing(FootballClub::getNumOfGoalsScored)[0m
+[0m[[0m[31merror[0m] [0m[0m                .thenComparing(FootballClub::getNumOfGoalsScored);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m        if (type.equalsIgnoreCase("goals")) {[0m
+[0m[[0m[31merror[0m] [0m[0m            if (order.equalsIgnoreCase("ascending")) {[0m
+[0m[[0m[31merror[0m] [0m[0m                return sortedList.stream().sorted(compareByGoals).collect(Collectors.toList());[0m
+[0m[[0m[31merror[0m] [0m[0m            } else {[0m
+[0m[[0m[31merror[0m] [0m[0m                return sortedList.stream().sorted(compareByGoals.reversed()).collect(Collectors.toList());[0m
+[0m[[0m[31merror[0m] [0m[0m            }[0m
+[0m[[0m[31merror[0m] [0m[0m        } else if ((type.equalsIgnoreCase("wins"))) {[0m
+[0m[[0m[31merror[0m] [0m[0m            if (order.equalsIgnoreCase("ascending")) {[0m
+[0m[[0m[31merror[0m] [0m[0m                return sortedList.stream().sorted(compareByWins).collect(Collectors.toList());[0m
+[0m[[0m[31merror[0m] [0m[0m            } else {[0m
+[0m[[0m[31merror[0m] [0m[0m                return sortedList.stream().sorted(compareByWins.reversed()).collect(Collectors.toList());[0m
+[0m[[0m[31merror[0m] [0m[0m            }[0m
+[0m[[0m[31merror[0m] [0m[0m        } else {[0m
+[0m[[0m[31merror[0m] [0m[0m            if (order.equalsIgnoreCase("ascending")) {[0m
+[0m[[0m[31merror[0m] [0m[0m                return sortedList.stream().sorted(compareByPoints).collect(Collectors.toList());[0m
+[0m[[0m[31merror[0m] [0m[0m            } else {[0m
+[0m[[0m[31merror[0m] [0m[0m                return sortedList.stream().sorted(compareByPoints.reversed()).collect(Collectors.toList());[0m
+[0m[[0m[31merror[0m] [0m[0m            }[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    @Override[0m
+[0m[[0m[31merror[0m] [0m[0m    public List<MatchModel> getPlayedMatches() {[0m
+[0m[[0m[31merror[0m] [0m[0m        return matchList;[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    @Override[0m
+[0m[[0m[31merror[0m] [0m[0m    public void saveData(String fileName) {[0m
+[0m[[0m[31merror[0m] [0m[0m        try {[0m
+[0m[[0m[31merror[0m] [0m[0m            File file = new File(fileName);[0m
+[0m[[0m[31merror[0m] [0m[0m            if (!file.getParentFile().exists())[0m
+[0m[[0m[31merror[0m] [0m[0m                file.getParentFile().mkdirs();[0m
+[0m[[0m[31merror[0m] [0m[0m            if (!file.exists())[0m
+[0m[[0m[31merror[0m] [0m[0m                file.createNewFile();[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            FileOutputStream fileOutputStream = new FileOutputStream(file);[0m
+[0m[[0m[31merror[0m] [0m[0m            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            if (fileName.contains("Teams.txt")) {[0m
+[0m[[0m[31merror[0m] [0m[0m                for (FootballClub f : teamList) {[0m
+[0m[[0m[31merror[0m] [0m[0m                    objectOutputStream.writeObject(f);[0m
+[0m[[0m[31merror[0m] [0m[0m                }[0m
+[0m[[0m[31merror[0m] [0m[0m            } else {[0m
+[0m[[0m[31merror[0m] [0m[0m                for (MatchModel m : matchList) {[0m
+[0m[[0m[31merror[0m] [0m[0m                    objectOutputStream.writeObject(m);[0m
+[0m[[0m[31merror[0m] [0m[0m                }[0m
+[0m[[0m[31merror[0m] [0m[0m            }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            objectOutputStream.flush();[0m
+[0m[[0m[31merror[0m] [0m[0m            objectOutputStream.close();[0m
+[0m[[0m[31merror[0m] [0m[0m            fileOutputStream.close();[0m
+[0m[[0m[31merror[0m] [0m[0m            System.out.println("Successfully Saved to the File!");[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m        } catch (IOException e) {[0m
+[0m[[0m[31merror[0m] [0m[0m//            e.printStackTrace();[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    @Override[0m
+[0m[[0m[31merror[0m] [0m[0m    public void loadData(String fileName) {[0m
+[0m[[0m[31merror[0m] [0m[0m        File file = new File(fileName);[0m
+[0m[[0m[31merror[0m] [0m[0m        boolean empty = !file.exists() || file.length() == 0;[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m        if (!empty) {[0m
+[0m[[0m[31merror[0m] [0m[0m            try {[0m
+[0m[[0m[31merror[0m] [0m[0m                FileInputStream fileInputStream = new FileInputStream(file);[0m
+[0m[[0m[31merror[0m] [0m[0m                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m                FootballClub f;[0m
+[0m[[0m[31merror[0m] [0m[0m                while (true) {[0m
+[0m[[0m[31merror[0m] [0m[0m                    try {[0m
+[0m[[0m[31merror[0m] [0m[0m                        if (fileName.contains("Teams.txt")) {[0m
+[0m[[0m[31merror[0m] [0m[0m                            f = (FootballClub) objectInputStream.readObject();[0m
+[0m[[0m[31merror[0m] [0m[0m                            teamList.add(f);[0m
+[0m[[0m[31merror[0m] [0m[0m                        } else {[0m
+[0m[[0m[31merror[0m] [0m[0m                            MatchModel m = (MatchModel) objectInputStream.readObject();[0m
+[0m[[0m[31merror[0m] [0m[0m                            matchList.add(m);[0m
+[0m[[0m[31merror[0m] [0m[0m                        }[0m
+[0m[[0m[31merror[0m] [0m[0m                    } catch (EOFException | ClassNotFoundException ex) {[0m
+[0m[[0m[31merror[0m] [0m[0m//                        ex.printStackTrace();[0m
+[0m[[0m[31merror[0m] [0m[0m                        System.out.println("Successfully Loaded!");[0m
+[0m[[0m[31merror[0m] [0m[0m                        break;[0m
+[0m[[0m[31merror[0m] [0m[0m                    }[0m
+[0m[[0m[31merror[0m] [0m[0m                }[0m
+[0m[[0m[31merror[0m] [0m[0m                fileInputStream.close();[0m
+[0m[[0m[31merror[0m] [0m[0m                objectInputStream.close();[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            } catch (IOException e) {[0m
+[0m[[0m[31merror[0m] [0m[0m//                e.printStackTrace();[0m
+[0m[[0m[31merror[0m] [0m[0m            }[0m
+[0m[[0m[31merror[0m] [0m[0m        } else {[0m
+[0m[[0m[31merror[0m] [0m[0m            System.out.println("No Data Available!");[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    //  delete[0m
+[0m[[0m[31merror[0m] [0m[0m    static boolean oneTime = false;[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    public MatchModel addRandomMatch() {[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m        FootballClub randomTeamOne, randomTeamTwo;[0m
+[0m[[0m[31merror[0m] [0m[0m        int randomScoreOne, randomScoreTwo;[0m
+[0m[[0m[31merror[0m] [0m[0m        LocalDate randomLocalDate;[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m//      generating a random match[0m
+[0m[[0m[31merror[0m] [0m[0m        if (!teamList.isEmpty()) {[0m
+[0m[[0m[31merror[0m] [0m[0m            Random rand = new Random();[0m
+[0m[[0m[31merror[0m] [0m[0m            do {[0m
+[0m[[0m[31merror[0m] [0m[0m                int indexOne = new Random().nextInt(teamList.size());[0m
+[0m[[0m[31merror[0m] [0m[0m                int indexTwo = new Random().nextInt(teamList.size());[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m                randomTeamOne = (teamList.get(indexOne));[0m
+[0m[[0m[31merror[0m] [0m[0m                randomTeamTwo = (teamList.get(indexTwo));[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m                randomScoreOne = rand.nextInt(20);[0m
+[0m[[0m[31merror[0m] [0m[0m                randomScoreTwo = rand.nextInt(20);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m                int minDay = (int) LocalDate.of(2020, 1, 1).toEpochDay();[0m
+[0m[[0m[31merror[0m] [0m[0m                int maxDay = (int) LocalDate.of(2020, 12, 31).toEpochDay();[0m
+[0m[[0m[31merror[0m] [0m[0m                long randomDay = minDay + rand.nextInt(maxDay - minDay);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m                randomLocalDate = LocalDate.ofEpochDay(randomDay);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            } while (randomTeamOne.getClubName().equals(randomTeamTwo.getClubName()));[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            MatchModel match = new MatchModel(randomLocalDate, randomTeamOne.getClubName(), randomTeamTwo.getClubName(),[0m
+[0m[[0m[31merror[0m] [0m[0m                    randomScoreOne, randomScoreTwo, "");[0m
+[0m[[0m[31merror[0m] [0m[0m            matchList.add(match);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            return match;[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m        return null;[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m    public boolean isContain(String clubName) {[0m
+[0m[[0m[31merror[0m] [0m[0m        for (FootballClub f : teamList) {[0m
+[0m[[0m[31merror[0m] [0m[0m            if (f.getClubName().equalsIgnoreCase(clubName)) {[0m
+[0m[[0m[31merror[0m] [0m[0m                return false;[0m
+[0m[[0m[31merror[0m] [0m[0m            }[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m        return true;[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m}[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/PremierLeagueManager.java:256:1: addRandomMatch() in services.PremierLeagueManager cannot implement addRandomMatch() in services.LeagueManager[0m
+[0m[[0m[31merror[0m] [0m[0m  return type models.MatchModel is not compatible with models.Match[0m
+[0m[[0m[31merror[0m] [0m[0mpublic MatchModel addRandomMatch() {[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m        FootballClub randomTeamOne, randomTeamTwo;[0m
+[0m[[0m[31merror[0m] [0m[0m        int randomScoreOne, randomScoreTwo;[0m
+[0m[[0m[31merror[0m] [0m[0m        LocalDate randomLocalDate;[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m//      generating a random match[0m
+[0m[[0m[31merror[0m] [0m[0m        if (!teamList.isEmpty()) {[0m
+[0m[[0m[31merror[0m] [0m[0m            Random rand = new Random();[0m
+[0m[[0m[31merror[0m] [0m[0m            do {[0m
+[0m[[0m[31merror[0m] [0m[0m                int indexOne = new Random().nextInt(teamList.size());[0m
+[0m[[0m[31merror[0m] [0m[0m                int indexTwo = new Random().nextInt(teamList.size());[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m                randomTeamOne = (teamList.get(indexOne));[0m
+[0m[[0m[31merror[0m] [0m[0m                randomTeamTwo = (teamList.get(indexTwo));[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m                randomScoreOne = rand.nextInt(20);[0m
+[0m[[0m[31merror[0m] [0m[0m                randomScoreTwo = rand.nextInt(20);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m                int minDay = (int) LocalDate.of(2020, 1, 1).toEpochDay();[0m
+[0m[[0m[31merror[0m] [0m[0m                int maxDay = (int) LocalDate.of(2020, 12, 31).toEpochDay();[0m
+[0m[[0m[31merror[0m] [0m[0m                long randomDay = minDay + rand.nextInt(maxDay - minDay);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m                randomLocalDate = LocalDate.ofEpochDay(randomDay);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            } while (randomTeamOne.getClubName().equals(randomTeamTwo.getClubName()));[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            MatchModel match = new MatchModel(randomLocalDate, randomTeamOne.getClubName(), randomTeamTwo.getClubName(),[0m
+[0m[[0m[31merror[0m] [0m[0m                    randomScoreOne, randomScoreTwo, "");[0m
+[0m[[0m[31merror[0m] [0m[0m            matchList.add(match);[0m
+[0m[[0m[31merror[0m] [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m            return match;[0m
+[0m[[0m[31merror[0m] [0m[0m        }[0m
+[0m[[0m[31merror[0m] [0m[0m        return null;[0m
+[0m[[0m[31merror[0m] [0m[0m    }[0m

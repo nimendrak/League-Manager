@@ -2,7 +2,6 @@ package services;
 
 import models.FootballClub;
 import models.Match;
-import models.MatchModel;
 
 import java.time.LocalDate;
 import java.util.List;

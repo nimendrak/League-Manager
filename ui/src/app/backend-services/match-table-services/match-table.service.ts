@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
 import {environment} from "../../../environments/environment";
-import {MatchModel} from "../../match-table/match.model";
+import {MatchModel} from "../../view-all-matches/match-table/match.model";
 
 /**
  * Class representing application service.
@@ -22,5 +22,9 @@ export class MatchTableService {
 
   public getTableData(): Observable<MatchModel[]> {
     return this.http.get<MatchModel[]>(this.getTableDataUrl);
+  }
+
+  public getSearchResult(date: string) {
+    return this.http.get<MatchModel>(this.getSearchResultUrl);
   }
 }

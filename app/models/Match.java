@@ -1,82 +1,68 @@
 package models;
 
-import models.FootballClub;
+import services.PremierLeagueManager;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class Match implements Serializable {
-    private FootballClub teamOne;
-    private FootballClub teamTwo;
-    private int teamOneScore;
-    private int teamTwoScore;
     private LocalDate date;
+    private String teamOneName;
+    private int teamOneScore;
+    private String teamTwoName;
+    private int teamTwoScore;
+    private String matchStats;
 
-    public Match(FootballClub teamOne, FootballClub teamTwo, int teamOneScore, int teamTwoScore, LocalDate date) {
-        this.teamOne = teamOne;
-        this.teamTwo = teamTwo;
-        this.teamOneScore = teamOneScore;
-        this.teamTwoScore = teamTwoScore;
+    public Match(LocalDate date, String teamOneName, String teamTwoName,
+                 int teamOneScore, int teamTwoScore, String matchStats) {
         this.date = date;
+        this.teamOneName = teamOneName;
+        this.teamOneScore = teamOneScore;
+        this.teamTwoName = teamTwoName;
+        this.teamTwoScore = teamTwoScore;
+        this.matchStats = matchStats;
     }
 
     public void updateStats() {
-        this.teamOne.setNumOfMatchesPlayed(this.teamOne.getNumOfMatchesPlayed() + 1);
-        this.teamOne.setNumOfGoalsScored(this.teamOne.getNumOfGoalsScored() + this.teamOneScore);
-        this.teamOne.setNumOfGoalsReceived(this.teamOne.getNumOfGoalsReceived() + this.teamTwoScore);
+        PremierLeagueManager premierLeagueManager = PremierLeagueManager.getInstance();
+        FootballClub teamOne = null, teamTwo = null;
 
-        this.teamTwo.setNumOfMatchesPlayed(this.teamTwo.getNumOfMatchesPlayed() + 1);
-        this.teamTwo.setNumOfGoalsScored(this.teamTwo.getNumOfGoalsScored() + this.teamTwoScore);
-        this.teamTwo.setNumOfGoalsReceived(this.teamTwo.getNumOfGoalsReceived() + this.teamOneScore);
+        for (FootballClub f : premierLeagueManager.getTeamList()) {
+            if (f.getClubName().equalsIgnoreCase(teamOneName)) {
+                teamOne = f;
+            }
+            if (f.getClubName().equalsIgnoreCase(teamTwoName)) {
+                teamTwo = f;
+            }
+        }
+        
+        teamOne.setNumOfMatchesPlayed(teamOne.getNumOfMatchesPlayed() + 1);
+        teamOne.setNumOfGoalsScored(teamOne.getNumOfGoalsScored() + this.teamOneScore);
+        teamOne.setNumOfGoalsReceived(teamOne.getNumOfGoalsReceived() + this.teamTwoScore);
+
+        teamTwo.setNumOfMatchesPlayed(teamTwo.getNumOfMatchesPlayed() + 1);
+        teamTwo.setNumOfGoalsScored(teamTwo.getNumOfGoalsScored() + this.teamTwoScore);
+        teamTwo.setNumOfGoalsReceived(teamTwo.getNumOfGoalsReceived() + this.teamOneScore);
 
         if (this.teamOneScore > this.teamTwoScore) {
-            this.teamOne.setSeasonWins(this.teamOne.getSeasonWins() + 1);
-            this.teamTwo.setSeasonDefeats(this.teamTwo.getSeasonDefeats() + 1);
-            this.teamOne.setNumOfPointsGained(this.teamOne.getNumOfPointsGained() + 3);
+            teamOne.setSeasonWins(teamOne.getSeasonWins() + 1);
+            teamTwo.setSeasonDefeats(teamTwo.getSeasonDefeats() + 1);
+            teamOne.setNumOfPointsGained(teamOne.getNumOfPointsGained() + 3);
+            this.matchStats = teamOneName + " WON";
 
         } else if (this.teamOneScore < this.teamTwoScore) {
-            this.teamTwo.setSeasonWins(this.teamTwo.getSeasonWins() + 1);
-            this.teamOne.setSeasonDefeats(this.teamOne.getSeasonDefeats() + 1);
-            this.teamTwo.setNumOfPointsGained(this.teamTwo.getNumOfPointsGained() + 3);
+            teamTwo.setSeasonWins(teamTwo.getSeasonWins() + 1);
+            teamOne.setSeasonDefeats(teamOne.getSeasonDefeats() + 1);
+            teamTwo.setNumOfPointsGained(teamTwo.getNumOfPointsGained() + 3);
+            this.matchStats = teamTwoName + " WON";
 
         } else {
-            this.teamOne.setSeasonDraws(this.teamOne.getSeasonDraws() + 1);
-            this.teamTwo.setSeasonDraws(this.teamTwo.getSeasonDraws() + 1);
-            this.teamOne.setNumOfPointsGained(this.teamOne.getNumOfPointsGained() + 1);
-            this.teamTwo.setNumOfPointsGained(this.teamTwo.getNumOfPointsGained() + 1);
+            teamOne.setSeasonDraws(teamOne.getSeasonDraws() + 1);
+            teamTwo.setSeasonDraws(teamTwo.getSeasonDraws() + 1);
+            teamOne.setNumOfPointsGained(teamOne.getNumOfPointsGained() + 1);
+            teamTwo.setNumOfPointsGained(teamTwo.getNumOfPointsGained() + 1);
+            this.matchStats = "Match Drawn";
         }
-    }
-
-    public FootballClub getTeamOne() {
-        return teamOne;
-    }
-
-    public void setTeamOne(FootballClub teamOne) {
-        this.teamOne = teamOne;
-    }
-
-    public FootballClub getTeamTwo() {
-        return teamTwo;
-    }
-
-    public void setTeamTwo(FootballClub teamTwo) {
-        this.teamTwo = teamTwo;
-    }
-
-    public int getTeamOneScore() {
-        return teamOneScore;
-    }
-
-    public void setTeamOneScore(int teamOneScore) {
-        this.teamOneScore = teamOneScore;
-    }
-
-    public int getTeamTwoScore() {
-        return teamTwoScore;
-    }
-
-    public void setTeamTwoScore(int teamTwoScore) {
-        this.teamTwoScore = teamTwoScore;
     }
 
     public LocalDate getDate() {
@@ -87,9 +73,55 @@ public class Match implements Serializable {
         this.date = date;
     }
 
+    public String getTeamOneName() {
+        return teamOneName;
+    }
+
+    public void setTeamOneName(String teamOneName) {
+        this.teamOneName = teamOneName;
+    }
+
+    public int getTeamOneScore() {
+        return teamOneScore;
+    }
+
+    public void setTeamOneScore(int teamOneScore) {
+        this.teamOneScore = teamOneScore;
+    }
+
+    public String getTeamTwoName() {
+        return teamTwoName;
+    }
+
+    public void setTeamTwoName(String teamTwoName) {
+        this.teamTwoName = teamTwoName;
+    }
+
+    public int getTeamTwoScore() {
+        return teamTwoScore;
+    }
+
+    public void setTeamTwoScore(int teamTwoScore) {
+        this.teamTwoScore = teamTwoScore;
+    }
+
+    public String getMatchStats() {
+        return matchStats;
+    }
+
+    public void setMatchStats(String matchStats) {
+        this.matchStats = matchStats;
+    }
+
     @Override
     public String toString() {
-        return "PlayedMatch{" + "teamOne=" + teamOne.getClubName() + ", teamTwo=" + teamTwo.getClubName() +
-                ", teamOneScore=" + teamOneScore + ", teamTwoScore=" + teamTwoScore + ", date=" + date;
+        return "Match {" +
+                "date=" + date +
+                ", teamOneName='" + teamOneName + '\'' +
+                ", teamOneScore=" + teamOneScore +
+                ", teamTwoName='" + teamTwoName + '\'' +
+                ", teamTwoScore=" + teamTwoScore +
+                ", matchStats='" + matchStats + '\'' +
+                '}';
     }
 }

@@ -3,7 +3,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {MatchModel} from './match.model';
-import {MatchTableService} from "../backend-services/match-table-services/match-table.service";
+import {MatchTableService} from "../../backend-services/match-table-services/match-table.service";
 
 @Component({
   selector: 'app-match-table',
@@ -17,13 +17,16 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
 
   // table columns
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['date', 'teamScore', 'clubName', 'numOfGoalsScored', 'numOfGoalsReceived', 'numOfPointsGained'];
+  displayedColumns = ['date', 'teamOneName', 'teamOneScore', 'teamTwoName', 'teamTwoScore', 'matchStats'];
 
   constructor(private matchTableService: MatchTableService) {
   }
 
   dataSource;
   matchModels: MatchModel[] = [];
+
+  searchDate: string;
+  buttonClicked : boolean;
 
   ngOnInit() {
     this.matchTableService.getTableData()
@@ -34,11 +37,17 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
         console.log(data.response);
         this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
+
+    console.log(this.searchDate);
   }
 
   ngAfterViewInit() {
     // this.dataSource.sort = this.sort;
     // this.dataSource.paginator = this.paginator;
     // this.table.dataSource = this.dataSource;
+  }
+
+  getSearchResults($event) {
+    this.searchDate = $event;
   }
 }
