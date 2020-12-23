@@ -51,4 +51,11 @@ public class LeagueController extends Controller {
         JsonNode jsonObject = Json.toJson(result);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
+
+    public Result getRandomMatch() {
+        Match result = PremierLeagueManager.getInstance().getRandomMatch();
+        logger.debug("In LeagueController.getSearchedMatch(), result is: {}", result.toString());
+        JsonNode jsonObject = Json.toJson(result);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
 }
