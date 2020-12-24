@@ -34,6 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // when application starts, data will be load once
   ngOnInit(): void {
+    //TODO: this loadData() runs everytime pages init
     this.loadData();
   }
 

@@ -34,9 +34,9 @@ public class PremierLeagueManager implements LeagueManager {
     static boolean oneTime = false;
 
     //  delete
-    FootballClub f1 = new FootballClub("ccc3", "Colombo", 0, 0, 0, 0, 0, 10, 0);
-    FootballClub f2 = new FootballClub("aaa1", "Kelaniya", 0, 0, 0, 0, 0, 5, 0);
-    FootballClub f3 = new FootballClub("bbb2", "Moratuwa", 0, 0, 0, 0, 0, 35, 0);
+    FootballClub f1 = new FootballClub("ccc", "Colombo", 0, 0, 0, 0, 0, 0, 0);
+    FootballClub f2 = new FootballClub("aaa", "Kelaniya", 0, 0, 0, 0, 0, 0, 0);
+    FootballClub f3 = new FootballClub("bbb", "Moratuwa", 0, 0, 0, 0, 0, 0, 0);
 
     //  delete
     Match m1 = new Match(LocalDate.of(2020, 12, 25), "aaa1", "bbb2", 1, 2, "");
@@ -82,6 +82,7 @@ public class PremierLeagueManager implements LeagueManager {
     public void deleteClub(String clubName) {
         if (!teamList.isEmpty()) {
             teamList.removeIf(f -> f.getClubName().equalsIgnoreCase(clubName));
+            System.out.println("\nTeam " + "\033[1;93m" + clubName + "\033[0m" + " removed from the League!");
         }
     }
 
@@ -140,10 +141,10 @@ public class PremierLeagueManager implements LeagueManager {
                         objectOutputStream.writeObject(m);
                     }
                 }
-
                 objectOutputStream.flush();
                 objectOutputStream.close();
                 fileOutputStream.close();
+                System.out.println("Successfully Saved to the File!");
             }
 
         } catch (IOException e) {

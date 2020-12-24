@@ -25,9 +25,8 @@ public class ConsoleApplication {
             oneTime = true;
         }
 
-
-        final String leagueMatches = "utils/DataSource/PremierLeagueMatches.txt";
-        final String leagueTeams = "utils/DataSource/PremierLeagueTeams.txt";;
+        final String leagueMatches = "app/utils/DataSource/PremierLeagueMatches.txt";
+        final String leagueTeams = "app/utils/DataSource/PremierLeagueTeams.txt";
 
         System.out.println("\nIndexing Premier League Data..");
         loadAllData(premierLeagueManager, leagueTeams, leagueMatches);
@@ -186,30 +185,35 @@ public class ConsoleApplication {
         System.out.print("Club1 name ? : ");
         String clubOneName = isContain(leagueManager, "Club1 name ? : ", sc.next());
 
-        System.out.print("Club2 name ? : ");
-        String clubTwoName = isContain(leagueManager, "Club2 name ? : ", sc.next());
-
         System.out.print("Club1 scored goals : ");
         int clubOneGoals = Integer.parseInt(validateInt("Club1 scored goals : "));
+
+        System.out.print("\nClub2 name ? : ");
+        String clubTwoName = isContain(leagueManager, "Club2 name ? : ", sc.next());
 
         System.out.print("Club2 scored goals : ");
         int clubTwoGoals = Integer.parseInt(validateInt("Club2 scored goals : "));
 
-        LocalDate date;
+        String dateString;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         while (true) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            System.out.print("\nPlayed Date (dd-MM-yyyy) : ");
-            String dateString = sc.next();
+            try {
+                System.out.print("\nPlayed Date (yyyy-MM-dd) : ");
+                dateString = sc.next();
+                dateFormat.parse(dateString);
 
-            String[] dateArr = dateString.split("-", 3);
-            LocalDate today = LocalDate.now();
-            int day = Integer.parseInt(dateArr[0]);
-            int month = Integer.parseInt(dateArr[1]);
-            int year = Integer.parseInt(dateArr[2]);
+                LocalDate today = LocalDate.now();
 
-            if (today.isAfter(LocalDate.of(year, month, day)) | today.equals(LocalDate.of(year, month, day))) {
-                leagueManager.addPlayedMatch(clubOneName, clubTwoName, clubOneGoals, clubTwoGoals, LocalDate.of(year, month, day));
+                if (today.isAfter(LocalDate.parse(dateString)) | today.equals(LocalDate.parse(dateString))) {
+                    leagueManager.addPlayedMatch(clubOneName, clubTwoName, clubOneGoals, clubTwoGoals, LocalDate.parse(dateString));
+
+                    System.out.println("\n" + "\033[1;93m" + clubOneName + "\033[0m" + " vs " + "\033[1;93m" + clubTwoName + "\033[0m" + " match has been added!");
+                }
+
                 break;
+            } catch (Exception e) {
+//                e.printStackTrace();
+                System.out.println("Invalid Date");
             }
         }
         System.out.println("\n------------------------------------------------------");

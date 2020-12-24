@@ -1,6 +1,8 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import models.FootballClub;
+import models.Match;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.libs.Json;
@@ -9,8 +11,6 @@ import play.mvc.Result;
 
 import services.LeagueManagerServices;
 import services.PremierLeagueManager;
-import models.FootballClub;
-import models.Match;
 import utils.ApplicationUtil;
 
 import java.util.List;
