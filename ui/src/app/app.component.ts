@@ -1,10 +1,13 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpClient} from "@angular/common/http";
 import {RandomMatchService} from "./backend-services/generate-random-service/generate-random.service";
+import {MatchModel} from "./view-all-matches/match-table/match.model";
+import {RandomMatchDialogComponent} from "./random-match-dialog/random-match-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-root',
@@ -15,6 +18,9 @@ export class AppComponent {
   title = 'angular-client';
   postRequestResponse: string;
 
+  randomMatchDate: MatchModel;
+  @ViewChild("randomMatchDialog") randomMatchDialog: RandomMatchDialogComponent;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -22,22 +28,29 @@ export class AppComponent {
     );
 
   constructor(private breakpointObserver: BreakpointObserver, private _snackBar: MatSnackBar,
-              private http: HttpClient, private randomMatchService: RandomMatchService) {
-  }
-
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
-      duration: 2000,
-    });
+              private http: HttpClient, private randomMatchService: RandomMatchService,
+              private dialog: MatDialog) {
   }
 
   /**
    * This method is used to test the post request
    */
-  public postData(): void {
+  public generateRandomMatch(): void {
     this.randomMatchService.postRandomMatch().subscribe((data: any) => {
       this.postRequestResponse = data.content;
-    });
-    window.location.reload();
+    })
+  }
+
+  // set a time out till the backend responses
+  getRandomDataToDialog() {
+    setTimeout(()=> this.toDialog(), 10);
+  }
+
+  // calling the dialog form the child component
+  toDialog() {
+    this.dialog.open(RandomMatchDialogComponent);
+
+    this.dialog.afterAllClosed.subscribe(() =>
+      window.location.reload());
   }
 }

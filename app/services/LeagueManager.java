@@ -16,5 +16,8 @@ public interface LeagueManager {
     void saveData(String fileName);
     void loadData(String fileName);
     Match addRandomMatch();
+    Match getRandomMatch();
+    List<Match> getSearchedMatch(String date);
     List<FootballClub> getSortedTableData(String type, String order);
+
 }

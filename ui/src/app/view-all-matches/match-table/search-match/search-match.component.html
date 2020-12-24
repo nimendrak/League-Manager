@@ -25,7 +25,7 @@
           </li>
           <li>
             <button mat-raised-button color="primary" style="padding: 7px; margin-top: 3px"
-            (click)="sendSearchStr(); searchBtnStat=!searchBtnStat" >Search</button>
+            (click)="sendSearchStr()" >Search</button>
           </li>
         </ul>
       </div>
@@ -33,4 +33,4 @@
   </nav>
 </div>
 
-<app-match-table></app-match-table>
+<app-match-table [dataSource]="dataSource"></app-match-table>

@@ -1,25 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
+import {Component, Inject, OnInit} from '@angular/core';
+import {MatchModel} from "../view-all-matches/match-table/match.model";
+import {RandomMatchService} from "../backend-services/generate-random-service/generate-random.service";
 
 @Component({
   selector: 'app-random-match-dialog',
   templateUrl: './random-match-dialog.component.html',
   styleUrls: ['./random-match-dialog.component.css']
 })
+
+// @ts-nocheck
 export class RandomMatchDialogComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) {}
+  randomMatchDate: MatchModel;
+  date: string;
+  teamOneName: string;
+  teamOneScore: number;
+  teamTwoName : string;
+  teamTwoScore : number;
+  matchStats: string;
 
-  openDialog() {
-    this.dialog.open(DialogElementsExampleDialog);
+  constructor(private randomMatchService: RandomMatchService) {
+
+    // getting the response from backend and set it to the dialog box accordingly
+    this.randomMatchService.getRandomMatch().subscribe((data: any) => {
+      this.randomMatchDate = data.response;
+    });
   }
 
   ngOnInit(): void {
+    console.log(this.randomMatchDate);
   }
 }
-
-@Component({
-  selector: 'dialog-elements-example-dialog',
-  templateUrl: 'dialog-elements-example-dialog.html',
-})
-export class DialogElementsExampleDialog {}

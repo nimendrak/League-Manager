@@ -86,7 +86,6 @@ public class PremierLeagueManager implements LeagueManager {
 
         } catch (NullPointerException e) {
             e.printStackTrace();
-            System.out.println("Team not Found");
         }
     }
 
@@ -129,8 +128,21 @@ public class PremierLeagueManager implements LeagueManager {
             oneTime = true;
         }
 
-//      Collections.sort(teamList, Collections.reverseOrder());
+        /*
+         * compareTo method use as the default sorting
+         * if search function triggered, program will use custom comparators accordingly
+         * */
+        Collections.sort(teamList, Collections.reverseOrder());
         return teamList;
+    }
+
+    @Override
+    public List<Match> getPlayedMatches() {
+        Comparator<Match> compareByDate = Comparator
+                .comparing(Match::getDate)
+                .thenComparing(Match::getDate);
+
+        return matchList.stream().sorted(compareByDate.reversed()).collect(Collectors.toList());
     }
 
     @Override
@@ -176,8 +188,21 @@ public class PremierLeagueManager implements LeagueManager {
     }
 
     @Override
-    public List<Match> getPlayedMatches() {
-        return matchList;
+    public List<Match> getSearchedMatch(String date) {
+        List<Match> searchResults = new ArrayList<>();
+
+        try {
+            if (!matchList.isEmpty()) {
+                for (Match m : matchList) {
+                    if (m.getDate().equals(LocalDate.parse(date))) {
+                        searchResults.add(m);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return searchResults;
     }
 
     @Override
@@ -247,6 +272,11 @@ public class PremierLeagueManager implements LeagueManager {
         } else {
             System.out.println("No Data Available!");
         }
+    }
+
+    @Override
+    public Match getRandomMatch() {
+        return matchList.get(matchList.size() - 1);
     }
 
     //  delete

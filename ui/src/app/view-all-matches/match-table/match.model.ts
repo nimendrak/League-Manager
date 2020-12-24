@@ -5,10 +5,10 @@
 * */
 
 export interface MatchModel {
-  date: string,
-  teamOneName: string,
-  teamOneScore: number,
-  teamTwoName: string,
-  teamTwoScore: number,
+  date: string;
+  teamOneName: string;
+  teamOneScore: number;
+  teamTwoName: string;
+  teamTwoScore: number;
   matchStats: string;
 }

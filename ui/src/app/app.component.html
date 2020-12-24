@@ -14,7 +14,7 @@
 
       <mat-divider></mat-divider>
 
-      <a mat-list-item (click)="openSnackBar('Generated a Random Match..', 'ADDED'); postData()">Add Random Match</a>
+      <a mat-list-item (click)="generateRandomMatch(); getRandomDataToDialog()">Add Random Match</a>
 
       <!--  logout button    -->
       <div class="nav navbar-fixed-bottom">
@@ -38,6 +38,7 @@
       <span>Premier League Manager</span>
     </mat-toolbar>
 
+    <!--   routed content appears here -->
     <router-outlet></router-outlet>
 
   </mat-sidenav-content>

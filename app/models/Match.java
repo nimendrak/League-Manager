@@ -35,7 +35,7 @@ public class Match implements Serializable {
                 teamTwo = f;
             }
         }
-        
+
         teamOne.setNumOfMatchesPlayed(teamOne.getNumOfMatchesPlayed() + 1);
         teamOne.setNumOfGoalsScored(teamOne.getNumOfGoalsScored() + this.teamOneScore);
         teamOne.setNumOfGoalsReceived(teamOne.getNumOfGoalsReceived() + this.teamTwoScore);
@@ -124,4 +124,6 @@ public class Match implements Serializable {
                 ", matchStats='" + matchStats + '\'' +
                 '}';
     }
+
+
 }

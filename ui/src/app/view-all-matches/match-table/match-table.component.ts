@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
@@ -22,11 +22,8 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
   constructor(private matchTableService: MatchTableService) {
   }
 
-  dataSource;
-  matchModels: MatchModel[] = [];
-
-  searchDate: string;
-  buttonClicked : boolean;
+  @Input() dataSource;
+  @Input() matchModels: MatchModel[] = [];
 
   ngOnInit() {
     this.matchTableService.getTableData()
@@ -37,8 +34,6 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
         console.log(data.response);
         this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
-
-    console.log(this.searchDate);
   }
 
   ngAfterViewInit() {
@@ -47,7 +42,7 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
     // this.table.dataSource = this.dataSource;
   }
 
-  getSearchResults($event) {
-    this.searchDate = $event;
+  check() {
+
   }
 }

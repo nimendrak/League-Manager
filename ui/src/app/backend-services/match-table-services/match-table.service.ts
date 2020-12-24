@@ -15,7 +15,7 @@ export class MatchTableService {
   appRoot = environment.API_BASE_URL;
 
   private getTableDataUrl = this.appRoot + '/match-table';
-  private getSearchResultUrl = this.appRoot + '/match-table/search/';
+  private getSearchResultUrl = this.appRoot + '/match-table/search';
 
   constructor(private http: HttpClient) {
   }
@@ -24,7 +24,7 @@ export class MatchTableService {
     return this.http.get<MatchModel[]>(this.getTableDataUrl);
   }
 
-  public getSearchResult(date: string) {
-    return this.http.get<MatchModel>(this.getSearchResultUrl);
+  public getSearchResult(date: string): Observable<MatchModel[]> {
+    return this.http.get<MatchModel[]>(this.getSearchResultUrl + "/" + date);
   }
 }

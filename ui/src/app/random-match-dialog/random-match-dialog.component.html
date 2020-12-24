@@ -1,5 +1,15 @@
-<h1 mat-dialog-title>Dialog with elements</h1>
-<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
-<div mat-dialog-actions>
+<h1 mat-dialog-title>Random Generated Match</h1>
+<div mat-dialog-content>Match data as follows;</div>
+<div>
+  <ol style="margin-top: 15px">
+    <li>Date : {{randomMatchDate.date}}</li>
+    <li>Team One : {{randomMatchDate.teamOneName}}</li>
+    <li>Team One Score : {{randomMatchDate.teamOneScore}}</li>
+    <li>Team Two : {{randomMatchDate.teamTwoName}}</li>
+    <li>Team Two Score : {{randomMatchDate.teamTwoScore}}</li>
+    <li>Match Stats : {{randomMatchDate.matchStats}}</li>
+  </ol>
+</div>
+<div mat-dialog-actions style="margin-left: 110px">
   <button mat-button mat-dialog-close>Close</button>
 </div>

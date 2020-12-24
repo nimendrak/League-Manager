@@ -1,8 +1,5 @@
 package models;
 
-import java.util.Comparator;
-import java.util.List;
-
 public class FootballClub extends SportsClub implements Comparable<FootballClub> {
     private int numOfMatchesPlayed;
     private int seasonWins;

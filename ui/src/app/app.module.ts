@@ -29,6 +29,8 @@ import {LeaderboardService} from "./backend-services/leaderboard-services/leader
 import {AppHttpInterceptorService} from "./backend-services/http-interceptor.service";
 import {RandomMatchService} from "./backend-services/generate-random-service/generate-random.service";
 import {MatchTableService} from "./backend-services/match-table-services/match-table.service";
+import {RandomMatchDialogComponent} from './random-match-dialog/random-match-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 const appRoutes: Routes = [
   {path: 'leaderboard', component: LeaderboardComponent},
@@ -43,7 +45,9 @@ const appRoutes: Routes = [
     MatchTableComponent,
     SearchMatchComponent,
     ViewAllMatchesComponent,
+    RandomMatchDialogComponent,
   ],
+  entryComponents: [RandomMatchDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -69,7 +73,8 @@ const appRoutes: Routes = [
     HttpClientXsrfModule.withOptions({
       cookieName: 'Csrf-Token',
       headerName: 'Csrf-Token',
-    })
+    }),
+    MatDialogModule
   ],
   providers: [LeaderboardService,
     {
@@ -88,7 +93,8 @@ const appRoutes: Routes = [
       multi: true,
       provide: HTTP_INTERCEPTORS,
       useClass: AppHttpInterceptorService,
-    }],
+    }
+  ],
 
   bootstrap: [AppComponent]
 })
