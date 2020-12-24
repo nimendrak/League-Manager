@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
@@ -14,7 +14,7 @@ import {MatDialog} from "@angular/material/dialog";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   title = 'angular-client';
   postRequestResponse: string;
 
@@ -30,6 +30,16 @@ export class AppComponent {
   constructor(private breakpointObserver: BreakpointObserver, private _snackBar: MatSnackBar,
               private http: HttpClient, private navService: AppServices,
               private dialog: MatDialog) {
+  }
+
+  // when application starts, data will be load once
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  // save data, while closing the tab
+  ngOnDestroy() {
+    this.saveData();
   }
 
   /**
@@ -57,12 +67,22 @@ export class AppComponent {
   saveData() {
     this.navService.postSaveClubsData().subscribe((data: any) => {
       this.postRequestResponse = data.content;
-    })
+    });
 
     this.navService.postSaveMatchesData().subscribe((data: any) => {
       this.postRequestResponse = data.content;
     });
 
-    console.log("log out triggered");
+    console.log("saved");
+  }
+
+  loadData() {
+    this.navService.getLoadClubsData().subscribe((data: any) => {
+      this.postRequestResponse = data.content;
+    });
+
+    this.navService.getLoadMatchesData().subscribe((data: any) => {
+      this.postRequestResponse = data.content;
+    })
   }
 }

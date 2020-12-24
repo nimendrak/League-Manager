@@ -1,6 +1,3 @@
-package ConsoleApp;
-
-
 import models.FootballClub;
 import services.PremierLeagueManager;
 
@@ -22,19 +19,20 @@ public class ConsoleApplication {
         System.out.println("*********** " + "\033[1;93m" + "Football Premier League Manager " + "\033[0m" + "**********");
         System.out.println("******************************************************");
 
-        final String leagueMatches = "app/utils/DataSource/PremierLeagueMatches.txt";
-        final String leagueTeams = "app/utils/DataSource/PremierLeagueTeams.txt";;
+        // delete
+        if (!oneTime) {
+            premierLeagueManager.sampleData();
+            oneTime = true;
+        }
+
+
+        final String leagueMatches = "utils/DataSource/PremierLeagueMatches.txt";
+        final String leagueTeams = "utils/DataSource/PremierLeagueTeams.txt";;
 
         System.out.println("\nIndexing Premier League Data..");
         loadAllData(premierLeagueManager, leagueTeams, leagueMatches);
 
         System.out.println("\n------------------------------------------------------");
-
-//      delete
-        if (!oneTime) {
-            premierLeagueManager.sampleData();
-            oneTime = true;
-        }
 
         String option;
         do {
@@ -76,7 +74,7 @@ public class ConsoleApplication {
                     break;
                 case "8":
                     System.out.println("\nApplication is now Existing...\n");
-                    saveDate(premierLeagueManager, leagueTeams, leagueMatches);
+//                    saveDate(premierLeagueManager, leagueTeams, leagueMatches);
                     break;
                 default:
                     System.out.println("Invalid input");
@@ -140,7 +138,7 @@ public class ConsoleApplication {
         System.out.println("\nClub\t\t MP\t  W\t  L\t  D\t  GS  GR  PTS");
         System.out.println("-----------------------------------------");
 
-        leagueManager.displaySingleClub(clubName);
+        System.out.println(leagueManager.displaySingleClub(clubName).toString());
 
         System.out.println("\n* Club Name is limited to 3 characters! *\n\nW - Wins | MP - Matches Played\n" +
                 "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");
@@ -163,7 +161,14 @@ public class ConsoleApplication {
         System.out.println("Club\t\t MP\t  W\t  L\t  D\t  GS  GR  PTS");
         System.out.println("-----------------------------------------");
 
-        leagueManager.displayLeagueTable();
+        if (!premierLeagueManager.getTeamList().isEmpty()) {
+            for (FootballClub f : leagueManager.displayLeagueTable()) {
+                System.out.println(f);
+                System.out.println("- - - - - - - - - - - - - - - - - - - - -");
+            }
+        } else {
+            System.out.println("No Team has played a Match yet");
+        }
 
         System.out.println("\n* Club Name is limited to 3 characters! *\n\nW - Wins | MP - Matches Played\n" +
                 "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");

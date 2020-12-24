@@ -3,7 +3,7 @@ package models;
 import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class SportsClub implements Serializable {
+abstract class SportsClub implements Serializable {
     private String clubName;
     private String clubLocation;
 

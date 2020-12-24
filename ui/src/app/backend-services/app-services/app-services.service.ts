@@ -19,6 +19,9 @@ export class AppServices {
   private postSaveClubsDataUrl = this.appRoot + '/save-data/clubs';
   private postSaveMatchesDataUrl = this.appRoot + '/save-data/matches';
 
+  private postLoadClubsDataUrl = this.appRoot + '/load-data/clubs';
+  private postLoadMatchesDataUrl = this.appRoot + '/load-data/matches';
+
   constructor(private http: HttpClient) {
   }
 
@@ -39,6 +42,14 @@ export class AppServices {
 
   public postSaveMatchesData() {
     return this.http.post(this.postSaveMatchesDataUrl, {});
+  }
+
+  public getLoadClubsData() {
+    return this.http.post(this.postLoadClubsDataUrl, {});
+  }
+
+  public getLoadMatchesData() {
+    return this.http.post(this.postLoadMatchesDataUrl, {});
   }
 
 

@@ -43,9 +43,9 @@ public class PremierLeagueManager implements LeagueManager {
 
     //  delete
     public void sampleData() {
-//        teamList.add(f1);
-//        teamList.add(f2);
-//        teamList.add(f3);
+        teamList.add(f1);
+        teamList.add(f2);
+        teamList.add(f3);
 
 //        m1.updateStats();
 //        matchList.add(m1);
@@ -100,11 +100,10 @@ public class PremierLeagueManager implements LeagueManager {
     @Override
     public List<FootballClub> displayLeagueTable() {
         // delete
-        if (!oneTime) {
-            sampleData();
-            System.out.println("Sample Data");
-            oneTime = true;
-        }
+//        if (!oneTime) {
+//            sampleData();
+//            oneTime = true;
+//        }
 
         /*
          * compareTo method use as the default sorting

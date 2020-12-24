@@ -45,7 +45,7 @@ const appRoutes: Routes = [
     MatchTableComponent,
     SearchMatchComponent,
     ViewAllMatchesComponent,
-    RandomMatchDialogComponent,
+    RandomMatchDialogComponent
   ],
   entryComponents: [RandomMatchDialogComponent],
   imports: [
