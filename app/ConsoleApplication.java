@@ -212,7 +212,6 @@ public class ConsoleApplication {
 
                 break;
             } catch (Exception e) {
-//                e.printStackTrace();
                 System.out.println("Invalid Date");
             }
         }

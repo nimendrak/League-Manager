@@ -168,10 +168,14 @@ public class PremierLeagueManager implements LeagueManager {
                     try {
                         if (fileName.contains("Teams.txt")) {
                             f = (FootballClub) objectInputStream.readObject();
-                            teamList.add(f);
+                            if (!teamList.contains(f)) {
+                                teamList.add(f);
+                            }
                         } else {
                             Match m = (Match) objectInputStream.readObject();
-                            matchList.add(m);
+                            if (!matchList.contains(m)) {
+                                matchList.add(m);
+                            }
                         }
                     } catch (EOFException | ClassNotFoundException ex) {
 //                        ex.printStackTrace();
