@@ -1,11 +1,8 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/PremierLeagueManager.java:200:1: missing return statement[0m
-[0m[[0m[31merror[0m] [0m[0m{[0m
-[0m[[0m[31merror[0m] [0m[0m        List<Match> searchResults = new ArrayList<>();[0m
-[0m[[0m[31merror[0m] [0m[0m[0m
-[0m[[0m[31merror[0m] [0m[0m            for (Match m : matchList) {[0m
-[0m[[0m[31merror[0m] [0m[0m                if (m.getDate() == LocalDate.parse(date)) {[0m
-[0m[[0m[31merror[0m] [0m[0m                    searchResults.add(m);[0m
-[0m[[0m[31merror[0m] [0m[0m                    return searchResults;[0m
-[0m[[0m[31merror[0m] [0m[0m                }[0m
-[0m[[0m[31merror[0m] [0m[0m            }[0m
-[0m[[0m[31merror[0m] [0m[0m    }[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/controllers/LeagueController.java:65:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable result[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.LeagueController[0m
+[0m[[0m[31merror[0m] [0m[0mresult[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/controllers/LeagueController.java:66:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable result[0m
+[0m[[0m[31merror[0m] [0m[0m  location: class controllers.LeagueController[0m
+[0m[[0m[31merror[0m] [0m[0mresult[0m

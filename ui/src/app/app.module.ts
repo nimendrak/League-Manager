@@ -27,7 +27,7 @@ import {ViewAllMatchesComponent} from './view-all-matches/view-all-matches.compo
 import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from "@angular/common/http";
 import {LeaderboardService} from "./backend-services/leaderboard-services/leaderboard.service";
 import {AppHttpInterceptorService} from "./backend-services/http-interceptor.service";
-import {RandomMatchService} from "./backend-services/generate-random-service/generate-random.service";
+import {AppServices} from "./backend-services/app-services/app-services.service";
 import {MatchTableService} from "./backend-services/match-table-services/match-table.service";
 import {RandomMatchDialogComponent} from './random-match-dialog/random-match-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
@@ -82,7 +82,7 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: AppHttpInterceptorService,
     },
-    RandomMatchService,
+    AppServices,
     {
       multi: true,
       provide: HTTP_INTERCEPTORS,

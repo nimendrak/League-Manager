@@ -6,7 +6,6 @@ import models.Match;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class PremierLeagueManager implements LeagueManager {
 
@@ -14,14 +13,6 @@ public class PremierLeagueManager implements LeagueManager {
     private List<FootballClub> teamList = new ArrayList<>();
     private List<Match> matchList = new ArrayList<>();
     private int availableSlots = MAX_TEAMS;
-
-    public List<FootballClub> getTeamList() {
-        return teamList;
-    }
-
-    public List<Match> getMatchList() {
-        return matchList;
-    }
 
     private static PremierLeagueManager instance = null;
 
@@ -40,14 +31,17 @@ public class PremierLeagueManager implements LeagueManager {
     }
 
     //  delete
+    static boolean oneTime = false;
+
+    //  delete
     FootballClub f1 = new FootballClub("ccc3", "Colombo", 0, 0, 0, 0, 0, 10, 0);
     FootballClub f2 = new FootballClub("aaa1", "Kelaniya", 0, 0, 0, 0, 0, 5, 0);
     FootballClub f3 = new FootballClub("bbb2", "Moratuwa", 0, 0, 0, 0, 0, 35, 0);
 
+    //  delete
     Match m1 = new Match(LocalDate.of(2020, 12, 25), "aaa1", "bbb2", 1, 2, "");
-//    MatchModel m2 = new MatchModel(f1, f2, 2, 5, LocalDate.of(2020, 12, 24));
-//    MatchModel m3 = new MatchModel(f1, f3, 3, 0, LocalDate.of(2020, 12, 23));
 
+    //  delete
     public void sampleData() {
         teamList.add(f1);
         teamList.add(f2);
@@ -91,33 +85,21 @@ public class PremierLeagueManager implements LeagueManager {
 
     @Override
     public void deleteClub(String clubName) {
-        try {
-            if (!teamList.isEmpty()) {
-                for (FootballClub f : teamList) {
-                    if (f.getClubName().equalsIgnoreCase(clubName)) {
-                        teamList.remove(f);
-                        System.out.println("\nTeam removed from the League!");
-                    }
-                }
-            } else {
-                System.out.println("No Team has added to the League yet");
-            }
-        } catch (ConcurrentModificationException e) {
-//            e.printStackTrace();
+        if (!teamList.isEmpty()) {
+            teamList.removeIf(f -> f.getClubName().equalsIgnoreCase(clubName));
         }
     }
 
     @Override
-    public void displayStatisticsForSpecificClub(String clubName) {
+    public FootballClub displaySingleClub(String clubName) {
         if (!teamList.isEmpty()) {
             for (FootballClub f : teamList) {
                 if (f.getClubName().equalsIgnoreCase(clubName)) {
-                    System.out.println(f.toString());
+                    return f;
                 }
             }
-        } else {
-            System.out.println("No Team has played a Match yet");
         }
+        return null;
     }
 
     @Override
@@ -134,75 +116,6 @@ public class PremierLeagueManager implements LeagueManager {
          * */
         Collections.sort(teamList, Collections.reverseOrder());
         return teamList;
-    }
-
-    @Override
-    public List<Match> getPlayedMatches() {
-        Comparator<Match> compareByDate = Comparator
-                .comparing(Match::getDate)
-                .thenComparing(Match::getDate);
-
-        return matchList.stream().sorted(compareByDate.reversed()).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<FootballClub> getSortedTableData(String type, String order) {
-//      get a copy of current list and sorting the copy
-        List<FootballClub> sortedList = teamList;
-
-//      initialize three different comparators according to the sorting requirement
-//      comparator for scored goals
-        Comparator<FootballClub> compareByGoals = Comparator
-                .comparing(FootballClub::getNumOfGoalsScored)
-                .thenComparing(FootballClub::getNumOfGoalsScored);
-
-//      comparator for seasonal wins
-        Comparator<FootballClub> compareByWins = Comparator
-                .comparing(FootballClub::getSeasonWins)
-                .thenComparing(FootballClub::getSeasonWins);
-
-//      comparator for gained points
-        Comparator<FootballClub> compareByPoints = Comparator
-                .comparing(FootballClub::getNumOfGoalsScored)
-                .thenComparing(FootballClub::getNumOfGoalsScored);
-
-        if (type.equalsIgnoreCase("goals")) {
-            if (order.equalsIgnoreCase("ascending")) {
-                return sortedList.stream().sorted(compareByGoals).collect(Collectors.toList());
-            } else {
-                return sortedList.stream().sorted(compareByGoals.reversed()).collect(Collectors.toList());
-            }
-        } else if ((type.equalsIgnoreCase("wins"))) {
-            if (order.equalsIgnoreCase("ascending")) {
-                return sortedList.stream().sorted(compareByWins).collect(Collectors.toList());
-            } else {
-                return sortedList.stream().sorted(compareByWins.reversed()).collect(Collectors.toList());
-            }
-        } else {
-            if (order.equalsIgnoreCase("ascending")) {
-                return sortedList.stream().sorted(compareByPoints).collect(Collectors.toList());
-            } else {
-                return sortedList.stream().sorted(compareByPoints.reversed()).collect(Collectors.toList());
-            }
-        }
-    }
-
-    @Override
-    public List<Match> getSearchedMatch(String date) {
-        List<Match> searchResults = new ArrayList<>();
-
-        try {
-            if (!matchList.isEmpty()) {
-                for (Match m : matchList) {
-                    if (m.getDate().equals(LocalDate.parse(date))) {
-                        searchResults.add(m);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        return searchResults;
     }
 
     @Override
@@ -230,7 +143,6 @@ public class PremierLeagueManager implements LeagueManager {
             objectOutputStream.flush();
             objectOutputStream.close();
             fileOutputStream.close();
-            System.out.println("Successfully Saved to the File!");
 
         } catch (IOException e) {
 //            e.printStackTrace();
@@ -274,51 +186,6 @@ public class PremierLeagueManager implements LeagueManager {
         }
     }
 
-    @Override
-    public Match getRandomMatch() {
-        return matchList.get(matchList.size() - 1);
-    }
-
-    //  delete
-    static boolean oneTime = false;
-
-    public Match addRandomMatch() {
-
-        FootballClub randomTeamOne, randomTeamTwo;
-        int randomScoreOne, randomScoreTwo;
-        LocalDate randomLocalDate;
-
-//      generating a random match
-        if (!teamList.isEmpty()) {
-            Random rand = new Random();
-            do {
-                int indexOne = new Random().nextInt(teamList.size());
-                int indexTwo = new Random().nextInt(teamList.size());
-
-                randomTeamOne = (teamList.get(indexOne));
-                randomTeamTwo = (teamList.get(indexTwo));
-
-                randomScoreOne = rand.nextInt(20);
-                randomScoreTwo = rand.nextInt(20);
-
-                int minDay = (int) LocalDate.of(2020, 1, 1).toEpochDay();
-                int maxDay = (int) LocalDate.of(2020, 12, 31).toEpochDay();
-                long randomDay = minDay + rand.nextInt(maxDay - minDay);
-
-                randomLocalDate = LocalDate.ofEpochDay(randomDay);
-
-            } while (randomTeamOne.getClubName().equals(randomTeamTwo.getClubName()));
-
-            Match match = new Match(randomLocalDate, randomTeamOne.getClubName(), randomTeamTwo.getClubName(),
-                    randomScoreOne, randomScoreTwo, "");
-            match.updateStats();
-            matchList.add(match);
-
-            return match;
-        }
-        return null;
-    }
-
     public boolean isContain(String clubName) {
         for (FootballClub f : teamList) {
             if (f.getClubName().equalsIgnoreCase(clubName)) {
@@ -326,5 +193,17 @@ public class PremierLeagueManager implements LeagueManager {
             }
         }
         return true;
+    }
+
+    public List<FootballClub> getTeamList() {
+        return teamList;
+    }
+
+    public List<Match> getMatchList() {
+        return matchList;
+    }
+
+    public int getAvailableSlots() {
+        return availableSlots;
     }
 }

@@ -10,9 +10,13 @@ GET         /api/leaderboard                     controllers.LeagueController.sh
 GET         /api/leaderboard/:sort/:order        controllers.LeagueController.getSortedLeaderboardData(sort:String, order:String)
 GET         /api/match-table                     controllers.LeagueController.showPlayedMatches()
 GET         /api/match-table/search/:date        controllers.LeagueController.getSearchedMatch(date: String)
-GET         /api/add/get-random                  controllers.LeagueController.getRandomMatch()
+GET         /api/add/get-random                  controllers.LeagueController.getRandomMatch
 
 POST        /api/add/random                      controllers.LeagueController.addRandomMatch()
+POST        /api/save-data/clubs                 controllers.LeagueController.saveTeamsData()
+POST        /api/save-data/matches               controllers.LeagueController.saveMatchesData()
+#POST        /api/load-data/clubs
+#POST        /api/load-data?matches
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                        controllers.Assets.versioned(path="/public", file: Asset)

@@ -1,6 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatchModel} from "../view-all-matches/match-table/match.model";
-import {RandomMatchService} from "../backend-services/generate-random-service/generate-random.service";
+import {AppServices} from "../backend-services/app-services/app-services.service";
 
 @Component({
   selector: 'app-random-match-dialog',
@@ -8,7 +8,6 @@ import {RandomMatchService} from "../backend-services/generate-random-service/ge
   styleUrls: ['./random-match-dialog.component.css']
 })
 
-// @ts-nocheck
 export class RandomMatchDialogComponent implements OnInit {
 
   randomMatchDate: MatchModel;
@@ -19,15 +18,14 @@ export class RandomMatchDialogComponent implements OnInit {
   teamTwoScore : number;
   matchStats: string;
 
-  constructor(private randomMatchService: RandomMatchService) {
+  constructor(private randomMatchService: AppServices) {
 
-    // getting the response from backend and set it to the dialog box accordingly
+    // getting the response from backend and set it to the dialog box params
     this.randomMatchService.getRandomMatch().subscribe((data: any) => {
       this.randomMatchDate = data.response;
     });
   }
 
   ngOnInit(): void {
-    console.log(this.randomMatchDate);
   }
 }
