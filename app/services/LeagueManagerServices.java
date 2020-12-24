@@ -3,8 +3,6 @@ package services;
 import models.FootballClub;
 import models.Match;
 
-import java.io.File;
-import java.nio.file.FileSystems;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,11 +16,8 @@ public class LeagueManagerServices {
     List<Match> matchList = premierLeagueManager.getMatchList();
     List<FootballClub> teamList = premierLeagueManager.getTeamList();
 
-//    final String leagueMatches = "/utils/DataSource/PremierLeagueMatches.txt";
-    final String leagueTeams = "/utils/DataSource/PremierLeagueTeams.txt";
-
-    File file = new File("utils/DataSource/PremierLeagueTeams.txt");
-    final String leagueMatches = file.getAbsolutePath();
+    final String leagueMatches = "app/utils/DataSource/PremierLeagueMatches.txt";
+    final String leagueTeams = "app/utils/DataSource/PremierLeagueTeams.txt";
 
     private static LeagueManagerServices instance = null;
 

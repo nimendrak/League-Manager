@@ -43,17 +43,12 @@ public class PremierLeagueManager implements LeagueManager {
 
     //  delete
     public void sampleData() {
-        teamList.add(f1);
-        teamList.add(f2);
-        teamList.add(f3);
+//        teamList.add(f1);
+//        teamList.add(f2);
+//        teamList.add(f3);
 
-        m1.updateStats();
-//        m2.updateStats();
-//        m3.updateStats();
-//
-        matchList.add(m1);
-//        matchList.add(m2);
-//        matchList.add(m3);
+//        m1.updateStats();
+//        matchList.add(m1);
     }
 
     @Override
@@ -107,6 +102,7 @@ public class PremierLeagueManager implements LeagueManager {
         // delete
         if (!oneTime) {
             sampleData();
+            System.out.println("Sample Data");
             oneTime = true;
         }
 
@@ -124,25 +120,32 @@ public class PremierLeagueManager implements LeagueManager {
             File file = new File(fileName);
             if (!file.getParentFile().exists())
                 file.getParentFile().mkdirs();
-            if (!file.exists())
-                file.createNewFile();
 
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-
-            if (fileName.contains("Teams.txt")) {
-                for (FootballClub f : teamList) {
-                    objectOutputStream.writeObject(f);
-                }
-            } else {
-                for (Match m : matchList) {
-                    objectOutputStream.writeObject(m);
-                }
+            boolean fileDeleted = false;
+//          clear all the data by deleting the existing file and recreating it
+            if (file.exists() && file.isFile()) {
+                fileDeleted = file.delete();
             }
+            boolean fileCreated = file.createNewFile();
 
-            objectOutputStream.flush();
-            objectOutputStream.close();
-            fileOutputStream.close();
+            if (fileCreated & fileDeleted) {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+                if (fileName.contains("Teams.txt")) {
+                    for (FootballClub f : teamList) {
+                        objectOutputStream.writeObject(f);
+                    }
+                } else {
+                    for (Match m : matchList) {
+                        objectOutputStream.writeObject(m);
+                    }
+                }
+
+                objectOutputStream.flush();
+                objectOutputStream.close();
+                fileOutputStream.close();
+            }
 
         } catch (IOException e) {
 //            e.printStackTrace();
@@ -152,6 +155,7 @@ public class PremierLeagueManager implements LeagueManager {
     @Override
     public void loadData(String fileName) {
         File file = new File(fileName);
+
         boolean empty = !file.exists() || file.length() == 0;
 
         if (!empty) {
@@ -201,9 +205,5 @@ public class PremierLeagueManager implements LeagueManager {
 
     public List<Match> getMatchList() {
         return matchList;
-    }
-
-    public int getAvailableSlots() {
-        return availableSlots;
     }
 }

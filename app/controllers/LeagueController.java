@@ -73,4 +73,18 @@ public class LeagueController extends Controller {
         JsonNode jsonObject = Json.toJson(result);
         return created(ApplicationUtil.createResponse(jsonObject, true));
     }
+
+    public Result loadTeamsData() {
+        List<FootballClub> result = LeagueManagerServices.getInstance().loadTeamsData();
+        logger.debug("In LeagueController.getSearchedMatch(), result is: {}", result.toString());
+        JsonNode jsonObject = Json.toJson(result);
+        return created(ApplicationUtil.createResponse(jsonObject, true));
+    }
+
+    public Result loadMatchesData() {
+        List<Match> result = LeagueManagerServices.getInstance().loadMatchesData();
+        logger.debug("In LeagueController.getSearchedMatch(), result is: {}", result.toString());
+        JsonNode jsonObject = Json.toJson(result);
+        return created(ApplicationUtil.createResponse(jsonObject, true));
+    }
 }
