@@ -10,9 +10,9 @@ import {MatchTableService} from "../../backend-services/match-table-services/mat
   styleUrls: ['./match-table.component.css']
 })
 export class MatchTableComponent implements AfterViewInit, OnInit {
-   paginator: MatPaginator;
+  paginator: MatPaginator;
 
-   table: MatTable<MatchModel>;
+  table: MatTable<MatchModel>;
 
   // table columns
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -25,6 +25,16 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
   @Input() matchModels: MatchModel[] = [];
 
   ngOnInit() {
+    // setInterval(() => this.populateMatchTableData(), 1000);
+    this.populateMatchTableData();
+  }
+
+  ngAfterViewInit() {
+    // this.dataSource.paginator = this.paginator;
+    // this.table.dataSource = this.dataSource;
+  }
+
+  populateMatchTableData() {
     this.matchTableService.getTableData()
       .subscribe((data: any) => {
         this.matchModels = data;
@@ -33,11 +43,6 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
         // console.log(data.response);
         this.dataSource = new MatTableDataSource<MatchModel>(data.response);
       }, error => console.error(error));
-  }
-
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-    // this.table.dataSource = this.dataSource;
   }
 
 }

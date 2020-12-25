@@ -1,14 +1,13 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
-import {map, shareReplay, timeInterval} from 'rxjs/operators';
+import {map, shareReplay} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpClient} from "@angular/common/http";
 import {AppServices} from "./backend-services/app-services/app-services.service";
 import {MatchModel} from "./view-all-matches/match-table/match.model";
 import {RandomMatchDialogComponent} from "./random-match-dialog/random-match-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
-import {MatchTableComponent} from "./view-all-matches/match-table/match-table.component";
 
 @Component({
   selector: 'app-root',
@@ -35,8 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    setInterval(()=> this.loadClubsData(), 1000);
-    setInterval(()=> this.loadMatchesData(), 1000);
+    this.loadClubsData();
+    this.loadMatchesData();
+    // setInterval(()=> this.loadClubsData(), 1000);
+    // setInterval(()=> this.loadMatchesData(), 1000);
   }
 
   // save data, while closing the tab

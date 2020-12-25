@@ -1,6 +1,7 @@
 import models.FootballClub;
 import services.PremierLeagueManager;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -48,7 +49,7 @@ public class ConsoleApplication {
                     deleteClub(premierLeagueManager);
                     break;
                 case "3":
-                    addPlayedMatch(premierLeagueManager);
+                    addPlayedMatch(premierLeagueManager, leagueMatches);
                     break;
                 case "4":
                     displayLeagueTable(premierLeagueManager);
@@ -66,6 +67,9 @@ public class ConsoleApplication {
                     System.out.println("\nApplication is now Existing...\n");
 //                    saveDate(premierLeagueManager, leagueTeams, leagueMatches);
                     break;
+                case "9":
+                    invokePlayServer();
+                    break;
                 default:
                     System.out.println("Invalid input");
                     System.out.println("\n------------------------------------------------------");
@@ -73,6 +77,16 @@ public class ConsoleApplication {
         } while (!option.equals("8"));
     }
 
+    private static void invokePlayServer() {
+        String command = "sbt run ./app";
+
+        try {
+            Process proc = Runtime.getRuntime().exec(command);
+            proc.waitFor();
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static void loadAllData(PremierLeagueManager leagueManager, String teamData, String matchData) {
         try {
@@ -172,7 +186,7 @@ public class ConsoleApplication {
         System.out.println("\n------------------------------------------------------");
     }
 
-    private static void addPlayedMatch(PremierLeagueManager leagueManager) {
+    private static void addPlayedMatch(PremierLeagueManager leagueManager, String leagueMatches) {
         System.out.println("------------------------------------------------------");
 
         System.out.println("\n*************************");
@@ -203,6 +217,7 @@ public class ConsoleApplication {
 
                 if (today.isAfter(LocalDate.parse(dateString)) | today.equals(LocalDate.parse(dateString))) {
                     leagueManager.addPlayedMatch(clubOneName, clubTwoName, clubOneGoals, clubTwoGoals, LocalDate.parse(dateString));
+                    leagueManager.saveData(leagueMatches);
 
                     System.out.println("\n" + "\033[1;93m" + clubOneName + "\033[0m" + " vs " + "\033[1;93m" + clubTwoName + "\033[0m" + " match has been added!");
                 }
@@ -279,7 +294,7 @@ public class ConsoleApplication {
             if (type.equalsIgnoreCase("\n" + "save")) {
                 System.out.println("\nError occurred while saving the data");
             } else {
-                System.out.println("\nNo Data Available!");
+                System.out.println("No Data Available!");
             }
         }
         PremierLeagueManager.setSuccess(false);

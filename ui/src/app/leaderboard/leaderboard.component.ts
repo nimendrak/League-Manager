@@ -19,9 +19,6 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   dropdownOne: boolean;
   dropdownTwo: boolean;
 
-  p1: any;
-  p2: any;
-
   dropDownOptionsOne: string[] = [
     // @ts-ignore
     {value: 'goals', viewValue: 'Goals Scored'}, {value: 'wins', viewValue: 'Season Wins'}, {
@@ -47,7 +44,8 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   clubModels: ClubModel[] = [];
 
   ngOnInit() {
-    setInterval(() => this.populateLeaderboardTable(), 1000);
+    this.populateLeaderboardTable();
+    // setInterval(() => this.populateLeaderboardTable(), 1000);
   }
 
   ngAfterViewInit() {
