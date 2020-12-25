@@ -13,6 +13,7 @@ public class PremierLeagueManager implements LeagueManager {
     private List<FootballClub> teamList = new ArrayList<>();
     private List<Match> matchList = new ArrayList<>();
     private int availableSlots = MAX_TEAMS;
+    static boolean success = false;
 
     private static PremierLeagueManager instance = null;
 
@@ -28,27 +29,6 @@ public class PremierLeagueManager implements LeagueManager {
             }
         }
         return instance;
-    }
-
-    //  delete
-    static boolean oneTime = false;
-
-    //  delete
-    FootballClub f1 = new FootballClub("ccc", "Colombo", 0, 0, 0, 0, 0, 0, 0);
-    FootballClub f2 = new FootballClub("aaa", "Kelaniya", 0, 0, 0, 0, 0, 0, 0);
-    FootballClub f3 = new FootballClub("bbb", "Moratuwa", 0, 0, 0, 0, 0, 0, 0);
-
-    //  delete
-    Match m1 = new Match(LocalDate.of(2020, 12, 25), "aaa1", "bbb2", 1, 2, "");
-
-    //  delete
-    public void sampleData() {
-        teamList.add(f1);
-        teamList.add(f2);
-        teamList.add(f3);
-
-//        m1.updateStats();
-//        matchList.add(m1);
     }
 
     @Override
@@ -100,18 +80,15 @@ public class PremierLeagueManager implements LeagueManager {
 
     @Override
     public List<FootballClub> displayLeagueTable() {
-        // delete
-//        if (!oneTime) {
-//            sampleData();
-//            oneTime = true;
-//        }
-
         /*
          * compareTo method use as the default sorting
          * if search function triggered, program will use custom comparators accordingly
          * */
-        Collections.sort(teamList, Collections.reverseOrder());
-        return teamList;
+        if (!teamList.isEmpty()) {
+            Collections.sort(teamList, Collections.reverseOrder());
+            return teamList;
+        }
+        return null;
     }
 
     @Override
@@ -121,14 +98,13 @@ public class PremierLeagueManager implements LeagueManager {
             if (!file.getParentFile().exists())
                 file.getParentFile().mkdirs();
 
-            boolean fileDeleted = false;
 //          clear all the data by deleting the existing file and recreating it
             if (file.exists() && file.isFile()) {
-                fileDeleted = file.delete();
+                file.delete();
             }
             boolean fileCreated = file.createNewFile();
 
-            if (fileCreated & fileDeleted) {
+            if (fileCreated) {
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
@@ -144,7 +120,8 @@ public class PremierLeagueManager implements LeagueManager {
                 objectOutputStream.flush();
                 objectOutputStream.close();
                 fileOutputStream.close();
-                System.out.println("Successfully Saved to the File!");
+                success = true;
+//                System.out.println("Successfully Saved to the File!");
             }
 
         } catch (IOException e) {
@@ -155,7 +132,6 @@ public class PremierLeagueManager implements LeagueManager {
     @Override
     public void loadData(String fileName) {
         File file = new File(fileName);
-
         boolean empty = !file.exists() || file.length() == 0;
 
         if (!empty) {
@@ -179,7 +155,7 @@ public class PremierLeagueManager implements LeagueManager {
                         }
                     } catch (EOFException | ClassNotFoundException ex) {
 //                        ex.printStackTrace();
-                        System.out.println("Successfully Loaded!");
+                        success = true;
                         break;
                     }
                 }
@@ -189,9 +165,23 @@ public class PremierLeagueManager implements LeagueManager {
             } catch (IOException e) {
 //                e.printStackTrace();
             }
-        } else {
-            System.out.println("No Data Available!");
         }
+    }
+
+    public List<FootballClub> getTeamList() {
+        return teamList;
+    }
+
+    public List<Match> getMatchList() {
+        return matchList;
+    }
+
+    public static boolean isSuccess() {
+        return success;
+    }
+
+    public static void setSuccess(boolean success) {
+        PremierLeagueManager.success = success;
     }
 
     public boolean isContain(String clubName) {
@@ -201,13 +191,5 @@ public class PremierLeagueManager implements LeagueManager {
             }
         }
         return true;
-    }
-
-    public List<FootballClub> getTeamList() {
-        return teamList;
-    }
-
-    public List<Match> getMatchList() {
-        return matchList;
     }
 }

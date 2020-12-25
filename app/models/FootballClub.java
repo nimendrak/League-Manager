@@ -80,24 +80,28 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
 
     @Override
     public String toString() {
-        return super.toString() + "\t\t\t " + String.format("%02d", numOfMatchesPlayed) + "\t  " + String.format("%02d", seasonWins) + "  " + String.format("%02d", seasonDefeats) + "  " +
+        return super.toString() + "\t\t" + String.format("%02d", numOfMatchesPlayed) + "  " + String.format("%02d", seasonWins) + "  " + String.format("%02d", seasonDefeats) + "  " +
                 String.format("%02d", seasonDraws) + "  " + String.format("%02d", numOfGoalsScored) + "  " + String.format("%02d", numOfGoalsReceived) + "  " + String.format("%02d", numOfPointsGained);
     }
 
     @Override
     public int compareTo(FootballClub o) {
-        if (this.numOfPointsGained == o.numOfPointsGained) {
+        if (this.numOfMatchesPlayed != 0 && o.numOfMatchesPlayed != 0) {
+            if (this.numOfPointsGained == o.numOfPointsGained) {
 //          if goalsScored same, checking goal difference here
-            if ((this.numOfGoalsScored - this.numOfGoalsReceived) > ((o.numOfGoalsScored - o.numOfGoalsReceived))) {
+                if ((this.numOfGoalsScored - this.numOfGoalsReceived) > ((o.numOfGoalsScored - o.numOfGoalsReceived))) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            } else if (this.numOfPointsGained > o.numOfPointsGained) {
                 return 1;
             } else {
                 return -1;
             }
-        } else if (this.numOfPointsGained > o.numOfPointsGained) {
-            return 1;
-        } else {
-            return -1;
         }
+        return 0;
     }
+
 }
 

@@ -29,7 +29,6 @@ export class LeaderboardService {
     params = params.append('/sort', sort);
     params = params.append('/order', order);
 
-    // console.log(params.toString());
     return this.http.get<ClubModel[]>(this.getSortingDataUrl + "/" + sort + "/" + order);
   }
 

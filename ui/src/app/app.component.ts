@@ -1,13 +1,14 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 import {Observable} from 'rxjs';
-import {map, shareReplay} from 'rxjs/operators';
+import {map, shareReplay, timeInterval} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {HttpClient} from "@angular/common/http";
 import {AppServices} from "./backend-services/app-services/app-services.service";
 import {MatchModel} from "./view-all-matches/match-table/match.model";
 import {RandomMatchDialogComponent} from "./random-match-dialog/random-match-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {MatchTableComponent} from "./view-all-matches/match-table/match-table.component";
 
 @Component({
   selector: 'app-root',
@@ -30,12 +31,12 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private breakpointObserver: BreakpointObserver, private _snackBar: MatSnackBar,
               private http: HttpClient, private navService: AppServices,
               private dialog: MatDialog) {
+
   }
 
-  // when application starts, data will be load once
   ngOnInit(): void {
-    //TODO: this loadData() runs everytime pages init
-    this.loadData();
+    setInterval(()=> this.loadClubsData(), 1000);
+    setInterval(()=> this.loadMatchesData(), 1000);
   }
 
   // save data, while closing the tab
@@ -62,7 +63,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dialog.open(RandomMatchDialogComponent);
 
     this.dialog.afterAllClosed.subscribe(() =>
-      window.location.reload());
+      window.location.reload()
+    );
   }
 
   saveData() {
@@ -73,17 +75,17 @@ export class AppComponent implements OnInit, OnDestroy {
     this.navService.postSaveMatchesData().subscribe((data: any) => {
       this.postRequestResponse = data.content;
     });
-
-    console.log("saved");
   }
 
-  loadData() {
+  loadClubsData() {
     this.navService.getLoadClubsData().subscribe((data: any) => {
       this.postRequestResponse = data.content;
     });
+  }
 
+  loadMatchesData() {
     this.navService.getLoadMatchesData().subscribe((data: any) => {
       this.postRequestResponse = data.content;
-    })
+    });
   }
 }

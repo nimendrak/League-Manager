@@ -47,14 +47,7 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   clubModels: ClubModel[] = [];
 
   ngOnInit() {
-    this.leaderboardService.getTableData()
-      .subscribe((data: any) => {
-        this.clubModels = data;
-        // check response
-        console.log("not sorted");
-        console.log(data.response);
-        this.dataSource = new MatTableDataSource(data.response);
-      }, error => console.error(error));
+    setInterval(() => this.populateLeaderboardTable(), 1000);
   }
 
   ngAfterViewInit() {
@@ -64,13 +57,16 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
     this.leaderboardService.getSortingData(p1, p2)
       .subscribe((data: any) => {
         this.clubModels = data;
-        // check response
-        console.log("sorted according to - " + p1 + " " + p2);
-        console.log(data.response);
         this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
+  }
 
-
+  populateLeaderboardTable() {
+    this.leaderboardService.getTableData()
+      .subscribe((data: any) => {
+        this.clubModels = data;
+        this.dataSource = new MatTableDataSource(data.response);
+      }, error => console.error(error));
   }
 
 

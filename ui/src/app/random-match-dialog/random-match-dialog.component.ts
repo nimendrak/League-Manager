@@ -19,7 +19,6 @@ export class RandomMatchDialogComponent implements OnInit {
   matchStats: string;
 
   constructor(private randomMatchService: AppServices) {
-
     // getting the response from backend and set it to the dialog box params
     this.randomMatchService.getRandomMatch().subscribe((data: any) => {
       this.randomMatchDate = data.response;

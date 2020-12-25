@@ -74,6 +74,8 @@ public class LeagueManagerServices {
             match.updateStats();
             matchList.add(match);
 
+            premierLeagueManager.saveData(leagueMatches);
+
             return match;
         }
         return null;
@@ -100,8 +102,8 @@ public class LeagueManagerServices {
 
 //      comparator for gained points
         Comparator<FootballClub> compareByPoints = Comparator
-                .comparing(FootballClub::getNumOfGoalsScored)
-                .thenComparing(FootballClub::getNumOfGoalsScored);
+                .comparing(FootballClub::getNumOfPointsGained)
+                .thenComparing(FootballClub::getNumOfPointsGained);
 
         if (type.equalsIgnoreCase("goals")) {
             if (order.equalsIgnoreCase("ascending")) {

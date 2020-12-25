@@ -1,8 +1,6 @@
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/controllers/LeagueController.java:65:1: cannot find symbol[0m
-[0m[[0m[31merror[0m] [0m[0m  symbol:   variable result[0m
-[0m[[0m[31merror[0m] [0m[0m  location: class controllers.LeagueController[0m
-[0m[[0m[31merror[0m] [0m[0mresult[0m
-[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/controllers/LeagueController.java:66:1: cannot find symbol[0m
-[0m[[0m[31merror[0m] [0m[0m  symbol:   variable result[0m
-[0m[[0m[31merror[0m] [0m[0m  location: class controllers.LeagueController[0m
-[0m[[0m[31merror[0m] [0m[0mresult[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/ConsoleApplication.java:122:1: cannot find symbol[0m
+[0m[[0m[31merror[0m] [0m[0m  symbol:   variable is[0m
+[0m[[0m[31merror[0m] [0m[0m  location: variable premierLeagueManager of type services.PremierLeagueManager[0m
+[0m[[0m[31merror[0m] [0m[0mpremierLeagueManager.is[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/ConsoleApplication.java:122:1: illegal parenthesized expression[0m
+[0m[[0m[31merror[0m] [0m[0m(premierLeagueManager.is)[0m
