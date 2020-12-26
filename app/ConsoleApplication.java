@@ -1,7 +1,8 @@
 import models.FootballClub;
-import services.PremierLeagueManager;
+import services.consoleAppServices.PremierLeagueManager;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -17,8 +18,11 @@ public class ConsoleApplication {
         System.out.println("*********** " + "\033[1;93m" + "Football Premier League Manager " + "\033[0m" + "**********");
         System.out.println("******************************************************");
 
-        final String leagueMatches = "utils/DataSource/PremierLeagueMatches.txt";
-        final String leagueTeams = "utils/DataSource/PremierLeagueTeams.txt";
+//        final String leagueMatches = FileSystems.getDefault().getPath("DataSource/PremierLeagueMatches.txt").normalize().toAbsolutePath().toString();
+//        final String leagueTeams = FileSystems.getDefault().getPath("DataSource/PremierLeagueTeams.txt").normalize().toAbsolutePath().toString();
+
+        final String leagueMatches = "DataSource/PremierLeagueMatches.txt";
+        final String leagueTeams = "DataSource/PremierLeagueTeams.txt";
 
         System.out.println("\nIndexing Premier League Data..");
         loadAllData(premierLeagueManager, leagueTeams, leagueMatches);
@@ -36,7 +40,8 @@ public class ConsoleApplication {
             System.out.println("Press 5 to Display Stats for specific Club");
             System.out.println("Press 6 to Save data into a file");
             System.out.println("Press 7 to Load data from the file");
-            System.out.println("Press 8 to Quit");
+            System.out.println("Press 8 to Launch the GUI application");
+            System.out.println("Press 9 to Quit");
 
             System.out.print("\nPrompt your Option : ");
             option = sc.next();
@@ -46,10 +51,10 @@ public class ConsoleApplication {
                     addClub(premierLeagueManager, leagueTeams);
                     break;
                 case "2":
-                    deleteClub(premierLeagueManager);
+                    deleteClub(premierLeagueManager, leagueTeams);
                     break;
                 case "3":
-                    addPlayedMatch(premierLeagueManager, leagueMatches);
+                    addPlayedMatch(premierLeagueManager, leagueMatches, leagueTeams);
                     break;
                 case "4":
                     displayLeagueTable(premierLeagueManager);
@@ -64,25 +69,35 @@ public class ConsoleApplication {
                     loadData(premierLeagueManager, leagueTeams, leagueMatches);
                     break;
                 case "8":
-                    System.out.println("\nApplication is now Existing...\n");
-//                    saveDate(premierLeagueManager, leagueTeams, leagueMatches);
+                    invokePlayServer();
                     break;
                 case "9":
-                    invokePlayServer();
+                    System.out.println("\nApplication is now Existing...");
+//                    saveDate(premierLeagueManager, leagueTeams, leagueMatches);
                     break;
                 default:
                     System.out.println("Invalid input");
                     System.out.println("\n------------------------------------------------------");
             }
-        } while (!option.equals("8"));
+        } while (!option.equals("9"));
     }
 
     private static void invokePlayServer() {
-        String command = "sbt run ./app";
-
         try {
-            Process proc = Runtime.getRuntime().exec(command);
-            proc.waitFor();
+            ProcessBuilder builder = new ProcessBuilder();
+
+            boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+
+            if (isWindows) {
+                builder.command("cmd.exe", "/c", "sbt run ./app");
+            } else {
+                builder.command("zsh", "-c", "sbt run ./app");
+            }
+            Process process = builder.start();
+
+            System.out.println("\033[1;93m" + "\nGUI application is now Launching..\n" + "\033[0m");
+            TimeUnit.SECONDS.sleep(10);
+
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -99,6 +114,9 @@ public class ConsoleApplication {
             System.out.print("Matches  - ");
             leagueManager.loadData(matchData);
             validateSuccess("Successfully Loaded!", "load");
+
+            System.out.println(leagueManager.getTeamList().size());
+            System.out.println(leagueManager.getMatchList().size());
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -186,7 +204,7 @@ public class ConsoleApplication {
         System.out.println("\n------------------------------------------------------");
     }
 
-    private static void addPlayedMatch(PremierLeagueManager leagueManager, String leagueMatches) {
+    private static void addPlayedMatch(PremierLeagueManager leagueManager, String leagueMatches, String leagueTeams) {
         System.out.println("------------------------------------------------------");
 
         System.out.println("\n*************************");
@@ -218,6 +236,7 @@ public class ConsoleApplication {
                 if (today.isAfter(LocalDate.parse(dateString)) | today.equals(LocalDate.parse(dateString))) {
                     leagueManager.addPlayedMatch(clubOneName, clubTwoName, clubOneGoals, clubTwoGoals, LocalDate.parse(dateString));
                     leagueManager.saveData(leagueMatches);
+                    leagueManager.saveData(leagueTeams);
 
                     System.out.println("\n" + "\033[1;93m" + clubOneName + "\033[0m" + " vs " + "\033[1;93m" + clubTwoName + "\033[0m" + " match has been added!");
                 }
@@ -230,7 +249,7 @@ public class ConsoleApplication {
         System.out.println("\n------------------------------------------------------");
     }
 
-    private static void deleteClub(PremierLeagueManager leagueManager) {
+    private static void deleteClub(PremierLeagueManager leagueManager, String teamData) {
         System.out.println("------------------------------------------------------");
 
         System.out.println("\n***************************");
@@ -241,6 +260,7 @@ public class ConsoleApplication {
         String clubName = isContain(leagueManager, "Name of the Club : ", sc.next());
 
         leagueManager.deleteClub(clubName);
+        leagueManager.saveData(teamData);
 
         System.out.println("\n------------------------------------------------------");
     }
@@ -291,8 +311,8 @@ public class ConsoleApplication {
         if (PremierLeagueManager.isSuccess()) {
             System.out.println(message);
         } else {
-            if (type.equalsIgnoreCase("\n" + "save")) {
-                System.out.println("\nError occurred while saving the data");
+            if (type.equalsIgnoreCase("save")) {
+                System.out.println("Error occurred while saving the data");
             } else {
                 System.out.println("No Data Available!");
             }

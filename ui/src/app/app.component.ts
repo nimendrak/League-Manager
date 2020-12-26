@@ -34,10 +34,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadClubsData();
-    this.loadMatchesData();
-    // setInterval(()=> this.loadClubsData(), 1000);
-    // setInterval(()=> this.loadMatchesData(), 1000);
+    setInterval(()=> this.loadClubsData(), 100);
+    setInterval(()=> this.loadMatchesData(), 100);
   }
 
   // save data, while closing the tab
@@ -65,6 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.dialog.afterAllClosed.subscribe(() =>
       window.location.reload()
+      // this.ngOnInit()
     );
   }
 

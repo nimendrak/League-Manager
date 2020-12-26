@@ -9,8 +9,7 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-import services.LeagueManagerServices;
-import services.PremierLeagueManager;
+import services.guiAppServices.LeagueManagerServices;
 import utils.ApplicationUtil;
 
 import java.util.List;
@@ -26,7 +25,7 @@ public class LeagueController extends Controller {
     }
 
     public Result showLeaderboard() {
-        List<FootballClub> result = PremierLeagueManager.getInstance().displayLeagueTable();
+        List<FootballClub> result = LeagueManagerServices.getInstance().displayLeagueTable();
         logger.debug("In LeagueController.showLeaderboard(), result is: {}", result.toString());
         JsonNode jsonObject = Json.toJson(result);
         return ok(ApplicationUtil.createResponse(jsonObject, true));

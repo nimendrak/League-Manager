@@ -1,9 +1,10 @@
 package models;
 
-import services.PremierLeagueManager;
+import services.consoleAppServices.PremierLeagueManager;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Match implements Serializable {
     private LocalDate date;
@@ -125,5 +126,16 @@ public class Match implements Serializable {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return teamOneScore == match.teamOneScore && teamTwoScore == match.teamTwoScore && Objects.equals(date, match.date) && Objects.equals(teamOneName, match.teamOneName) && Objects.equals(teamTwoName, match.teamTwoName) && Objects.equals(matchStats, match.matchStats);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, teamOneName, teamOneScore, teamTwoName, teamTwoScore, matchStats);
+    }
 }

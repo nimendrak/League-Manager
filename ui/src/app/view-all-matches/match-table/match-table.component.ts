@@ -25,8 +25,7 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
   @Input() matchModels: MatchModel[] = [];
 
   ngOnInit() {
-    // setInterval(() => this.populateMatchTableData(), 1000);
-    this.populateMatchTableData();
+    setInterval(() => this.populateMatchTableData(), 100);
   }
 
   ngAfterViewInit() {

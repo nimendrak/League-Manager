@@ -1,4 +1,4 @@
-package services;
+package services.consoleAppServices;
 
 import models.FootballClub;
 

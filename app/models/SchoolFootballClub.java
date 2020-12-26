@@ -18,6 +18,4 @@ public class SchoolFootballClub extends FootballClub {
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
     }
-
-
 }

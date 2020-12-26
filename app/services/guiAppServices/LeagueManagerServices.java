@@ -1,13 +1,11 @@
-package services;
+package services.guiAppServices;
 
 import models.FootballClub;
 import models.Match;
+import services.consoleAppServices.PremierLeagueManager;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LeagueManagerServices {
@@ -16,8 +14,8 @@ public class LeagueManagerServices {
     List<Match> matchList = premierLeagueManager.getMatchList();
     List<FootballClub> teamList = premierLeagueManager.getTeamList();
 
-    final String leagueMatches = "app/utils/DataSource/PremierLeagueMatches.txt";
-    final String leagueTeams = "app/utils/DataSource/PremierLeagueTeams.txt";
+    final String leagueMatches = "DataSource/PremierLeagueMatches.txt";
+    final String leagueTeams = "DataSource/PremierLeagueTeams.txt";
 
     private static LeagueManagerServices instance = null;
 
@@ -41,6 +39,18 @@ public class LeagueManagerServices {
     * PremierLeagueManager class
     * which has been used for both Angular Client and CLI application
     * */
+
+    public List<FootballClub> displayLeagueTable() {
+        /*
+         * compareTo method use as the default sorting
+         * if search function triggered, program will use custom comparators accordingly
+         * */
+        if (!teamList.isEmpty()) {
+            Collections.sort(teamList, Collections.reverseOrder());
+            return teamList;
+        }
+        return null;
+    }
 
     public Match addRandomMatch() {
 

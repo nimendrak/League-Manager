@@ -44,8 +44,7 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   clubModels: ClubModel[] = [];
 
   ngOnInit() {
-    this.populateLeaderboardTable();
-    // setInterval(() => this.populateLeaderboardTable(), 1000);
+    setInterval(() => this.populateLeaderboardTable(), 10);
   }
 
   ngAfterViewInit() {

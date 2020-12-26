@@ -1,4 +1,4 @@
-package services;
+package services.consoleAppServices;
 
 import models.FootballClub;
 import models.Match;
@@ -10,8 +10,8 @@ import java.util.*;
 public class PremierLeagueManager implements LeagueManager {
 
     final static int MAX_TEAMS = 20;
-    private List<FootballClub> teamList = new ArrayList<>();
-    private List<Match> matchList = new ArrayList<>();
+    private final List<FootballClub> teamList = new ArrayList<>();
+    private final List<Match> matchList = new ArrayList<>();
     private int availableSlots = MAX_TEAMS;
     static boolean success = false;
 
@@ -40,9 +40,8 @@ public class PremierLeagueManager implements LeagueManager {
         } else {
             teamList.add(footballClub);
             availableSlots -= 1;
-            System.out.println("\nTeam " + footballClub.getClubName() + " successfully added to the League!");
+            System.out.println("\nTeam " + footballClub.getClubName() + " from " + footballClub.getClubLocation() + " successfully added to the League!");
         }
-
         System.out.println("\nThere are " + "\033[1;93m" + availableSlots + " available slots " + "\033[0m" + "in the League");
     }
 
@@ -99,12 +98,12 @@ public class PremierLeagueManager implements LeagueManager {
                 file.getParentFile().mkdirs();
 
 //          clear all the data by deleting the existing file and recreating it
-            if (file.exists() && file.isFile()) {
-                file.delete();
-            }
-            boolean fileCreated = file.createNewFile();
+//            if (file.exists() && file.isFile()) {
+//                file.delete();
+//            }
+//            boolean fileCreated = file.createNewFile();
 
-            if (fileCreated) {
+            if (file.exists()) {
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
@@ -121,7 +120,6 @@ public class PremierLeagueManager implements LeagueManager {
                 objectOutputStream.close();
                 fileOutputStream.close();
                 success = true;
-//                System.out.println("Successfully Saved to the File!");
             }
 
         } catch (IOException e) {
@@ -146,6 +144,7 @@ public class PremierLeagueManager implements LeagueManager {
                             f = (FootballClub) objectInputStream.readObject();
                             if (!teamList.contains(f)) {
                                 teamList.add(f);
+                                availableSlots -= 1;
                             }
                         } else {
                             Match m = (Match) objectInputStream.readObject();
@@ -161,6 +160,7 @@ public class PremierLeagueManager implements LeagueManager {
                 }
                 fileInputStream.close();
                 objectInputStream.close();
+                System.out.println("availableSlots " + availableSlots);
 
             } catch (IOException e) {
 //                e.printStackTrace();
