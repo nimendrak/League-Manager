@@ -13,6 +13,7 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
   paginator: MatPaginator;
 
   table: MatTable<MatchModel>;
+  populate: true;
 
   // table columns
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
@@ -25,23 +26,24 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
   @Input() matchModels: MatchModel[] = [];
 
   ngOnInit() {
-    setInterval(() => this.populateMatchTableData(), 100);
+    // this.populateMatchTableData();
   }
 
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-    // this.table.dataSource = this.dataSource;
+    this.populateMatchTableData();
+    // setInterval(() => this.populateMatchTableData(), 100);
   }
 
   populateMatchTableData() {
-    this.matchTableService.getTableData()
-      .subscribe((data: any) => {
-        this.matchModels = data;
-        // check response
-        // console.log("match table");
-        // console.log(data.response);
-        this.dataSource = new MatTableDataSource<MatchModel>(data.response);
-      }, error => console.error(error));
+    if (this.populate) {
+      this.matchTableService.getTableData()
+        .subscribe((data: any) => {
+          this.matchModels = data;
+          // check response
+          // console.log("match table");
+          // console.log(data.response);
+          this.dataSource = new MatTableDataSource<MatchModel>(data.response);
+        }, error => console.error(error));
+    }
   }
-
 }

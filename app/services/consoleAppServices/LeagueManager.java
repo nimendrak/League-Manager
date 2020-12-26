@@ -13,5 +13,4 @@ public interface LeagueManager {
     List<FootballClub> displayLeagueTable();
     void saveData(String fileName);
     void loadData(String fileName);
-
 }

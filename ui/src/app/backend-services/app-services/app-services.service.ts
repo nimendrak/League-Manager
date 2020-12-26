@@ -45,11 +45,11 @@ export class AppServices {
   }
 
   public getLoadClubsData() {
-    return this.http.post(this.postLoadClubsDataUrl, {});
+    return this.http.get(this.postLoadClubsDataUrl);
   }
 
   public getLoadMatchesData() {
-    return this.http.post(this.postLoadMatchesDataUrl, {});
+    return this.http.get(this.postLoadMatchesDataUrl);
   }
 
 

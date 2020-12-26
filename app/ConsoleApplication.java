@@ -1,7 +1,9 @@
 import models.FootballClub;
 import services.consoleAppServices.PremierLeagueManager;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -69,10 +71,11 @@ public class ConsoleApplication {
                     loadData(premierLeagueManager, leagueTeams, leagueMatches);
                     break;
                 case "8":
-                    invokePlayServer();
+                    invokePlayServer(true);
                     break;
                 case "9":
                     System.out.println("\nApplication is now Existing...");
+                    invokePlayServer(false);
 //                    saveDate(premierLeagueManager, leagueTeams, leagueMatches);
                     break;
                 default:
@@ -82,23 +85,33 @@ public class ConsoleApplication {
         } while (!option.equals("9"));
     }
 
-    private static void invokePlayServer() {
+    private static void invokePlayServer(boolean isRun) {
         try {
             ProcessBuilder builder = new ProcessBuilder();
+            Process process = null;
 
             boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
-
             if (isWindows) {
-                builder.command("cmd.exe", "/c", "sbt run ./app");
+                    builder.command("cmd.exe", "/c", "sbt run ./app");
             } else {
-                builder.command("zsh", "-c", "sbt run ./app");
+                if (isRun) {
+                    builder.command("zsh", "-c", "sbt run ./app");
+                    process = builder.start();
+                    System.out.println("\033[1;93m" + "\nGUI application is now Launching..\n" + "\033[0m");
+                    TimeUnit.SECONDS.sleep(10);
+                } else {
+                    builder.command("zsh", "-c", "kill -9 $(lsof -i:4200 -t) 2> /dev/null");
+                }
             }
-            Process process = builder.start();
 
-            System.out.println("\033[1;93m" + "\nGUI application is now Launching..\n" + "\033[0m");
-            TimeUnit.SECONDS.sleep(10);
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                System.out.println(line);
+//            }
 
-        } catch (IOException | InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -184,7 +197,7 @@ public class ConsoleApplication {
         System.out.println("The table sorted out in descending order \naccording to " +
                 "their points(PTS) gained\nthroughout the current League.\n");
 
-        System.out.println("\033[1;93m" + "\t\tLeague Table" + "\033[0m");
+        System.out.println("\033[1;93m" + "\t\t\tLeague Table" + "\033[0m");
         System.out.println("-------------------------------------------");
         System.out.println("Club\t\tMP  W   L   D   GS  GR  PTS");
         System.out.println("-------------------------------------------");

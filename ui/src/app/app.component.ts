@@ -54,7 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // set a time out till the backend responses
   getRandomDataToDialog() {
-    setTimeout(() => this.toDialog(), 10);
+    setTimeout(() => this.toDialog(), 150);
   }
 
   // calling the dialog form the child component
@@ -63,7 +63,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
     this.dialog.afterAllClosed.subscribe(() =>
       window.location.reload()
-      // this.ngOnInit()
     );
   }
 
