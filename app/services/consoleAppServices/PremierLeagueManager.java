@@ -13,8 +13,15 @@ public class PremierLeagueManager implements LeagueManager {
     private final List<FootballClub> teamList = new ArrayList<>();
     private final List<Match> matchList = new ArrayList<>();
     private int availableSlots = MAX_TEAMS;
-    static boolean success = false;
 
+    //  booleans to check specific progress
+    static boolean success = false;
+    static boolean isRun = false;
+
+    /*
+     * using singleton design pattern
+     * to use single premierLeague throughout the whole project
+     * */
     private static PremierLeagueManager instance = null;
 
     private PremierLeagueManager() {
@@ -94,32 +101,28 @@ public class PremierLeagueManager implements LeagueManager {
     public void saveData(String fileName) {
         try {
             File file = new File(fileName);
-            if (!file.getParentFile().exists())
+
+            if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
 
-//          clear all the data by deleting the existing file and recreating it
-//            if (file.exists() && file.isFile()) {
-//                file.delete();
-//            }
-//            boolean fileCreated = file.createNewFile();
-
-            if (file.exists()) {
-                FileOutputStream fileOutputStream = new FileOutputStream(file);
+//              overwriting with the existing data
+                FileOutputStream fileOutputStream = new FileOutputStream(file, false);
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
                 if (fileName.contains("Teams.txt")) {
                     for (FootballClub f : teamList) {
                         objectOutputStream.writeObject(f);
+                        success = true;
                     }
                 } else {
                     for (Match m : matchList) {
                         objectOutputStream.writeObject(m);
+                        success = true;
                     }
                 }
                 objectOutputStream.flush();
                 objectOutputStream.close();
                 fileOutputStream.close();
-                success = true;
             }
 
         } catch (IOException e) {
@@ -142,6 +145,10 @@ public class PremierLeagueManager implements LeagueManager {
                     try {
                         if (fileName.contains("Teams.txt")) {
                             f = (FootballClub) objectInputStream.readObject();
+                            /*
+                             * TODO: when program runs for the first time
+                             *  teamList is empty !
+                             * */
                             if (!teamList.contains(f)) {
                                 teamList.add(f);
                                 availableSlots -= 1;
@@ -160,7 +167,6 @@ public class PremierLeagueManager implements LeagueManager {
                 }
                 fileInputStream.close();
                 objectInputStream.close();
-                System.out.println("availableSlots " + availableSlots);
 
             } catch (IOException e) {
 //                e.printStackTrace();

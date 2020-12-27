@@ -1,10 +1,6 @@
 import models.FootballClub;
 import services.consoleAppServices.PremierLeagueManager;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -14,20 +10,17 @@ public class ConsoleApplication {
     static PremierLeagueManager premierLeagueManager = PremierLeagueManager.getInstance();
     final static Scanner sc = new Scanner(System.in);
 
+    final static String leagueMatches = "DataSource/PremierLeagueMatches.txt";
+    final static String leagueClubs = "DataSource/PremierLeagueTeams.txt";
+
     public static void main(String[] args) {
 
         System.out.println("\n******************************************************");
         System.out.println("*********** " + "\033[1;93m" + "Football Premier League Manager " + "\033[0m" + "**********");
         System.out.println("******************************************************");
 
-//        final String leagueMatches = FileSystems.getDefault().getPath("DataSource/PremierLeagueMatches.txt").normalize().toAbsolutePath().toString();
-//        final String leagueTeams = FileSystems.getDefault().getPath("DataSource/PremierLeagueTeams.txt").normalize().toAbsolutePath().toString();
-
-        final String leagueMatches = "DataSource/PremierLeagueMatches.txt";
-        final String leagueTeams = "DataSource/PremierLeagueTeams.txt";
-
         System.out.println("\nIndexing Premier League Data..");
-        loadAllData(premierLeagueManager, leagueTeams, leagueMatches);
+        loadAllData(premierLeagueManager, leagueClubs, leagueMatches);
 
         System.out.println("\n------------------------------------------------------");
 
@@ -50,25 +43,25 @@ public class ConsoleApplication {
 
             switch (option) {
                 case "1":
-                    addClub(premierLeagueManager, leagueTeams);
+                    addClub(premierLeagueManager);
                     break;
                 case "2":
-                    deleteClub(premierLeagueManager, leagueTeams);
+                    deleteClub(premierLeagueManager);
                     break;
                 case "3":
-                    addPlayedMatch(premierLeagueManager, leagueMatches, leagueTeams);
+                    addPlayedMatch(premierLeagueManager);
                     break;
                 case "4":
                     displayLeagueTable(premierLeagueManager);
                     break;
                 case "5":
-                    displayStatisticsForSpecificClub(premierLeagueManager);
+                    displaySingleClub(premierLeagueManager);
                     break;
                 case "6":
-                    saveDate(premierLeagueManager, leagueTeams, leagueMatches);
+                    saveDate(premierLeagueManager);
                     break;
                 case "7":
-                    loadData(premierLeagueManager, leagueTeams, leagueMatches);
+                    loadData(premierLeagueManager);
                     break;
                 case "8":
                     invokePlayServer(true);
@@ -92,28 +85,37 @@ public class ConsoleApplication {
 
             boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
             if (isWindows) {
-                    builder.command("cmd.exe", "/c", "sbt run ./app");
+                builder.command("cmd.exe", "/c", "sbt run ./app");
             } else {
                 if (isRun) {
                     builder.command("zsh", "-c", "sbt run ./app");
                     process = builder.start();
                     System.out.println("\033[1;93m" + "\nGUI application is now Launching..\n" + "\033[0m");
-                    TimeUnit.SECONDS.sleep(10);
+
+                    ProgressBar bar = new ProgressBar();
+                    System.out.println("Process Starts Now!");
+
+                    bar.update(0, 2000);
+                    for (int i = 0; i < 2000; i++) {
+                        // do something!
+                        for (int j = 0; j < 10000000; j++)
+                            for (int p = 0; p < 10000000; p++) ;
+                        // update the progress bar
+                        bar.update(i, 2000);
+                    }
+                    TimeUnit.SECONDS.sleep(5);
+                    System.out.println("Process Completed!\n");
+
                 } else {
                     builder.command("zsh", "-c", "kill -9 $(lsof -i:4200 -t) 2> /dev/null");
                 }
             }
 
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//
-//            String line;
-//            while ((line = reader.readLine()) != null) {
-//                System.out.println(line);
-//            }
-
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             e.printStackTrace();
         }
+
     }
 
     private static void loadAllData(PremierLeagueManager leagueManager, String teamData, String matchData) {
@@ -128,27 +130,27 @@ public class ConsoleApplication {
             leagueManager.loadData(matchData);
             validateSuccess("Successfully Loaded!", "load");
 
-            System.out.println(leagueManager.getTeamList().size());
-            System.out.println(leagueManager.getMatchList().size());
+            System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
+            System.out.println("matches count - " + leagueManager.getMatchList().size());
 
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    private static void loadData(PremierLeagueManager leagueManager, String teamData, String matchData) {
+    private static void loadData(PremierLeagueManager leagueManager) {
         System.out.println("------------------------------------------------------");
 
         System.out.println("\n**************************");
         System.out.println("\033[1;93m" + "Load League Data from a File" + "\033[0m");
         System.out.println("**************************\n");
 
-        loadAllData(leagueManager, teamData, matchData);
+        loadAllData(leagueManager, leagueClubs, leagueMatches);
 
         System.out.println("\n------------------------------------------------------");
     }
 
-    private static void saveDate(PremierLeagueManager leagueManager, String teamData, String matchData) {
+    private static void saveDate(PremierLeagueManager leagueManager) {
         System.out.println("------------------------------------------------------");
 
         System.out.println("\n**************************");
@@ -156,17 +158,17 @@ public class ConsoleApplication {
         System.out.println("**************************\n");
 
         System.out.print("Teams    - ");
-        leagueManager.saveData(teamData);
+        leagueManager.saveData(leagueClubs);
         validateSuccess("Successfully Saved to the File!", "save");
 
         System.out.print("Matches  - ");
-        leagueManager.saveData(matchData);
+        leagueManager.saveData(leagueMatches);
         validateSuccess("Successfully Saved to the File!", "save");
 
         System.out.println("\n------------------------------------------------------");
     }
 
-    private static void displayStatisticsForSpecificClub(PremierLeagueManager leagueManager) {
+    private static void displaySingleClub(PremierLeagueManager leagueManager) {
         System.out.println("------------------------------------------------------");
 
         System.out.println("\n*******************************");
@@ -197,10 +199,12 @@ public class ConsoleApplication {
         System.out.println("The table sorted out in descending order \naccording to " +
                 "their points(PTS) gained\nthroughout the current League.\n");
 
-        System.out.println("\033[1;93m" + "\t\t\tLeague Table" + "\033[0m");
+        System.out.println("\033[1;93m" + "\t\t\t\tLeague Table" + "\033[0m");
         System.out.println("-------------------------------------------");
         System.out.println("Club\t\tMP  W   L   D   GS  GR  PTS");
         System.out.println("-------------------------------------------");
+
+        premierLeagueManager.loadData(leagueClubs);
 
         if (!premierLeagueManager.getTeamList().isEmpty()) {
             for (FootballClub f : leagueManager.displayLeagueTable()) {
@@ -217,7 +221,7 @@ public class ConsoleApplication {
         System.out.println("\n------------------------------------------------------");
     }
 
-    private static void addPlayedMatch(PremierLeagueManager leagueManager, String leagueMatches, String leagueTeams) {
+    private static void addPlayedMatch(PremierLeagueManager leagueManager) {
         System.out.println("------------------------------------------------------");
 
         System.out.println("\n*************************");
@@ -249,7 +253,7 @@ public class ConsoleApplication {
                 if (today.isAfter(LocalDate.parse(dateString)) | today.equals(LocalDate.parse(dateString))) {
                     leagueManager.addPlayedMatch(clubOneName, clubTwoName, clubOneGoals, clubTwoGoals, LocalDate.parse(dateString));
                     leagueManager.saveData(leagueMatches);
-                    leagueManager.saveData(leagueTeams);
+                    leagueManager.saveData(leagueClubs);
 
                     System.out.println("\n" + "\033[1;93m" + clubOneName + "\033[0m" + " vs " + "\033[1;93m" + clubTwoName + "\033[0m" + " match has been added!");
                 }
@@ -259,10 +263,13 @@ public class ConsoleApplication {
                 System.out.println("Invalid Date");
             }
         }
+        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
+        System.out.println("matches count - " + leagueManager.getMatchList().size());
+
         System.out.println("\n------------------------------------------------------");
     }
 
-    private static void deleteClub(PremierLeagueManager leagueManager, String teamData) {
+    private static void deleteClub(PremierLeagueManager leagueManager) {
         System.out.println("------------------------------------------------------");
 
         System.out.println("\n***************************");
@@ -273,12 +280,15 @@ public class ConsoleApplication {
         String clubName = isContain(leagueManager, "Name of the Club : ", sc.next());
 
         leagueManager.deleteClub(clubName);
-        leagueManager.saveData(teamData);
+        leagueManager.saveData(leagueMatches);
+
+        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
+        System.out.println("matches count - " + leagueManager.getMatchList().size());
 
         System.out.println("\n------------------------------------------------------");
     }
 
-    private static void addClub(PremierLeagueManager leagueManager, String teamData) {
+    private static void addClub(PremierLeagueManager leagueManager) {
         System.out.println("------------------------------------------------------");
 
         System.out.println("\n************************");
@@ -297,7 +307,11 @@ public class ConsoleApplication {
                 seasonWins, seasonDefeats, seasonDraws, goalsReceived, goalsScored, pointsGained);
 
         leagueManager.addClub(footballClub);
-        leagueManager.saveData(teamData);
+        leagueManager.saveData(leagueClubs);
+
+        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
+        System.out.println("matches count - " + leagueManager.getMatchList().size());
+
 
         System.out.println("\n------------------------------------------------------");
     }
@@ -333,3 +347,36 @@ public class ConsoleApplication {
         PremierLeagueManager.setSuccess(false);
     }
 }
+
+class ProgressBar {
+    private StringBuilder progress;
+
+    public ProgressBar() {
+        init();
+    }
+
+    public void update(int done, int total) {
+        char[] workchars = {'|', '/', '-', '\\'};
+        String format = "\r%3d%% %s %c";
+
+        int percent = (++done * 100) / total;
+        int extrachars = (percent / 2) - this.progress.length();
+
+        while (extrachars-- > 0) {
+            progress.append('#');
+        }
+
+        System.out.printf(format, percent, progress, workchars[done % workchars.length]);
+
+        if (done == total) {
+            System.out.flush();
+            System.out.println();
+            init();
+        }
+    }
+
+    private void init() {
+        this.progress = new StringBuilder(60);
+    }
+}
+

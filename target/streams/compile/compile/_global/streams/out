@@ -1,0 +1,8 @@
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/ConsoleApplication.java:107:1: incompatible types: int cannot be converted to boolean
+[error] i = 10
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/ConsoleApplication.java:110:1: bad operand types for binary operator '&&'
+[error]   first type:  int
+[error]   second type: int
+[error] 10 && i
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/ConsoleApplication.java:110:1: incompatible types: int cannot be converted to boolean
+[error] i = 10 && i = 99

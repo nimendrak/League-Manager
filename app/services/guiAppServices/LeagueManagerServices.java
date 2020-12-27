@@ -15,7 +15,7 @@ public class LeagueManagerServices {
     List<FootballClub> teamList = premierLeagueManager.getTeamList();
 
     final String leagueMatches = "DataSource/PremierLeagueMatches.txt";
-    final String leagueTeams = "DataSource/PremierLeagueTeams.txt";
+    final String leagueClubs = "DataSource/PremierLeagueTeams.txt";
 
     private static LeagueManagerServices instance = null;
 
@@ -45,6 +45,7 @@ public class LeagueManagerServices {
          * compareTo method use as the default sorting
          * if search function triggered, program will use custom comparators accordingly
          * */
+
         if (!teamList.isEmpty()) {
             Collections.sort(teamList, Collections.reverseOrder());
             return teamList;
@@ -162,7 +163,7 @@ public class LeagueManagerServices {
     }
 
     public List<FootballClub> saveTeamsData() {
-        premierLeagueManager.saveData(leagueTeams);
+        premierLeagueManager.saveData(leagueClubs);
         return teamList;
     }
 
@@ -172,7 +173,7 @@ public class LeagueManagerServices {
     }
 
     public List<FootballClub> loadTeamsData() {
-        premierLeagueManager.loadData(leagueTeams);
+        premierLeagueManager.loadData(leagueClubs);
         return teamList;
     }
 

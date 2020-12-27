@@ -25,10 +25,6 @@ export class LeaderboardService {
   }
 
   public getSortingData(sort: string, order: string): Observable<ClubModel[]> {
-    let params = new HttpParams();
-    params = params.append('/sort', sort);
-    params = params.append('/order', order);
-
     return this.http.get<ClubModel[]>(this.getSortingDataUrl + "/" + sort + "/" + order);
   }
 

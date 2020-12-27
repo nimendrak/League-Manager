@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
@@ -34,17 +34,19 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   ];
   selectedProfileTwo = this.dropDownOptionsTwo[0];
 
-  constructor(private leaderboardService: LeaderboardService) {
+  constructor(private leaderboardService: LeaderboardService,
+              private changeDetectorRefs: ChangeDetectorRef) {
   }
 
   // /** Columns displayed in the table. */
   displayedColumns = ['clubName', 'clubLocation', 'numOfMatchesPlayed', 'seasonWins', 'seasonDefeats', 'seasonDraws', 'numOfGoalsScored', 'numOfGoalsReceived', 'numOfPointsGained'];
 
-  dataSource;
+  @Input() dataSource;
   clubModels: ClubModel[] = [];
 
   ngOnInit() {
-    setInterval(() => this.populateLeaderboardTable(), 10);
+    setInterval(() => this.populateLeaderboardTable(), 500);
+    // this.populateLeaderboardTable();
   }
 
   ngAfterViewInit() {
@@ -54,6 +56,7 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
     this.leaderboardService.getSortingData(p1, p2)
       .subscribe((data: any) => {
         this.clubModels = data;
+        console.log(data.response);
         this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
   }
@@ -62,6 +65,7 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
     this.leaderboardService.getTableData()
       .subscribe((data: any) => {
         this.clubModels = data;
+        console.log(data.response);
         this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
   }

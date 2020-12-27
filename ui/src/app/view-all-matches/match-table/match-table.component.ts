@@ -26,24 +26,18 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
   @Input() matchModels: MatchModel[] = [];
 
   ngOnInit() {
-    // this.populateMatchTableData();
+    this.populateMatchTableData();
+    // setInterval(() => this.populateMatchTableData(), 500);
   }
 
   ngAfterViewInit() {
-    this.populateMatchTableData();
-    // setInterval(() => this.populateMatchTableData(), 100);
   }
 
   populateMatchTableData() {
-    if (this.populate) {
-      this.matchTableService.getTableData()
-        .subscribe((data: any) => {
-          this.matchModels = data;
-          // check response
-          // console.log("match table");
-          // console.log(data.response);
-          this.dataSource = new MatTableDataSource<MatchModel>(data.response);
-        }, error => console.error(error));
-    }
+    this.matchTableService.getTableData()
+      .subscribe((data: any) => {
+        this.matchModels = data;
+        this.dataSource = new MatTableDataSource<MatchModel>(data.response);
+      }, error => console.error(error));
   }
 }
