@@ -1,5 +1,5 @@
 import models.FootballClub;
-import services.consoleAppServices.PremierLeagueManager;
+import models.PremierLeagueManager;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -20,7 +20,7 @@ public class ConsoleApplication {
         System.out.println("******************************************************");
 
         System.out.println("\nIndexing Premier League Data..");
-        loadAllData(premierLeagueManager, leagueClubs, leagueMatches);
+//        loadAllData(premierLeagueManager, leagueClubs, leagueMatches);
 
         System.out.println("\n------------------------------------------------------");
 
@@ -171,6 +171,9 @@ public class ConsoleApplication {
     private static void displaySingleClub(PremierLeagueManager leagueManager) {
         System.out.println("------------------------------------------------------");
 
+        leagueManager.loadData(leagueClubs);
+        leagueManager.loadData(leagueMatches);
+
         System.out.println("\n*******************************");
         System.out.println("\033[1;93m" + "Display Stats for Specific Club" + "\033[0m");
         System.out.println("*******************************\n");
@@ -186,6 +189,12 @@ public class ConsoleApplication {
         System.out.println("\n* Club Name is limited to 3 characters! *\n\nW - Wins | MP - Matches Played\n" +
                 "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");
 
+        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
+        System.out.println("matches count - " + leagueManager.getMatchList().size());
+
+        leagueManager.saveData(leagueClubs);
+        leagueManager.saveData(leagueMatches);
+
         System.out.println("\n------------------------------------------------------");
     }
 
@@ -196,6 +205,9 @@ public class ConsoleApplication {
         System.out.println("\033[1;93m" + "Display League Table" + "\033[0m");
         System.out.println("********************\n");
 
+        leagueManager.loadData(leagueClubs);
+        leagueManager.loadData(leagueMatches);
+
         System.out.println("The table sorted out in descending order \naccording to " +
                 "their points(PTS) gained\nthroughout the current League.\n");
 
@@ -203,8 +215,6 @@ public class ConsoleApplication {
         System.out.println("-------------------------------------------");
         System.out.println("Club\t\tMP  W   L   D   GS  GR  PTS");
         System.out.println("-------------------------------------------");
-
-        premierLeagueManager.loadData(leagueClubs);
 
         if (!premierLeagueManager.getTeamList().isEmpty()) {
             for (FootballClub f : leagueManager.displayLeagueTable()) {
@@ -214,6 +224,12 @@ public class ConsoleApplication {
         } else {
             System.out.println("\nNo Team has played a Match yet");
         }
+
+        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
+        System.out.println("matches count - " + leagueManager.getMatchList().size());
+
+        leagueManager.saveData(leagueMatches);
+        leagueManager.saveData(leagueClubs);
 
         System.out.println("\n* Club Name is limited to 3 characters! *\n\nW - Wins | MP - Matches Played\n" +
                 "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");
@@ -227,6 +243,9 @@ public class ConsoleApplication {
         System.out.println("\n*************************");
         System.out.println("\033[1;93m" + "Add a Match to the League" + "\033[0m");
         System.out.println("*************************\n");
+
+        leagueManager.loadData(leagueClubs);
+        leagueManager.loadData(leagueMatches);
 
         System.out.print("Club1 name ? : ");
         String clubOneName = isContain(leagueManager, "Club1 name ? : ", sc.next());
@@ -251,9 +270,16 @@ public class ConsoleApplication {
                 LocalDate today = LocalDate.now();
 
                 if (today.isAfter(LocalDate.parse(dateString)) | today.equals(LocalDate.parse(dateString))) {
+
                     leagueManager.addPlayedMatch(clubOneName, clubTwoName, clubOneGoals, clubTwoGoals, LocalDate.parse(dateString));
+
+                    System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
+                    System.out.println("matches count - " + leagueManager.getMatchList().size());
+
                     leagueManager.saveData(leagueMatches);
                     leagueManager.saveData(leagueClubs);
+
+                    validateSuccess("saved", "save");
 
                     System.out.println("\n" + "\033[1;93m" + clubOneName + "\033[0m" + " vs " + "\033[1;93m" + clubTwoName + "\033[0m" + " match has been added!");
                 }
@@ -263,14 +289,17 @@ public class ConsoleApplication {
                 System.out.println("Invalid Date");
             }
         }
-        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
-        System.out.println("matches count - " + leagueManager.getMatchList().size());
 
         System.out.println("\n------------------------------------------------------");
     }
 
     private static void deleteClub(PremierLeagueManager leagueManager) {
         System.out.println("------------------------------------------------------");
+
+        leagueManager.loadData(leagueClubs);
+        leagueManager.loadData(leagueMatches);
+
+        validateSuccess("loaded", "load");
 
         System.out.println("\n***************************");
         System.out.println("\033[1;93m" + "Remove Team from the League" + "\033[0m");
@@ -280,16 +309,26 @@ public class ConsoleApplication {
         String clubName = isContain(leagueManager, "Name of the Club : ", sc.next());
 
         leagueManager.deleteClub(clubName);
-        leagueManager.saveData(leagueMatches);
 
         System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
         System.out.println("matches count - " + leagueManager.getMatchList().size());
+
+        leagueManager.saveData(leagueClubs);
+        leagueManager.saveData(leagueMatches);
+
+        validateSuccess("saved", "save");
 
         System.out.println("\n------------------------------------------------------");
     }
 
     private static void addClub(PremierLeagueManager leagueManager) {
+        leagueManager.loadData(leagueClubs);
+        leagueManager.loadData(leagueMatches);
+
         System.out.println("------------------------------------------------------");
+
+        System.out.println("\nloaded data\n\nclubs count - " + leagueManager.getTeamList().size());
+        System.out.println("matches count - " + leagueManager.getMatchList().size());
 
         System.out.println("\n************************");
         System.out.println("\033[1;93m" + "Add a Team to the League" + "\033[0m");
@@ -307,11 +346,14 @@ public class ConsoleApplication {
                 seasonWins, seasonDefeats, seasonDraws, goalsReceived, goalsScored, pointsGained);
 
         leagueManager.addClub(footballClub);
-        leagueManager.saveData(leagueClubs);
 
-        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
+        leagueManager.saveData(leagueClubs);
+        leagueManager.saveData(leagueMatches);
+
+        System.out.println("\nsaved data\n\nclubs count - " + leagueManager.getTeamList().size());
         System.out.println("matches count - " + leagueManager.getMatchList().size());
 
+        validateSuccess("saved", "save");
 
         System.out.println("\n------------------------------------------------------");
     }

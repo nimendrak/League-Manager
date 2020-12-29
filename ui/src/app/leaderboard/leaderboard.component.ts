@@ -34,8 +34,7 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   ];
   selectedProfileTwo = this.dropDownOptionsTwo[0];
 
-  constructor(private leaderboardService: LeaderboardService,
-              private changeDetectorRefs: ChangeDetectorRef) {
+  constructor(private leaderboardService: LeaderboardService) {
   }
 
   // /** Columns displayed in the table. */
@@ -45,8 +44,8 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   clubModels: ClubModel[] = [];
 
   ngOnInit() {
-    setInterval(() => this.populateLeaderboardTable(), 500);
-    // this.populateLeaderboardTable();
+    this.populateLeaderboardTable();
+    // setInterval(() => this.populateLeaderboardTable(), 500);
   }
 
   ngAfterViewInit() {
@@ -69,8 +68,6 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
         this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
   }
-
-
 }
 
 

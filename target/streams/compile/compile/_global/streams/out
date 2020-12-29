@@ -1,8 +1,76 @@
-[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/ConsoleApplication.java:107:1: incompatible types: int cannot be converted to boolean
-[error] i = 10
-[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/ConsoleApplication.java:110:1: bad operand types for binary operator '&&'
-[error]   first type:  int
-[error]   second type: int
-[error] 10 && i
-[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/ConsoleApplication.java:110:1: incompatible types: int cannot be converted to boolean
-[error] i = 10 && i = 99
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:69:1: cannot find symbol
+[error]   symbol:   variable teamList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] teamList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:72:1: cannot find symbol
+[error]   symbol:   variable teamList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] teamList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:73:1: cannot find symbol
+[error]   symbol:   variable teamList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] teamList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:75:1: cannot find symbol
+[error]   symbol:   variable teamList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] teamList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:76:1: cannot find symbol
+[error]   symbol:   variable teamList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] teamList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:92:1: cannot find symbol
+[error]   symbol:   variable matchList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] matchList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:106:1: cannot find symbol
+[error]   symbol:   variable matchList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] matchList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:106:1: cannot find symbol
+[error]   symbol:   variable matchList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] matchList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:112:1: cannot find symbol
+[error]   symbol:   variable teamList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] teamList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:155:1: cannot find symbol
+[error]   symbol:   variable matchList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] matchList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:156:1: cannot find symbol
+[error]   symbol:   variable matchList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] matchList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:173:1: cannot find symbol
+[error]   symbol:   variable matchList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] matchList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:178:1: cannot find symbol
+[error]   symbol:   variable teamList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] teamList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:183:1: cannot find symbol
+[error]   symbol:   variable matchList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] matchList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:188:1: cannot find symbol
+[error]   symbol:   variable teamList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] teamList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/guiAppServices/LeagueManagerServices.java:193:1: cannot find symbol
+[error]   symbol:   variable matchList
+[error]   location: class services.guiAppServices.LeagueManagerServices
+[error] matchList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/utils/ApplicationDataManager.java:29:1: cannot find symbol
+[error]   symbol:   method getTeamList()
+[error]   location: variable leagueManagerServices of type services.guiAppServices.LeagueManagerServices
+[error] leagueManagerServices.getTeamList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/utils/ApplicationDataManager.java:37:1: cannot find symbol
+[error]   symbol:   method getMatchList()
+[error]   location: variable leagueManagerServices of type services.guiAppServices.LeagueManagerServices
+[error] leagueManagerServices.getMatchList
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/utils/ApplicationDataManager.java:50:1: cannot find symbol
+[error]   symbol:   method getTeamList()
+[error]   location: variable leagueManagerServices of type services.guiAppServices.LeagueManagerServices
+[error] leagueManagerServices.getTeamList

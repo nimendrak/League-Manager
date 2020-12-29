@@ -34,8 +34,8 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadClubsData();
-    this.loadMatchesData();
+    // this.loadClubsData();
+    // this.loadMatchesData();
     // setInterval(()=> this.loadClubsData(), 100);
     // setInterval(()=> this.loadMatchesData(), 100);
   }
@@ -69,13 +69,13 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   saveData() {
-    this.navService.postSaveClubsData().subscribe((data: any) => {
-      this.postRequestResponse = data.content;
-    });
-
-    this.navService.postSaveMatchesData().subscribe((data: any) => {
-      this.postRequestResponse = data.content;
-    });
+    // this.navService.postSaveClubsData().subscribe((data: any) => {
+    //   this.postRequestResponse = data.content;
+    // });
+    //
+    // this.navService.postSaveMatchesData().subscribe((data: any) => {
+    //   this.postRequestResponse = data.content;
+    // });
   }
 
   loadClubsData() {

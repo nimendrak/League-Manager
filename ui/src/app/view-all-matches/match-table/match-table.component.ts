@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {MatchModel} from './match.model';
@@ -37,7 +37,7 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
     this.matchTableService.getTableData()
       .subscribe((data: any) => {
         this.matchModels = data;
-        this.dataSource = new MatTableDataSource<MatchModel>(data.response);
+        this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
   }
 }

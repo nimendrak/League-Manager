@@ -16,9 +16,6 @@ export class AppServices {
   private postRandomMatchUrl = this.appRoot + '/add/random';
   private getRandomMatchUrl = this.appRoot + '/add/get-random';
 
-  private postSaveClubsDataUrl = this.appRoot + '/save-data/clubs';
-  private postSaveMatchesDataUrl = this.appRoot + '/save-data/matches';
-
   private postLoadClubsDataUrl = this.appRoot + '/load-data/clubs';
   private postLoadMatchesDataUrl = this.appRoot + '/load-data/matches';
 
@@ -34,14 +31,6 @@ export class AppServices {
 
   public getRandomMatch(): Observable<any> {
     return this.http.get(this.getRandomMatchUrl);
-  }
-
-  public postSaveClubsData() {
-    return this.http.post(this.postSaveClubsDataUrl, {});
-  }
-
-  public postSaveMatchesData() {
-    return this.http.post(this.postSaveMatchesDataUrl, {});
   }
 
   public getLoadClubsData() {
