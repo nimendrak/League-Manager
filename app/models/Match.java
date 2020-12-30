@@ -1,7 +1,10 @@
 package models;
 
+import services.DataSourceServices;
+
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Match implements Serializable {
     private LocalDate date;
@@ -21,16 +24,28 @@ public class Match implements Serializable {
         this.matchStats = matchStats;
     }
 
-    public void updateStats() {
+    public void updateStats(String typeOfApp) {
         PremierLeagueManager premierLeagueManager = PremierLeagueManager.getInstance();
+        DataSourceServices dataSourceServices = DataSourceServices.getInstance();
         FootballClub teamOne = null, teamTwo = null;
 
-        for (FootballClub f : premierLeagueManager.getTeamList()) {
-            if (f.getClubName().equalsIgnoreCase(teamOneName)) {
-                teamOne = f;
+        if (typeOfApp.equalsIgnoreCase("cliApp")) {
+            for (FootballClub f : premierLeagueManager.getTeamList()) {
+                if (f.getClubName().equalsIgnoreCase(teamOneName)) {
+                    teamOne = f;
+                }
+                if (f.getClubName().equalsIgnoreCase(teamTwoName)) {
+                    teamTwo = f;
+                }
             }
-            if (f.getClubName().equalsIgnoreCase(teamTwoName)) {
-                teamTwo = f;
+        } else {
+            for (FootballClub f : dataSourceServices.getClubsDataArray()) {
+                if (f.getClubName().equalsIgnoreCase(teamOneName)) {
+                    teamOne = f;
+                }
+                if (f.getClubName().equalsIgnoreCase(teamTwoName)) {
+                    teamTwo = f;
+                }
             }
         }
 
@@ -123,16 +138,16 @@ public class Match implements Serializable {
                 '}';
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Match match = (Match) o;
-//        return teamOneScore == match.teamOneScore && teamTwoScore == match.teamTwoScore && Objects.equals(date, match.date) && Objects.equals(teamOneName, match.teamOneName) && Objects.equals(teamTwoName, match.teamTwoName) && Objects.equals(matchStats, match.matchStats);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(date, teamOneName, teamOneScore, teamTwoName, teamTwoScore, matchStats);
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Match match = (Match) o;
+        return teamOneScore == match.teamOneScore && teamTwoScore == match.teamTwoScore && Objects.equals(date, match.date) && Objects.equals(teamOneName, match.teamOneName) && Objects.equals(teamTwoName, match.teamTwoName) && Objects.equals(matchStats, match.matchStats);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, teamOneName, teamOneScore, teamTwoName, teamTwoScore, matchStats);
+    }
 }

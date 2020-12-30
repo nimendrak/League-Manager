@@ -3,6 +3,7 @@ package controllers;
 import com.fasterxml.jackson.databind.JsonNode;
 import models.FootballClub;
 import models.Match;
+import models.PremierLeagueManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import play.libs.Json;
@@ -28,6 +29,7 @@ public class LeagueController extends Controller {
     final String leagueClubs = "DataSource/PremierLeagueTeams.txt";
 
     public Result addRandomMatch() {
+        System.out.println("addRandomMatch");
         data.loadData(leagueClubs, leagueMatches);
 
         FootballClub randomTeamOne, randomTeamTwo;
@@ -44,11 +46,11 @@ public class LeagueController extends Controller {
                 randomTeamOne = (teamList.get(indexOne));
                 randomTeamTwo = (teamList.get(indexTwo));
 
-                randomScoreOne = rand.nextInt(20);
-                randomScoreTwo = rand.nextInt(20);
+                randomScoreOne = rand.nextInt(11);
+                randomScoreTwo = rand.nextInt(11);
 
-                int minDay = (int) LocalDate.of(2020, 1, 1).toEpochDay();
-                int maxDay = (int) LocalDate.of(2020, 12, 31).toEpochDay();
+                int minDay = (int) LocalDate.of(2020, 6, 1).toEpochDay();
+                int maxDay = (int) LocalDate.of(2020, 7, 31).toEpochDay();
                 long randomDay = minDay + rand.nextInt(maxDay - minDay);
 
                 randomLocalDate = LocalDate.ofEpochDay(randomDay);
@@ -57,22 +59,24 @@ public class LeagueController extends Controller {
 
             Match match = new Match(randomLocalDate, randomTeamOne.getClubName(), randomTeamTwo.getClubName(),
                     randomScoreOne, randomScoreTwo, "");
-            match.updateStats();
+
+            match.updateStats("guiApp");
             matchList.add(match);
 
             JsonNode jsonObject = Json.toJson(match);
 
+            System.out.println("addRandomMatch");
             data.saveData(leagueClubs, leagueMatches);
 
             return created(ApplicationUtil.createResponse(jsonObject, true));
         }
+        System.out.println("not saved");
         return internalServerError();
     }
 
     public Result showLeaderboard() {
+        System.out.println("showLeaderboard");
         data.loadData(leagueClubs, leagueMatches);
-        System.out.println("\nafter load\nclubs count - " + teamList.size());
-        System.out.println("matches count - " + matchList.size());
 
         if (!teamList.isEmpty()) {
             Collections.sort(teamList, Collections.reverseOrder());
@@ -80,10 +84,8 @@ public class LeagueController extends Controller {
             logger.debug("In LeagueController.showLeaderboard(), result is: {}", teamList.toString());
             JsonNode jsonObject = Json.toJson(teamList);
 
+            System.out.println("showLeaderboard");
             data.saveData(leagueClubs, leagueMatches);
-
-            System.out.println("\nsaved data\nclubs count - " + teamList.size());
-            System.out.println("matches count - " + matchList.size());
 
             return ok(ApplicationUtil.createResponse(jsonObject, true));
         }
@@ -91,6 +93,7 @@ public class LeagueController extends Controller {
     }
 
     public Result getSortedLeaderboardData(String sort, String order) {
+        System.out.println("getSortedLeaderboardData");
         data.loadData(leagueClubs, leagueMatches);
 
         //      get a copy of current list and sorting the copy
@@ -112,45 +115,46 @@ public class LeagueController extends Controller {
                 .comparing(FootballClub::getNumOfPointsGained)
                 .thenComparing(FootballClub::getNumOfPointsGained);
 
+        JsonNode jsonObject;
         if (sort.equalsIgnoreCase("goals")) {
             if (order.equalsIgnoreCase("ascending")) {
-                sortedList.stream().sorted(compareByGoals).collect(Collectors.toList());
+                jsonObject = Json.toJson(sortedList.stream().sorted(compareByGoals).collect(Collectors.toList()));
             } else {
-                sortedList.stream().sorted(compareByGoals.reversed()).collect(Collectors.toList());
+                jsonObject = Json.toJson(sortedList.stream().sorted(compareByGoals.reversed()).collect(Collectors.toList()));
             }
         } else if ((sort.equalsIgnoreCase("wins"))) {
             if (order.equalsIgnoreCase("ascending")) {
-                sortedList.stream().sorted(compareByWins).collect(Collectors.toList());
+                jsonObject = Json.toJson(sortedList.stream().sorted(compareByWins).collect(Collectors.toList()));
             } else {
-                sortedList.stream().sorted(compareByWins.reversed()).collect(Collectors.toList());
+                jsonObject = Json.toJson(sortedList.stream().sorted(compareByWins.reversed()).collect(Collectors.toList()));
             }
         } else {
             if (order.equalsIgnoreCase("ascending")) {
-                sortedList.stream().sorted(compareByPoints).collect(Collectors.toList());
+                jsonObject = Json.toJson(sortedList.stream().sorted(compareByPoints).collect(Collectors.toList()));
             } else {
-                sortedList.stream().sorted(compareByPoints.reversed()).collect(Collectors.toList());
+                jsonObject = Json.toJson(sortedList.stream().sorted(compareByPoints.reversed()).collect(Collectors.toList()));
             }
         }
 
+        System.out.println("getSortedLeaderboardData");
         data.saveData(leagueClubs, leagueMatches);
 
         logger.debug("In LeagueController.getSortedLeaderboardData(), result is: {}", sortedList.toString());
-        JsonNode jsonObject = Json.toJson(sortedList);
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 
     public Result showPlayedMatches() {
+        System.out.println("showPlayedMatches");
         data.loadData(leagueClubs, leagueMatches);
 
         Comparator<Match> compareByDate = Comparator
                 .comparing(Match::getDate)
                 .thenComparing(Match::getDate);
 
-        matchList.stream().sorted(compareByDate.reversed()).collect(Collectors.toList());
-
         logger.debug("In LeagueController.showPlayedMatches(), result is: {}", matchList.toString());
-        JsonNode jsonObject = Json.toJson(matchList);
+        JsonNode jsonObject = Json.toJson(matchList.stream().sorted(compareByDate.reversed()).collect(Collectors.toList()));
 
+        System.out.println("showPlayedMatches");
         data.saveData(leagueClubs, leagueMatches);
 
         return ok(ApplicationUtil.createResponse(jsonObject, true));
@@ -160,15 +164,12 @@ public class LeagueController extends Controller {
         data.loadData(leagueClubs, leagueMatches);
         List<Match> searchResults = new ArrayList<>();
 
-        try {
-            if (!matchList.isEmpty()) {
-                for (Match m : matchList) {
-                    if (m.getDate().equals(LocalDate.parse(date))) {
-                        searchResults.add(m);
-                    }
+        if (!matchList.isEmpty()) {
+            for (Match m : matchList) {
+                if (m.getDate().equals(LocalDate.parse(date))) {
+                    searchResults.add(m);
                 }
             }
-        } catch (Exception ignored) {
         }
 
         logger.debug("In LeagueController.getSearchedMatch(), result is: {}", searchResults.toString());
@@ -182,12 +183,21 @@ public class LeagueController extends Controller {
     public Result getRandomMatch() {
         data.loadData(leagueClubs, leagueMatches);
 
-        Match result = matchList.get(matchList.size() - 1);
-        logger.debug("In LeagueController.getSearchedMatch(), result is: {}", result.toString());
-        JsonNode jsonObject = Json.toJson(result);
+        Match result;
+        if (!teamList.isEmpty()) {
+            if (matchList.size() == 1) {
+                result = matchList.get(0);
+            } else {
+                result = matchList.get(matchList.size() - 1);
+            }
+            logger.debug("In LeagueController.getSearchedMatch(), result is: {}", result.toString());
+            JsonNode jsonObject = Json.toJson(result);
 
-        data.saveData(leagueClubs, leagueMatches);
+            data.saveData(leagueClubs, leagueMatches);
 
-        return ok(ApplicationUtil.createResponse(jsonObject, true));
+            return ok(ApplicationUtil.createResponse(jsonObject, true));
+        }
+        System.out.println("not Saved");
+        return null;
     }
 }

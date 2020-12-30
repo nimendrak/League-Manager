@@ -1,6 +1,8 @@
 import models.FootballClub;
 import models.PremierLeagueManager;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -106,6 +108,13 @@ public class ConsoleApplication {
                     TimeUnit.SECONDS.sleep(5);
                     System.out.println("Process Completed!\n");
 
+//                  delete later
+                    BufferedReader br=new BufferedReader(new InputStreamReader(process.getInputStream()));
+                    String line;
+                    while((line=br.readLine())!=null){
+                        System.out.println(line);
+                    }
+
                 } else {
                     builder.command("zsh", "-c", "kill -9 $(lsof -i:4200 -t) 2> /dev/null");
                 }
@@ -189,9 +198,6 @@ public class ConsoleApplication {
         System.out.println("\n* Club Name is limited to 3 characters! *\n\nW - Wins | MP - Matches Played\n" +
                 "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");
 
-        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
-        System.out.println("matches count - " + leagueManager.getMatchList().size());
-
         leagueManager.saveData(leagueClubs);
         leagueManager.saveData(leagueMatches);
 
@@ -273,9 +279,6 @@ public class ConsoleApplication {
 
                     leagueManager.addPlayedMatch(clubOneName, clubTwoName, clubOneGoals, clubTwoGoals, LocalDate.parse(dateString));
 
-                    System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
-                    System.out.println("matches count - " + leagueManager.getMatchList().size());
-
                     leagueManager.saveData(leagueMatches);
                     leagueManager.saveData(leagueClubs);
 
@@ -297,7 +300,6 @@ public class ConsoleApplication {
         System.out.println("------------------------------------------------------");
 
         leagueManager.loadData(leagueClubs);
-        leagueManager.loadData(leagueMatches);
 
         validateSuccess("loaded", "load");
 
@@ -309,12 +311,7 @@ public class ConsoleApplication {
         String clubName = isContain(leagueManager, "Name of the Club : ", sc.next());
 
         leagueManager.deleteClub(clubName);
-
-        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
-        System.out.println("matches count - " + leagueManager.getMatchList().size());
-
         leagueManager.saveData(leagueClubs);
-        leagueManager.saveData(leagueMatches);
 
         validateSuccess("saved", "save");
 

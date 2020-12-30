@@ -13,7 +13,6 @@ public class PremierLeagueManager implements LeagueManager {
 
     //  booleans to check specific progress
     static boolean success = false;
-    static boolean isRun = false;
 
     /*
      * using singleton design pattern
@@ -54,7 +53,7 @@ public class PremierLeagueManager implements LeagueManager {
     public void addPlayedMatch(String teamOneName, String teamTwoName, int teamOneGoalsScored, int teamTwoGoalsScored, LocalDate date) {
         try {
             Match match = new Match(date, teamOneName, teamTwoName, teamOneGoalsScored, teamTwoGoalsScored, "");
-            match.updateStats();
+            match.updateStats("cliApp");
             matchList.add(match);
 
         } catch (NullPointerException e) {

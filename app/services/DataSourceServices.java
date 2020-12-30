@@ -69,9 +69,13 @@ public class DataSourceServices {
 //                e.printStackTrace();
             }
         }
+        System.out.println("loaded\nclubs count - " + clubsDataArray.size());
+        System.out.println("matches count - " + matchDataArray.size());
+        System.out.println();
     }
 
     public void saveData(String clubSource, String matchSource) {
+
         try {
             File clubFile = new File(clubSource);
             File matchFile = new File(matchSource);
@@ -91,6 +95,7 @@ public class DataSourceServices {
             clubObjectOutputStream.flush();
             clubObjectOutputStream.close();
             clubOutputStream.close();
+            clubsDataArray.clear();
 
             for (Match m : matchDataArray) {
                 matchObjectOutputStream.writeObject(m);
@@ -99,14 +104,14 @@ public class DataSourceServices {
             matchObjectOutputStream.flush();
             matchObjectOutputStream.close();
             matchOutputStream.close();
-
-            clubsDataArray.clear();
             matchDataArray.clear();
 
         } catch (IOException e) {
 //            e.printStackTrace();
         }
-
+        System.out.println("saved\nclubs count - " + clubsDataArray.size());
+        System.out.println("matches count - " + matchDataArray.size());
+        System.out.println();
     }
 
     public List<FootballClub> getClubsDataArray() {
