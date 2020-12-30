@@ -8,6 +8,7 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
     private int numOfGoalsReceived;
     private int numOfGoalsScored;
     private int numOfPointsGained;
+    private int goalsDifference;
 
     public FootballClub(String clubName, String clubLocation, int numOfMatchesPlayed, int seasonWins, int seasonDefeats, int seasonDraws,
                         int numOfGoalsReceived, int numOfGoalsScored, int numOfPointsGained) {
@@ -78,10 +79,18 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
         this.numOfMatchesPlayed = numOfMatchesPlayed;
     }
 
+    public int getGoalsDifference() {
+        return goalsDifference;
+    }
+
+    public void setGoalsDifference(int goalsDifference) {
+        this.goalsDifference = goalsDifference;
+    }
+
     @Override
     public String toString() {
         return super.toString() + "\t\t\t\t" + String.format("%02d", numOfMatchesPlayed) + "  " + String.format("%02d", seasonWins) + "  " + String.format("%02d", seasonDefeats) + "  " +
-                String.format("%02d", seasonDraws) + "  " + String.format("%02d", numOfGoalsScored) + "  " + String.format("%02d", numOfGoalsReceived) + "  " + String.format("%02d", numOfPointsGained);
+                String.format("%02d", seasonDraws) + "  " + String.format("%02d", numOfGoalsScored) + "  " + String.format("%02d", goalsDifference) + "  " + String.format("%02d", numOfPointsGained);
     }
 
     @Override

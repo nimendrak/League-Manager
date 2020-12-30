@@ -11,7 +11,7 @@ export interface ClubModel {
   seasonWins: number;
   seasonDefeats: number;
   seasonDraws: number;
-  numOfGoalsReceived: number;
+  goalsDifference: number;
   numOfGoalsScored: number;
   numOfPointsGained: number;
 }

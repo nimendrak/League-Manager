@@ -53,10 +53,12 @@ public class Match implements Serializable {
         teamOne.setNumOfMatchesPlayed(teamOne.getNumOfMatchesPlayed() + 1);
         teamOne.setNumOfGoalsScored(teamOne.getNumOfGoalsScored() + this.teamOneScore);
         teamOne.setNumOfGoalsReceived(teamOne.getNumOfGoalsReceived() + this.teamTwoScore);
+        teamOne.setGoalsDifference(teamOne.getNumOfGoalsScored() - teamOne.getNumOfGoalsReceived());
 
         teamTwo.setNumOfMatchesPlayed(teamTwo.getNumOfMatchesPlayed() + 1);
         teamTwo.setNumOfGoalsScored(teamTwo.getNumOfGoalsScored() + this.teamTwoScore);
         teamTwo.setNumOfGoalsReceived(teamTwo.getNumOfGoalsReceived() + this.teamOneScore);
+        teamTwo.setGoalsDifference(teamTwo.getNumOfGoalsScored() - teamTwo.getNumOfGoalsReceived());
 
         if (this.teamOneScore > this.teamTwoScore) {
             teamOne.setSeasonWins(teamOne.getSeasonWins() + 1);

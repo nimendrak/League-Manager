@@ -79,6 +79,8 @@ public class ConsoleApplication {
     }
 
     private static void invokePlayServer(boolean isRun) {
+        System.out.println("------------------------------------------------------");
+
         try {
             ProcessBuilder builder = new ProcessBuilder();
             Process process = null;
@@ -97,7 +99,6 @@ public class ConsoleApplication {
 
                     bar.update(0, 2000);
                     for (int i = 0; i < 2000; i++) {
-                        // do something!
                         for (int j = 0; j < 10000000; j++)
                             for (int p = 0; p < 10000000; p++) ;
                         // update the progress bar
@@ -106,6 +107,7 @@ public class ConsoleApplication {
                     TimeUnit.SECONDS.sleep(5);
                     System.out.println("Process Completed!\n");
 
+                    System.out.println("------------------------------------------------------");
                 } else {
                     builder.command("zsh", "-c", "kill -9 $(lsof -i:4200 -t) 2> /dev/null");
                 }
@@ -179,7 +181,7 @@ public class ConsoleApplication {
         System.out.print("Name of the Club : ");
         String clubName = isContain(leagueManager, "Name of the Club : ", sc.next());
 
-        System.out.println("\nClub\t\t\tMP  W   L   D   GS  GR  PTS");
+        System.out.println("\nClub\t\t\tMP  W   L   D   GS  GD  PTS");
         System.out.println("-------------------------------------------");
 
         if (clubName != null) {
@@ -189,7 +191,7 @@ public class ConsoleApplication {
         }
 
         System.out.println("\n*  Club Name is limited to 3 characters!  *\n\nW - Wins | MP - Matches Played\n" +
-                "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");
+                "L - Loss | GD - Goals Difference\nD - Draw | GS - Goals Scored");
 
         leagueManager.saveData(leagueClubs);
 
@@ -210,7 +212,7 @@ public class ConsoleApplication {
 
         System.out.println("\033[1;93m" + "\t\t\t\tLeague Table" + "\033[0m");
         System.out.println("-------------------------------------------");
-        System.out.println("Club\t\t\tMP  W   L   D   GS  GR  PTS");
+        System.out.println("Club\t\t\tMP  W   L   D   GS  GD  PTS");
         System.out.println("-------------------------------------------");
 
         if (!premierLeagueManager.getTeamList().isEmpty()) {
@@ -225,7 +227,7 @@ public class ConsoleApplication {
         leagueManager.saveData(leagueClubs);
 
         System.out.println("\n*  Club Name is limited to 3 characters!  *\n\nW - Wins | MP - Matches Played\n" +
-                "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");
+                "L - Loss | GD - Goals Difference\nD - Draw | GS - Goals Scored");
 
         System.out.println("\n------------------------------------------------------");
     }

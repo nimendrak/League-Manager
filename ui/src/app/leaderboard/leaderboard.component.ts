@@ -38,7 +38,7 @@ export class LeaderboardComponent implements AfterViewInit, OnInit {
   }
 
   // /** Columns displayed in the table. */
-  displayedColumns = ['clubName', 'clubLocation', 'numOfMatchesPlayed', 'seasonWins', 'seasonDefeats', 'seasonDraws', 'numOfGoalsScored', 'numOfGoalsReceived', 'numOfPointsGained'];
+  displayedColumns = ['clubName', 'clubLocation', 'numOfMatchesPlayed', 'seasonWins', 'seasonDefeats', 'seasonDraws', 'numOfGoalsScored', 'goalsDifference', 'numOfPointsGained'];
 
   @Input() dataSource;
   clubModels: ClubModel[] = [];
