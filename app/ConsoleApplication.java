@@ -1,3 +1,5 @@
+
+
 import models.FootballClub;
 import models.PremierLeagueManager;
 
@@ -109,11 +111,11 @@ public class ConsoleApplication {
                     System.out.println("Process Completed!\n");
 
 //                  delete later
-                    BufferedReader br=new BufferedReader(new InputStreamReader(process.getInputStream()));
-                    String line;
-                    while((line=br.readLine())!=null){
-                        System.out.println(line);
-                    }
+//                    BufferedReader br=new BufferedReader(new InputStreamReader(process.getInputStream()));
+//                    String line;
+//                    while((line=br.readLine())!=null){
+//                        System.out.println(line);
+//                    }
 
                 } else {
                     builder.command("zsh", "-c", "kill -9 $(lsof -i:4200 -t) 2> /dev/null");
@@ -124,7 +126,6 @@ public class ConsoleApplication {
                 Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private static void loadAllData(PremierLeagueManager leagueManager, String teamData, String matchData) {

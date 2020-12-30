@@ -13,6 +13,7 @@ export class SearchMatchComponent implements OnInit {
 
   searchedValue = 'yyyy-MM-dd';
 
+  @Input() isRun;
   @Input() dataSource;
   @Input() matchModels: MatchModel[] = [];
 

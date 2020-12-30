@@ -1,6 +1,6 @@
 package models;
 
-import services.DataSourceServices;
+import services.LeagueManagerServices;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -26,7 +26,8 @@ public class Match implements Serializable {
 
     public void updateStats(String typeOfApp) {
         PremierLeagueManager premierLeagueManager = PremierLeagueManager.getInstance();
-        DataSourceServices dataSourceServices = DataSourceServices.getInstance();
+        LeagueManagerServices leagueManagerServices = LeagueManagerServices.getInstance();
+
         FootballClub teamOne = null, teamTwo = null;
 
         if (typeOfApp.equalsIgnoreCase("cliApp")) {
@@ -39,7 +40,7 @@ public class Match implements Serializable {
                 }
             }
         } else {
-            for (FootballClub f : dataSourceServices.getClubsDataArray()) {
+            for (FootballClub f : leagueManagerServices.getClubsDataArray()) {
                 if (f.getClubName().equalsIgnoreCase(teamOneName)) {
                     teamOne = f;
                 }

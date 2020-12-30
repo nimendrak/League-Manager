@@ -1,5 +1,73 @@
-[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/controllers/LeagueController.java:68:1: method updateStats in class models.Match cannot be applied to given types;
-[error]   required: java.lang.String
-[error]   found:    no arguments
-[error]   reason: actual and formal argument lists differ in length
-[error] tem.out.println("
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/ConsoleApplication.java:1:1: cannot access unnamed package
+[error]   null
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/controllers/LeagueController.java:1:1: cannot access controllers
+[error]   null
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/FootballClub.java:1:1: cannot access models
+[error]   null
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/services/LeagueManagerServices.java:1:1: cannot access services
+[error]   null
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/utils/ApplicationUtil.java:1:1: cannot access utils
+[error]   null
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/LeagueManager.java:3:1: cannot find symbol
+[error]   symbol:   class FootballClub
+[error]   location: package models
+[error] models.FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/LeagueManager.java:5:1: cannot access java
+[error]   null
+[error] java
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/LeagueManager.java:9:1: cannot find symbol
+[error]   symbol:   class FootballClub
+[error]   location: interface models.LeagueManager
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/LeagueManager.java:12:1: cannot find symbol
+[error]   symbol:   class FootballClub
+[error]   location: interface models.LeagueManager
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/LeagueManager.java:13:1: cannot find symbol
+[error]   symbol:   class FootballClub
+[error]   location: interface models.LeagueManager
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/Match.java:3:1: package services does not exist
+[error] services.LeagueManagerServices
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/PremierLeagueManager.java:10:1: cannot find symbol
+[error]   symbol:   class FootballClub
+[error]   location: class models.PremierLeagueManager
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/PremierLeagueManager.java:38:1: cannot find symbol
+[error]   symbol:   class FootballClub
+[error]   location: class models.PremierLeagueManager
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/PremierLeagueManager.java:73:1: cannot find symbol
+[error]   symbol:   class FootballClub
+[error]   location: class models.PremierLeagueManager
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/PremierLeagueManager.java:85:1: cannot find symbol
+[error]   symbol:   class FootballClub
+[error]   location: class models.PremierLeagueManager
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/PremierLeagueManager.java:183:1: cannot find symbol
+[error]   symbol:   class FootballClub
+[error]   location: class models.PremierLeagueManager
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/SchoolFootballClub.java:3:1: cannot find symbol
+[error]   symbol: class FootballClub
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/app/models/UniversityFootballClub.java:3:1: cannot find symbol
+[error]   symbol: class FootballClub
+[error] FootballClub
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes: cannot access router
+[error]   null
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes: package router does not exist
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes: cannot find symbol
+[error]   symbol:   class ReverseFrontendController
+[error]   location: package controllers
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes: cannot find symbol
+[error]   symbol:   class ReverseAssets
+[error]   location: package controllers
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes: cannot find symbol
+[error]   symbol:   class ReverseLeagueController
+[error]   location: package controllers
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes: cannot access controllers.javascript
+[error]   null
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes: package controllers.javascript does not exist
+[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes: package controllers.javascript does not exist

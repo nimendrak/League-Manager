@@ -1,4 +1,4 @@
-[error] scala.MatchError: org.apache.logging.log4j.simple.SimpleLoggerContext@108c35d1 (of class org.apache.logging.log4j.simple.SimpleLoggerContext)
+[error] scala.MatchError: org.apache.logging.log4j.simple.SimpleLoggerContext@6ac36b53 (of class org.apache.logging.log4j.simple.SimpleLoggerContext)
 [error] 	at sbt.util.LogExchange.logger(LogExchange.scala:28)
 [error] 	at sbt.internal.LogManager$.defaultLogger(LogManager.scala:136)
 [error] 	at sbt.internal.LogManager$DefaultLogManager.apply(LogManager.scala:103)
@@ -24,4 +24,4 @@
 [error] 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
 [error] 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
 [error] 	at java.base/java.lang.Thread.run(Thread.java:832)
-[error] (projectDescriptors) scala.MatchError: org.apache.logging.log4j.simple.SimpleLoggerContext@108c35d1 (of class org.apache.logging.log4j.simple.SimpleLoggerContext)
+[error] (projectDescriptors) scala.MatchError: org.apache.logging.log4j.simple.SimpleLoggerContext@6ac36b53 (of class org.apache.logging.log4j.simple.SimpleLoggerContext)
