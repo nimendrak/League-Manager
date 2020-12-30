@@ -80,7 +80,7 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
 
     @Override
     public String toString() {
-        return super.toString() + "\t\t\t" + String.format("%02d", numOfMatchesPlayed) + "  " + String.format("%02d", seasonWins) + "  " + String.format("%02d", seasonDefeats) + "  " +
+        return super.toString() + "\t\t\t\t" + String.format("%02d", numOfMatchesPlayed) + "  " + String.format("%02d", seasonWins) + "  " + String.format("%02d", seasonDefeats) + "  " +
                 String.format("%02d", seasonDraws) + "  " + String.format("%02d", numOfGoalsScored) + "  " + String.format("%02d", numOfGoalsReceived) + "  " + String.format("%02d", numOfPointsGained);
     }
 

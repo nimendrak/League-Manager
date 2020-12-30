@@ -73,13 +73,9 @@ public class LeagueManagerServices {
 //                e.printStackTrace();
             }
         }
-        System.out.println("loaded\nclubs count - " + clubsDataArray.size());
-        System.out.println("matches count - " + matchDataArray.size());
-        System.out.println();
     }
 
     public void saveData() {
-
         try {
             File clubFile = new File(leagueClubs);
             File matchFile = new File(leagueMatches);
@@ -113,9 +109,6 @@ public class LeagueManagerServices {
         } catch (IOException e) {
 //            e.printStackTrace();
         }
-        System.out.println("saved\nclubs count - " + clubsDataArray.size());
-        System.out.println("matches count - " + matchDataArray.size());
-        System.out.println();
     }
 
     public Match addRandomMatch() {
@@ -124,7 +117,7 @@ public class LeagueManagerServices {
         LocalDate randomLocalDate;
 
 //      generating a random match
-        if (!clubsDataArray.isEmpty()) {
+        if (clubsDataArray.size() >= 2) {
             Random rand = new Random();
             do {
                 int indexOne = new Random().nextInt(clubsDataArray.size());
@@ -149,7 +142,6 @@ public class LeagueManagerServices {
 
             match.updateStats("guiApp");
             matchDataArray.add(match);
-
             return match;
         }
         return null;

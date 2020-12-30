@@ -21,7 +21,7 @@ public class ConsoleApplication {
         System.out.println("******************************************************");
 
         System.out.println("\nIndexing Premier League Data..");
-//        loadAllData(premierLeagueManager, leagueClubs, leagueMatches);
+        loadAllData(premierLeagueManager, leagueClubs, leagueMatches);
 
         System.out.println("\n------------------------------------------------------");
 
@@ -70,7 +70,6 @@ public class ConsoleApplication {
                 case "9":
                     System.out.println("\nApplication is now Existing...");
                     invokePlayServer(false);
-//                    saveDate(premierLeagueManager, leagueTeams, leagueMatches);
                     break;
                 default:
                     System.out.println("Invalid input");
@@ -107,13 +106,6 @@ public class ConsoleApplication {
                     TimeUnit.SECONDS.sleep(5);
                     System.out.println("Process Completed!\n");
 
-//                  delete later
-//                    BufferedReader br=new BufferedReader(new InputStreamReader(process.getInputStream()));
-//                    String line;
-//                    while((line=br.readLine())!=null){
-//                        System.out.println(line);
-//                    }
-
                 } else {
                     builder.command("zsh", "-c", "kill -9 $(lsof -i:4200 -t) 2> /dev/null");
                 }
@@ -137,8 +129,8 @@ public class ConsoleApplication {
             leagueManager.loadData(matchData);
             validateSuccess("Successfully Loaded!", "load");
 
-            System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
-            System.out.println("matches count - " + leagueManager.getMatchList().size());
+            leagueManager.saveData(teamData);
+            leagueManager.saveData(matchData);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -179,7 +171,6 @@ public class ConsoleApplication {
         System.out.println("------------------------------------------------------");
 
         leagueManager.loadData(leagueClubs);
-        leagueManager.loadData(leagueMatches);
 
         System.out.println("\n*******************************");
         System.out.println("\033[1;93m" + "Display Stats for Specific Club" + "\033[0m");
@@ -188,7 +179,7 @@ public class ConsoleApplication {
         System.out.print("Name of the Club : ");
         String clubName = isContain(leagueManager, "Name of the Club : ", sc.next());
 
-        System.out.println("\nClub\t\tMP  W   L   D   GS  GR  PTS");
+        System.out.println("\nClub\t\t\tMP  W   L   D   GS  GR  PTS");
         System.out.println("-------------------------------------------");
 
         System.out.println(leagueManager.displaySingleClub(clubName).toString());
@@ -197,7 +188,6 @@ public class ConsoleApplication {
                 "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");
 
         leagueManager.saveData(leagueClubs);
-        leagueManager.saveData(leagueMatches);
 
         System.out.println("\n------------------------------------------------------");
     }
@@ -210,14 +200,13 @@ public class ConsoleApplication {
         System.out.println("********************\n");
 
         leagueManager.loadData(leagueClubs);
-        leagueManager.loadData(leagueMatches);
 
         System.out.println("The table sorted out in descending order \naccording to " +
                 "their points(PTS) gained\nthroughout the current League.\n");
 
         System.out.println("\033[1;93m" + "\t\t\t\tLeague Table" + "\033[0m");
         System.out.println("-------------------------------------------");
-        System.out.println("Club\t\tMP  W   L   D   GS  GR  PTS");
+        System.out.println("Club\t\t\tMP  W   L   D   GS  GR  PTS");
         System.out.println("-------------------------------------------");
 
         if (!premierLeagueManager.getTeamList().isEmpty()) {
@@ -229,10 +218,6 @@ public class ConsoleApplication {
             System.out.println("\nNo Team has played a Match yet");
         }
 
-        System.out.println("\nclubs count - " + leagueManager.getTeamList().size());
-        System.out.println("matches count - " + leagueManager.getMatchList().size());
-
-        leagueManager.saveData(leagueMatches);
         leagueManager.saveData(leagueClubs);
 
         System.out.println("\n* Club Name is limited to 3 characters! *\n\nW - Wins | MP - Matches Played\n" +
@@ -251,44 +236,45 @@ public class ConsoleApplication {
         leagueManager.loadData(leagueClubs);
         leagueManager.loadData(leagueMatches);
 
-        System.out.print("Club1 name ? : ");
-        String clubOneName = isContain(leagueManager, "Club1 name ? : ", sc.next());
+        if (premierLeagueManager.getTeamList().size() >= 2) {
+            System.out.print("Club1 name ? : ");
+            String clubOneName = isContain(leagueManager, "Club1 name ? : ", sc.next());
 
-        System.out.print("Club1 scored goals : ");
-        int clubOneGoals = Integer.parseInt(validateInt("Club1 scored goals : "));
+            System.out.print("Club1 scored goals : ");
+            int clubOneGoals = Integer.parseInt(validateInt("Club1 scored goals : "));
 
-        System.out.print("\nClub2 name ? : ");
-        String clubTwoName = isContain(leagueManager, "Club2 name ? : ", sc.next());
+            System.out.print("\nClub2 name ? : ");
+            String clubTwoName = isContain(leagueManager, "Club2 name ? : ", sc.next());
 
-        System.out.print("Club2 scored goals : ");
-        int clubTwoGoals = Integer.parseInt(validateInt("Club2 scored goals : "));
+            System.out.print("Club2 scored goals : ");
+            int clubTwoGoals = Integer.parseInt(validateInt("Club2 scored goals : "));
 
-        String dateString;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        while (true) {
-            try {
-                System.out.print("\nPlayed Date (yyyy-MM-dd) : ");
-                dateString = sc.next();
-                dateFormat.parse(dateString);
+            String dateString;
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            while (true) {
+                try {
+                    System.out.print("\nPlayed Date (yyyy-MM-dd) : ");
+                    dateString = sc.next();
+                    dateFormat.parse(dateString);
 
-                LocalDate today = LocalDate.now();
+                    LocalDate today = LocalDate.now();
 
-                if (today.isAfter(LocalDate.parse(dateString)) | today.equals(LocalDate.parse(dateString))) {
+                    if (today.isAfter(LocalDate.parse(dateString)) | today.equals(LocalDate.parse(dateString))) {
 
-                    leagueManager.addPlayedMatch(clubOneName, clubTwoName, clubOneGoals, clubTwoGoals, LocalDate.parse(dateString));
+                        leagueManager.addPlayedMatch(clubOneName, clubTwoName, clubOneGoals, clubTwoGoals, LocalDate.parse(dateString));
 
-                    leagueManager.saveData(leagueMatches);
-                    leagueManager.saveData(leagueClubs);
+                        leagueManager.saveData(leagueMatches);
+                        leagueManager.saveData(leagueClubs);
 
-                    validateSuccess("saved", "save");
-
-                    System.out.println("\n" + "\033[1;93m" + clubOneName + "\033[0m" + " vs " + "\033[1;93m" + clubTwoName + "\033[0m" + " match has been added!");
+                        System.out.println("\n" + "\033[1;93m" + clubOneName + "\033[0m" + " vs " + "\033[1;93m" + clubTwoName + "\033[0m" + " match has been added!");
+                    }
+                    break;
+                } catch (Exception e) {
+                    System.out.println("Invalid Date");
                 }
-
-                break;
-            } catch (Exception e) {
-                System.out.println("Invalid Date");
             }
+        } else {
+            System.out.println("Only one team registered on the league!");
         }
 
         System.out.println("\n------------------------------------------------------");
@@ -298,8 +284,6 @@ public class ConsoleApplication {
         System.out.println("------------------------------------------------------");
 
         leagueManager.loadData(leagueClubs);
-
-        validateSuccess("loaded", "load");
 
         System.out.println("\n***************************");
         System.out.println("\033[1;93m" + "Remove Team from the League" + "\033[0m");
@@ -311,19 +295,13 @@ public class ConsoleApplication {
         leagueManager.deleteClub(clubName);
         leagueManager.saveData(leagueClubs);
 
-        validateSuccess("saved", "save");
-
         System.out.println("\n------------------------------------------------------");
     }
 
     private static void addClub(PremierLeagueManager leagueManager) {
         leagueManager.loadData(leagueClubs);
-        leagueManager.loadData(leagueMatches);
 
         System.out.println("------------------------------------------------------");
-
-        System.out.println("\nloaded data\n\nclubs count - " + leagueManager.getTeamList().size());
-        System.out.println("matches count - " + leagueManager.getMatchList().size());
 
         System.out.println("\n************************");
         System.out.println("\033[1;93m" + "Add a Team to the League" + "\033[0m");
@@ -343,12 +321,6 @@ public class ConsoleApplication {
         leagueManager.addClub(footballClub);
 
         leagueManager.saveData(leagueClubs);
-        leagueManager.saveData(leagueMatches);
-
-        System.out.println("\nsaved data\n\nclubs count - " + leagueManager.getTeamList().size());
-        System.out.println("matches count - " + leagueManager.getMatchList().size());
-
-        validateSuccess("saved", "save");
 
         System.out.println("\n------------------------------------------------------");
     }
@@ -365,8 +337,11 @@ public class ConsoleApplication {
     private static String isContain(PremierLeagueManager leagueManager, String label, String clubName) {
         while (leagueManager.isContain(clubName)) {
             System.out.println("Prompted Club is not available!\n");
-            System.out.print(label);
+            System.out.print(label + " , Press \"Q\" to exit");
             clubName = sc.next();
+            if (clubName.equalsIgnoreCase("q")) {
+                break;
+            }
         }
         return clubName;
     }

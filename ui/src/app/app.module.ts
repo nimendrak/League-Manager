@@ -32,7 +32,7 @@ import {MatchTableService} from "./backend-services/match-table-services/match-t
 import {RandomMatchDialogComponent} from './random-match-dialog/random-match-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatCardModule} from "@angular/material/card";
-import { CardComponent } from './card/card.component';
+import { CardComponent } from './abbrev-card/card.component';
 
 
 const appRoutes: Routes = [
