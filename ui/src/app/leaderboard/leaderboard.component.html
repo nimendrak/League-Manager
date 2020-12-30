@@ -43,14 +43,12 @@
             >Go
             </button>
           </li>
-
         </ul>
       </div>
     </div>
   </nav>
 
   <table mat-table class="full-width-table" matSort aria-label="Elements" [dataSource]="dataSource">
-
     <ng-container matColumnDef="clubName">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Club</th>
       <td mat-cell *matCellDef="let item">{{item.clubName}}</td>
@@ -100,10 +98,13 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
+  <app-card></app-card>
+
   <mat-paginator #paginator
                  [length]="dataSource?.data.length"
                  [pageIndex]="0"
                  [pageSize]="25"
                  [pageSizeOptions]="[1, 5, 10, 15]">
   </mat-paginator>
+
 </div>

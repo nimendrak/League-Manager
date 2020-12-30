@@ -31,6 +31,9 @@ import {AppServices} from "./backend-services/app-services/app-services.service"
 import {MatchTableService} from "./backend-services/match-table-services/match-table.service";
 import {RandomMatchDialogComponent} from './random-match-dialog/random-match-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {MatCardModule} from "@angular/material/card";
+import { CardComponent } from './card/card.component';
+
 
 const appRoutes: Routes = [
   {path: 'leaderboard', component: LeaderboardComponent},
@@ -45,7 +48,8 @@ const appRoutes: Routes = [
     MatchTableComponent,
     SearchMatchComponent,
     ViewAllMatchesComponent,
-    RandomMatchDialogComponent
+    RandomMatchDialogComponent,
+    CardComponent
   ],
   entryComponents: [RandomMatchDialogComponent],
   imports: [
@@ -63,6 +67,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatCardModule,
     ReactiveFormsModule,
     FormsModule,
     MatMenuModule,

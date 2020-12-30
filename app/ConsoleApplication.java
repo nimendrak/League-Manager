@@ -1,10 +1,7 @@
-
-
+import models.ProgressBar;
 import models.FootballClub;
 import models.PremierLeagueManager;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -385,38 +382,6 @@ public class ConsoleApplication {
             }
         }
         PremierLeagueManager.setSuccess(false);
-    }
-}
-
-class ProgressBar {
-    private StringBuilder progress;
-
-    public ProgressBar() {
-        init();
-    }
-
-    public void update(int done, int total) {
-        char[] workchars = {'|', '/', '-', '\\'};
-        String format = "\r%3d%% %s %c";
-
-        int percent = (++done * 100) / total;
-        int extrachars = (percent / 2) - this.progress.length();
-
-        while (extrachars-- > 0) {
-            progress.append('#');
-        }
-
-        System.out.printf(format, percent, progress, workchars[done % workchars.length]);
-
-        if (done == total) {
-            System.out.flush();
-            System.out.println();
-            init();
-        }
-    }
-
-    private void init() {
-        this.progress = new StringBuilder(60);
     }
 }
 
