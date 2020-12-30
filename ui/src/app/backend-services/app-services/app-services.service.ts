@@ -16,9 +16,6 @@ export class AppServices {
   private postRandomMatchUrl = this.appRoot + '/add/random';
   private getRandomMatchUrl = this.appRoot + '/add/get-random';
 
-  private postLoadClubsDataUrl = this.appRoot + '/load-data/clubs';
-  private postLoadMatchesDataUrl = this.appRoot + '/load-data/matches';
-
   constructor(private http: HttpClient) {
   }
 
@@ -32,14 +29,5 @@ export class AppServices {
   public getRandomMatch(): Observable<any> {
     return this.http.get(this.getRandomMatchUrl);
   }
-
-  public getLoadClubsData() {
-    return this.http.post(this.postLoadClubsDataUrl, {});
-  }
-
-  public getLoadMatchesData() {
-    return this.http.post(this.postLoadMatchesDataUrl, {});
-  }
-
 
 }

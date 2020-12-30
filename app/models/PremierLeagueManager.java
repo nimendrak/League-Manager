@@ -147,9 +147,9 @@ public class PremierLeagueManager implements LeagueManager {
                             Match m = (Match) objectInputStream.readObject();
                             matchList.add(m);
                         }
+                        success = true;
                     } catch (EOFException | ClassNotFoundException ex) {
 //                        ex.printStackTrace();
-                        success = true;
                         break;
                     }
                 }

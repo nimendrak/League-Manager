@@ -34,15 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.loadClubsData();
-    this.loadMatchesData();
-    // setInterval(()=> this.loadClubsData(), 100);
-    // setInterval(()=> this.loadMatchesData(), 100);
   }
 
-  // save data, while closing the tab
   ngOnDestroy() {
-    this.saveData();
+
   }
 
   /**
@@ -66,27 +61,5 @@ export class AppComponent implements OnInit, OnDestroy {
     this.dialog.afterAllClosed.subscribe(() =>
       window.location.reload()
     );
-  }
-
-  saveData() {
-    // this.navService.postSaveClubsData().subscribe((data: any) => {
-    //   this.postRequestResponse = data.content;
-    // });
-    //
-    // this.navService.postSaveMatchesData().subscribe((data: any) => {
-    //   this.postRequestResponse = data.content;
-    // });
-  }
-
-  loadClubsData() {
-    this.navService.getLoadClubsData().subscribe((data: any) => {
-      this.postRequestResponse = data.content;
-    });
-  }
-
-  loadMatchesData() {
-    this.navService.getLoadMatchesData().subscribe((data: any) => {
-      this.postRequestResponse = data.content;
-    });
   }
 }

@@ -182,9 +182,13 @@ public class ConsoleApplication {
         System.out.println("\nClub\t\t\tMP  W   L   D   GS  GR  PTS");
         System.out.println("-------------------------------------------");
 
-        System.out.println(leagueManager.displaySingleClub(clubName).toString());
+        if (clubName != null) {
+            System.out.println(leagueManager.displaySingleClub(clubName).toString());
+        } else {
+            System.out.println("\033[1;93m" + "\t\tPrompted Team does not exist!" + "\033[0m");
+        }
 
-        System.out.println("\n* Club Name is limited to 3 characters! *\n\nW - Wins | MP - Matches Played\n" +
+        System.out.println("\n*  Club Name is limited to 3 characters!  *\n\nW - Wins | MP - Matches Played\n" +
                 "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");
 
         leagueManager.saveData(leagueClubs);
@@ -215,12 +219,12 @@ public class ConsoleApplication {
                 System.out.println("- - - - - - - - - - - - - - - - - - - - - -");
             }
         } else {
-            System.out.println("\nNo Team has played a Match yet");
+            System.out.println("\033[1;93m" + "\t   No Team has played a Match yet" + "\033[0m");
         }
 
         leagueManager.saveData(leagueClubs);
 
-        System.out.println("\n* Club Name is limited to 3 characters! *\n\nW - Wins | MP - Matches Played\n" +
+        System.out.println("\n*  Club Name is limited to 3 characters!  *\n\nW - Wins | MP - Matches Played\n" +
                 "L - Loss | GR - Goals Received\nD - Draw | GS - Goals Scored");
 
         System.out.println("\n------------------------------------------------------");
@@ -337,10 +341,10 @@ public class ConsoleApplication {
     private static String isContain(PremierLeagueManager leagueManager, String label, String clubName) {
         while (leagueManager.isContain(clubName)) {
             System.out.println("Prompted Club is not available!\n");
-            System.out.print(label + " , Press \"Q\" to exit");
+            System.out.print("Press \"Q\" to return or enter, " + label);
             clubName = sc.next();
             if (clubName.equalsIgnoreCase("q")) {
-                break;
+                return null;
             }
         }
         return clubName;
