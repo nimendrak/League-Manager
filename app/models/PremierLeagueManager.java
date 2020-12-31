@@ -6,12 +6,12 @@ import java.util.*;
 
 public class PremierLeagueManager implements LeagueManager {
 
-    final static int MAX_TEAMS = 3;
+    final static int MAX_TEAMS = 20;
     private final List<FootballClub> teamList = new ArrayList<>();
     private final List<Match> matchList = new ArrayList<>();
     private int availableSlots = MAX_TEAMS;
 
-    // booleans to check specific progress
+    // to check specific progress execution
     static boolean success = false;
 
     /*
@@ -36,7 +36,6 @@ public class PremierLeagueManager implements LeagueManager {
 
     @Override
     public boolean addClub(FootballClub footballClub) {
-
         if (teamList.contains(footballClub)) {
             System.out.println("\nTeam has been already added to the League!");
         } else if (availableSlots == 0) {
@@ -44,18 +43,22 @@ public class PremierLeagueManager implements LeagueManager {
         } else {
             teamList.add(footballClub);
             availableSlots -= 1;
-            System.out.println("\nTeam " + footballClub.getClubName() + " from " + footballClub.getClubLocation() + " successfully added to the League!");
+            System.out.println("\nTeam " + footballClub.getClubName().toUpperCase() + " from " + footballClub.getClubLocation().toUpperCase() + " successfully added to the League!");
         }
+        success = true;
         System.out.println("\nThere are " + "\033[1;93m" + availableSlots + " available slots " + "\033[0m" + "in the League");
-        return true;
+        return success;
     }
 
     @Override
     public boolean addPlayedMatch(String teamOneName, String teamTwoName, int teamOneGoalsScored, int teamTwoGoalsScored, LocalDate date) {
-        Match match = new Match(date, teamOneName, teamTwoName, teamOneGoalsScored, teamTwoGoalsScored, "");
-        match.updateStats("cliApp");
-        matchList.add(match);
-        return true;
+        if (!teamList.isEmpty()) {
+            Match match = new Match(date, teamOneName, teamTwoName, teamOneGoalsScored, teamTwoGoalsScored, "");
+            match.updateStats("cliApp");
+            matchList.add(match);
+            success = true;
+        }
+        return success;
     }
 
     @Override
@@ -63,9 +66,9 @@ public class PremierLeagueManager implements LeagueManager {
         if (!teamList.isEmpty()) {
             teamList.removeIf(f -> f.getClubName().equalsIgnoreCase(clubName));
             System.out.println("\nTeam " + "\033[1;93m" + clubName + "\033[0m" + " removed from the League!");
-            return true;
+            success= true;
         }
-        return false;
+        return success;
     }
 
     @Override
@@ -73,6 +76,7 @@ public class PremierLeagueManager implements LeagueManager {
         if (!teamList.isEmpty()) {
             for (FootballClub f : teamList)
                 if (f.getClubName().equalsIgnoreCase(clubName)) {
+                    success = true;
                     return f;
                 }
         }
@@ -87,6 +91,7 @@ public class PremierLeagueManager implements LeagueManager {
          * */
         if (!teamList.isEmpty()) {
             Collections.sort(teamList, Collections.reverseOrder());
+            success = true;
             return teamList;
         }
         return null;
@@ -159,6 +164,8 @@ public class PremierLeagueManager implements LeagueManager {
 
         return success;
     }
+
+//  these methods gives access to the private variables in this class
 
     public static boolean isSuccess() {
         return success;

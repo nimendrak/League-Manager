@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PremierLeagueManagerTest {
+public class PremierLeagueManagerTest {
 
     //  initialize an instance of PremierLeagueManager to test its methods
     PremierLeagueManager premierLeagueManagerTest = PremierLeagueManager.getInstance();
@@ -21,8 +21,8 @@ class PremierLeagueManagerTest {
     //  test list to hold the compare return values
     List<FootballClub> teamList = new ArrayList<>();
 
-    final String leagueMatches = "TestDataMatches.txt";
-    final String leagueClubs = "TestDataTeams.txt";
+    final String leagueMatches = "DataSource/test/TestDataMatches.txt";
+    final String leagueClubs = "DataSource/test/TestDataTeams.txt";
 
     @Test
     void addClubVariationOne() {

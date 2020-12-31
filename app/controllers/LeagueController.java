@@ -18,21 +18,16 @@ public class LeagueController extends Controller {
 
     private static final Logger logger = LoggerFactory.getLogger("controller");
 
-    public Result addRandomMatch() {
-        LeagueManagerServices.getInstance().loadData();
-        Match result = LeagueManagerServices.getInstance().addRandomMatch();
-        logger.debug("In LeagueController.addRandomMatch(), result is: {}", result.toString());
-
-        JsonNode jsonObject = Json.toJson(result);
-        LeagueManagerServices.getInstance().saveData();
-        return created(ApplicationUtil.createResponse(jsonObject, true));
-    }
+    /*
+     * if any method that invokes teamList and matchList;
+     * overwrite the dataSource and clear out the current array lists and
+     * load new data again to the array lists
+     */
 
     public Result showLeaderboard() {
         LeagueManagerServices.getInstance().loadData();
-        List<FootballClub> result = LeagueManagerServices.getInstance().showLeaderboard();
+        List<FootballClub> result = LeagueManagerServices.getInstance().getLeaderboard();
         logger.debug("In LeagueController.showLeaderboard(), result is: {}", result.toString());
-
         JsonNode jsonObject = Json.toJson(result);
         LeagueManagerServices.getInstance().saveData();
         return ok(ApplicationUtil.createResponse(jsonObject, true));
@@ -40,9 +35,8 @@ public class LeagueController extends Controller {
 
     public Result getSortedLeaderboardData(String sort, String order) {
         LeagueManagerServices.getInstance().loadData();
-        List<FootballClub> result = LeagueManagerServices.getInstance().getSortedLeaderboardData(sort, order);
+        List<FootballClub> result = LeagueManagerServices.getInstance().getSortedLeaderboard(sort, order);
         logger.debug("In LeagueController.getSortedLeaderboardData(), result is: {}", result.toString());
-
         JsonNode jsonObject = Json.toJson(result);
         LeagueManagerServices.getInstance().saveData();
         return ok(ApplicationUtil.createResponse(jsonObject, true));
@@ -62,7 +56,15 @@ public class LeagueController extends Controller {
         LeagueManagerServices.getInstance().loadData();
         List<Match> result = LeagueManagerServices.getInstance().getSearchedMatch(date);
         logger.debug("In LeagueController.addRandomMatch(), result is: {}", result.toString());
+        JsonNode jsonObject = Json.toJson(result);
+        LeagueManagerServices.getInstance().saveData();
+        return created(ApplicationUtil.createResponse(jsonObject, true));
+    }
 
+    public Result addRandomMatch() {
+        LeagueManagerServices.getInstance().loadData();
+        Match result = LeagueManagerServices.getInstance().addRandomMatch();
+        logger.debug("In LeagueController.addRandomMatch(), result is: {}", result.toString());
         JsonNode jsonObject = Json.toJson(result);
         LeagueManagerServices.getInstance().saveData();
         return created(ApplicationUtil.createResponse(jsonObject, true));
@@ -72,7 +74,6 @@ public class LeagueController extends Controller {
         LeagueManagerServices.getInstance().loadData();
         Match result = LeagueManagerServices.getInstance().getRandomMatch();
         logger.debug("In LeagueController.addRandomMatch(), result is: {}", result.toString());
-
         JsonNode jsonObject = Json.toJson(result);
         LeagueManagerServices.getInstance().saveData();
         return created(ApplicationUtil.createResponse(jsonObject, true));

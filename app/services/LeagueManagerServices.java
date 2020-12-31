@@ -13,6 +13,14 @@ public class LeagueManagerServices {
     List<FootballClub> clubsDataArray = new ArrayList<>();
     List<Match> matchDataArray = new ArrayList<>();
 
+    /*
+    * since both CLI application and GUI application
+    * use the same dataSource and, it's the common component
+    * for the both applications.
+    * everytime CLI application get updated all the modified data will
+    * write to the text files and GUI application does the same thing.
+    * */
+
     final static String leagueMatches = "DataSource/PremierLeagueMatches.txt";
     final static String leagueClubs = "DataSource/PremierLeagueTeams.txt";
 
@@ -30,6 +38,128 @@ public class LeagueManagerServices {
             }
         }
         return instance;
+    }
+
+    public List<FootballClub> getLeaderboard() {
+        if (!clubsDataArray.isEmpty()) {
+            Collections.sort(clubsDataArray, Collections.reverseOrder());
+            return clubsDataArray;
+        }
+        return null;
+    }
+
+    public List<FootballClub> getSortedLeaderboard(String type, String order) {
+        //      get a copy of current list and sorting the copy
+        List<FootballClub> sortedList = clubsDataArray;
+
+//      initialize three different comparators according to the sorting requirement
+//      comparator for scored goals
+        Comparator<FootballClub> compareByGoals = Comparator
+                .comparing(FootballClub::getNumOfGoalsScored)
+                .thenComparing(FootballClub::getNumOfGoalsScored);
+
+//      comparator for seasonal wins
+        Comparator<FootballClub> compareByWins = Comparator
+                .comparing(FootballClub::getSeasonWins)
+                .thenComparing(FootballClub::getSeasonWins);
+
+//      comparator for gained points
+        Comparator<FootballClub> compareByPoints = Comparator
+                .comparing(FootballClub::getNumOfPointsGained)
+                .thenComparing(FootballClub::getNumOfPointsGained);
+
+        if (type.equalsIgnoreCase("goals")) {
+            if (order.equalsIgnoreCase("ascending")) {
+                return sortedList.stream().sorted(compareByGoals).collect(Collectors.toList());
+            } else {
+                return sortedList.stream().sorted(compareByGoals.reversed()).collect(Collectors.toList());
+            }
+        } else if ((type.equalsIgnoreCase("wins"))) {
+            if (order.equalsIgnoreCase("ascending")) {
+                return sortedList.stream().sorted(compareByWins).collect(Collectors.toList());
+            } else {
+                return sortedList.stream().sorted(compareByWins.reversed()).collect(Collectors.toList());
+            }
+        } else {
+            if (order.equalsIgnoreCase("ascending")) {
+                return sortedList.stream().sorted(compareByPoints).collect(Collectors.toList());
+            } else {
+                return sortedList.stream().sorted(compareByPoints.reversed()).collect(Collectors.toList());
+            }
+        }
+    }
+
+    public Match addRandomMatch() {
+        FootballClub randomTeamOne, randomTeamTwo;
+        int randomScoreOne, randomScoreTwo;
+        LocalDate randomLocalDate;
+
+//      generating a random match
+        if (clubsDataArray.size() >= 2) {
+            Random rand = new Random();
+            do {
+                int indexOne = new Random().nextInt(clubsDataArray.size());
+                int indexTwo = new Random().nextInt(clubsDataArray.size());
+
+                randomTeamOne = (clubsDataArray.get(indexOne));
+                randomTeamTwo = (clubsDataArray.get(indexTwo));
+
+                randomScoreOne = rand.nextInt(11);
+                randomScoreTwo = rand.nextInt(11);
+
+                int minDay = (int) LocalDate.of(2020, 6, 1).toEpochDay();
+                int maxDay = (int) LocalDate.of(2020, 7, 31).toEpochDay();
+                long randomDay = minDay + rand.nextInt(maxDay - minDay);
+
+                randomLocalDate = LocalDate.ofEpochDay(randomDay);
+
+            } while (randomTeamOne.getClubName().equals(randomTeamTwo.getClubName()));
+
+            Match match = new Match(randomLocalDate, randomTeamOne.getClubName(), randomTeamTwo.getClubName(),
+                    randomScoreOne, randomScoreTwo, "");
+
+            match.updateStats("guiApp");
+            matchDataArray.add(match);
+            return match;
+        }
+        return null;
+    }
+
+    public Match getRandomMatch() {
+        Match match = null;
+        if (!clubsDataArray.isEmpty()) {
+            if (matchDataArray.size() == 1) {
+                match = matchDataArray.get(0);
+            } else {
+                match = matchDataArray.get(matchDataArray.size() - 1);
+            }
+        }
+        return match;
+    }
+
+    public List<Match> getSearchedMatch(String date) {
+        List<Match> searchResults = new ArrayList<>();
+
+        try {
+            if (!matchDataArray.isEmpty()) {
+                for (Match m : matchDataArray) {
+                    if (m.getDate().equals(LocalDate.parse(date))) {
+                        searchResults.add(m);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return searchResults;
+    }
+
+    public List<Match> getPlayedMatches() {
+        Comparator<Match> compareByDate = Comparator
+                .comparing(Match::getDate)
+                .thenComparing(Match::getDate);
+
+        return matchDataArray.stream().sorted(compareByDate.reversed()).collect(Collectors.toList());
     }
 
     public void loadData() {
@@ -109,128 +239,6 @@ public class LeagueManagerServices {
         } catch (IOException e) {
 //            e.printStackTrace();
         }
-    }
-
-    public Match addRandomMatch() {
-        FootballClub randomTeamOne, randomTeamTwo;
-        int randomScoreOne, randomScoreTwo;
-        LocalDate randomLocalDate;
-
-//      generating a random match
-        if (clubsDataArray.size() >= 2) {
-            Random rand = new Random();
-            do {
-                int indexOne = new Random().nextInt(clubsDataArray.size());
-                int indexTwo = new Random().nextInt(clubsDataArray.size());
-
-                randomTeamOne = (clubsDataArray.get(indexOne));
-                randomTeamTwo = (clubsDataArray.get(indexTwo));
-
-                randomScoreOne = rand.nextInt(11);
-                randomScoreTwo = rand.nextInt(11);
-
-                int minDay = (int) LocalDate.of(2020, 6, 1).toEpochDay();
-                int maxDay = (int) LocalDate.of(2020, 7, 31).toEpochDay();
-                long randomDay = minDay + rand.nextInt(maxDay - minDay);
-
-                randomLocalDate = LocalDate.ofEpochDay(randomDay);
-
-            } while (randomTeamOne.getClubName().equals(randomTeamTwo.getClubName()));
-
-            Match match = new Match(randomLocalDate, randomTeamOne.getClubName(), randomTeamTwo.getClubName(),
-                    randomScoreOne, randomScoreTwo, "");
-
-            match.updateStats("guiApp");
-            matchDataArray.add(match);
-            return match;
-        }
-        return null;
-    }
-
-    public List<FootballClub> showLeaderboard() {
-        if (!clubsDataArray.isEmpty()) {
-            Collections.sort(clubsDataArray, Collections.reverseOrder());
-            return clubsDataArray;
-        }
-        return null;
-    }
-
-    public List<FootballClub> getSortedLeaderboardData(String type, String order) {
-        //      get a copy of current list and sorting the copy
-        List<FootballClub> sortedList = clubsDataArray;
-
-//      initialize three different comparators according to the sorting requirement
-//      comparator for scored goals
-        Comparator<FootballClub> compareByGoals = Comparator
-                .comparing(FootballClub::getNumOfGoalsScored)
-                .thenComparing(FootballClub::getNumOfGoalsScored);
-
-//      comparator for seasonal wins
-        Comparator<FootballClub> compareByWins = Comparator
-                .comparing(FootballClub::getSeasonWins)
-                .thenComparing(FootballClub::getSeasonWins);
-
-//      comparator for gained points
-        Comparator<FootballClub> compareByPoints = Comparator
-                .comparing(FootballClub::getNumOfPointsGained)
-                .thenComparing(FootballClub::getNumOfPointsGained);
-
-        if (type.equalsIgnoreCase("goals")) {
-            if (order.equalsIgnoreCase("ascending")) {
-                return sortedList.stream().sorted(compareByGoals).collect(Collectors.toList());
-            } else {
-                return sortedList.stream().sorted(compareByGoals.reversed()).collect(Collectors.toList());
-            }
-        } else if ((type.equalsIgnoreCase("wins"))) {
-            if (order.equalsIgnoreCase("ascending")) {
-                return sortedList.stream().sorted(compareByWins).collect(Collectors.toList());
-            } else {
-                return sortedList.stream().sorted(compareByWins.reversed()).collect(Collectors.toList());
-            }
-        } else {
-            if (order.equalsIgnoreCase("ascending")) {
-                return sortedList.stream().sorted(compareByPoints).collect(Collectors.toList());
-            } else {
-                return sortedList.stream().sorted(compareByPoints.reversed()).collect(Collectors.toList());
-            }
-        }
-    }
-
-    public List<Match> getSearchedMatch(String date) {
-        List<Match> searchResults = new ArrayList<>();
-
-        try {
-            if (!matchDataArray.isEmpty()) {
-                for (Match m : matchDataArray) {
-                    if (m.getDate().equals(LocalDate.parse(date))) {
-                        searchResults.add(m);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        return searchResults;
-    }
-
-    public List<Match> getPlayedMatches() {
-        Comparator<Match> compareByDate = Comparator
-                .comparing(Match::getDate)
-                .thenComparing(Match::getDate);
-
-        return matchDataArray.stream().sorted(compareByDate.reversed()).collect(Collectors.toList());
-    }
-
-    public Match getRandomMatch() {
-        Match match = null;
-        if (!clubsDataArray.isEmpty()) {
-            if (matchDataArray.size() == 1) {
-                match = matchDataArray.get(0);
-            } else {
-                match = matchDataArray.get(matchDataArray.size() - 1);
-            }
-        }
-        return match;
     }
 
     public List<FootballClub> getClubsDataArray() {

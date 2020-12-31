@@ -78,6 +78,12 @@ public class ConsoleApplication {
         } while (!option.equals("9"));
     }
 
+    /*
+    * if any method that invokes teamList and matchList;
+    * overwrite the dataSource and clear out the current array lists and
+    * load new data again to the array lists
+    * */
+
     private static void invokePlayServer(boolean isRun) {
         System.out.println("------------------------------------------------------");
 
@@ -94,6 +100,7 @@ public class ConsoleApplication {
                     process = builder.start();
                     System.out.println("\033[1;93m" + "\nGUI application is now Launching..\n" + "\033[0m");
 
+//                  progress bar is a custom made class which initiate with the process builder
                     ProgressBar bar = new ProgressBar();
                     System.out.println("Process Starts Now!");
 
@@ -186,6 +193,7 @@ public class ConsoleApplication {
 
         if (clubName != null) {
             System.out.println(leagueManager.displaySingleClub(clubName).toString());
+            PremierLeagueManager.setSuccess(false);
         } else {
             System.out.println("\033[1;93m" + "\t\tPrompted Team does not exist!" + "\033[0m");
         }
@@ -220,6 +228,7 @@ public class ConsoleApplication {
                 System.out.println(f);
                 System.out.println("- - - - - - - - - - - - - - - - - - - - - -");
             }
+            PremierLeagueManager.setSuccess(false);
         } else {
             System.out.println("\033[1;93m" + "\t   No Team has played a Match yet" + "\033[0m");
         }
@@ -299,6 +308,7 @@ public class ConsoleApplication {
         String clubName = isContain("Name of the Club : ", sc.next());
 
         leagueManager.deleteClub(clubName);
+        PremierLeagueManager.setSuccess(false);
         leagueManager.saveData(leagueClubs);
 
         System.out.println("\n------------------------------------------------------");
@@ -321,12 +331,14 @@ public class ConsoleApplication {
 
         FootballClub footballClub = new FootballClub(clubName, clubLocation);
         leagueManager.addClub(footballClub);
+        PremierLeagueManager.setSuccess(false);
 
         leagueManager.saveData(leagueClubs);
 
         System.out.println("\n------------------------------------------------------");
     }
 
+//  validate function01 -> this method returns int values
     private static String isInt(String label) {
         while (!sc.hasNextInt()) {
             System.out.println("Prompt Integers to proceed !\n");
@@ -336,6 +348,7 @@ public class ConsoleApplication {
         return sc.next();
     }
 
+//  validate function02 -> this method check whether prompted club registered on the league or not
     public static boolean isTeam(String clubName) {
         for (FootballClub f : premierLeagueManager.getTeamList()) {
             if (f.getClubName().equalsIgnoreCase(clubName)) {
@@ -345,6 +358,7 @@ public class ConsoleApplication {
         return true;
     }
 
+//  validate function03 -> this method is a expansion of the validate function03
     private static String isContain(String label, String clubName) {
         while (isTeam(clubName)) {
             System.out.println("Prompted Club is not available!\n");
@@ -357,6 +371,8 @@ public class ConsoleApplication {
         return clubName;
     }
 
+//  validate function03 -> this method returns specific methods of the PremierLeagueManager
+//  got executed successfully or not
     private static void isSuccess(String message, String type) {
         if (PremierLeagueManager.isSuccess()) {
             System.out.println(message);
