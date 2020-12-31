@@ -9,6 +9,6 @@ public interface LeagueManager {
     boolean deleteClub(String clubName);
     FootballClub displaySingleClub(String clubName);
     List<FootballClub> displayLeagueTable();
-    void saveData(String fileName);
-    void loadData(String fileName);
+    boolean saveData(String fileName);
+    boolean loadData(String fileName);
 }

@@ -124,12 +124,12 @@ public class ConsoleApplication {
             TimeUnit.SECONDS.sleep(1);
             System.out.print("Teams    - ");
             leagueManager.loadData(teamData);
-            validateSuccess("Successfully Loaded!", "load");
+            isSuccess("Successfully Loaded!", "load");
 
             TimeUnit.SECONDS.sleep(1);
             System.out.print("Matches  - ");
             leagueManager.loadData(matchData);
-            validateSuccess("Successfully Loaded!", "load");
+            isSuccess("Successfully Loaded!", "load");
 
             leagueManager.saveData(teamData);
             leagueManager.saveData(matchData);
@@ -160,11 +160,11 @@ public class ConsoleApplication {
 
         System.out.print("Teams    - ");
         leagueManager.saveData(leagueClubs);
-        validateSuccess("Successfully Saved to the File!", "save");
+        isSuccess("Successfully Saved to the File!", "save");
 
         System.out.print("Matches  - ");
         leagueManager.saveData(leagueMatches);
-        validateSuccess("Successfully Saved to the File!", "save");
+        isSuccess("Successfully Saved to the File!", "save");
 
         System.out.println("\n------------------------------------------------------");
     }
@@ -179,7 +179,7 @@ public class ConsoleApplication {
         System.out.println("*******************************\n");
 
         System.out.print("Name of the Club : ");
-        String clubName = isContain(leagueManager, "Name of the Club : ", sc.next());
+        String clubName = isContain("Name of the Club : ", sc.next());
 
         System.out.println("\nClub\t\t\tMP  W   L   D   GS  GD  PTS");
         System.out.println("-------------------------------------------");
@@ -244,16 +244,16 @@ public class ConsoleApplication {
 
         if (premierLeagueManager.getTeamList().size() >= 2) {
             System.out.print("Club1 name ? : ");
-            String clubOneName = isContain(leagueManager, "Club1 name ? : ", sc.next());
+            String clubOneName = isContain("Club1 name ? : ", sc.next());
 
             System.out.print("Club1 scored goals : ");
-            int clubOneGoals = Integer.parseInt(validateInt("Club1 scored goals : "));
+            int clubOneGoals = Integer.parseInt(isInt("Club1 scored goals : "));
 
             System.out.print("\nClub2 name ? : ");
-            String clubTwoName = isContain(leagueManager, "Club2 name ? : ", sc.next());
+            String clubTwoName = isContain("Club2 name ? : ", sc.next());
 
             System.out.print("Club2 scored goals : ");
-            int clubTwoGoals = Integer.parseInt(validateInt("Club2 scored goals : "));
+            int clubTwoGoals = Integer.parseInt(isInt("Club2 scored goals : "));
 
             String dateString;
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -296,7 +296,7 @@ public class ConsoleApplication {
         System.out.println("***************************\n");
 
         System.out.print("Name of the Club : ");
-        String clubName = isContain(leagueManager, "Name of the Club : ", sc.next());
+        String clubName = isContain("Name of the Club : ", sc.next());
 
         leagueManager.deleteClub(clubName);
         leagueManager.saveData(leagueClubs);
@@ -327,7 +327,7 @@ public class ConsoleApplication {
         System.out.println("\n------------------------------------------------------");
     }
 
-    private static String validateInt(String label) {
+    private static String isInt(String label) {
         while (!sc.hasNextInt()) {
             System.out.println("Prompt Integers to proceed !\n");
             System.out.print(label);
@@ -336,8 +336,17 @@ public class ConsoleApplication {
         return sc.next();
     }
 
-    private static String isContain(PremierLeagueManager leagueManager, String label, String clubName) {
-        while (leagueManager.isContain(clubName)) {
+    public static boolean isTeam(String clubName) {
+        for (FootballClub f : premierLeagueManager.getTeamList()) {
+            if (f.getClubName().equalsIgnoreCase(clubName)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static String isContain(String label, String clubName) {
+        while (isTeam(clubName)) {
             System.out.println("Prompted Club is not available!\n");
             System.out.print("Press \"Q\" to return or enter, " + label);
             clubName = sc.next();
@@ -348,7 +357,7 @@ public class ConsoleApplication {
         return clubName;
     }
 
-    private static void validateSuccess(String message, String type) {
+    private static void isSuccess(String message, String type) {
         if (PremierLeagueManager.isSuccess()) {
             System.out.println(message);
         } else {

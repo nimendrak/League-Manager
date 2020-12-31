@@ -71,11 +71,10 @@ public class PremierLeagueManager implements LeagueManager {
     @Override
     public FootballClub displaySingleClub(String clubName) {
         if (!teamList.isEmpty()) {
-            for (FootballClub f : teamList) {
+            for (FootballClub f : teamList)
                 if (f.getClubName().equalsIgnoreCase(clubName)) {
                     return f;
                 }
-            }
         }
         return null;
     }
@@ -94,7 +93,7 @@ public class PremierLeagueManager implements LeagueManager {
     }
 
     @Override
-    public void saveData(String fileName) {
+    public boolean saveData(String fileName) {
         try {
             File file = new File(fileName);
 
@@ -119,47 +118,46 @@ public class PremierLeagueManager implements LeagueManager {
             objectOutputStream.close();
             fileOutputStream.close();
 
-
         } catch (IOException e) {
 //            e.printStackTrace();
         }
+        return success;
     }
 
     @Override
-    public void loadData(String fileName) {
+    public boolean loadData(String fileName) {
         File file = new File(fileName);
-        boolean empty = !file.exists() || file.length() == 0;
 
-        if (!empty) {
-            try {
-                FileInputStream fileInputStream = new FileInputStream(file);
-                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-                FootballClub f;
-                while (true) {
-                    try {
-                        if (fileName.contains("Teams.txt")) {
-                            f = (FootballClub) objectInputStream.readObject();
-                            teamList.add(f);
-                            availableSlots = 20 - teamList.size();
-                        } else {
-                            Match m = (Match) objectInputStream.readObject();
-                            matchList.add(m);
-                        }
-                        success = true;
-                    } catch (EOFException | ClassNotFoundException ex) {
-//                        ex.printStackTrace();
-                        break;
+            FootballClub f;
+            while (true) {
+                try {
+                    if (fileName.contains("Teams.txt")) {
+                        f = (FootballClub) objectInputStream.readObject();
+                        teamList.add(f);
+                        availableSlots = 20 - teamList.size();
+                    } else {
+                        Match m = (Match) objectInputStream.readObject();
+                        matchList.add(m);
                     }
+                    success = true;
+                } catch (EOFException | ClassNotFoundException ex) {
+//                        ex.printStackTrace();
+                    break;
                 }
-
-                fileInputStream.close();
-                objectInputStream.close();
-
-            } catch (IOException e) {
-//                e.printStackTrace();
             }
+
+            fileInputStream.close();
+            objectInputStream.close();
+
+        } catch (IOException e) {
+//                e.printStackTrace();
         }
+
+        return success;
     }
 
     public static boolean isSuccess() {
@@ -170,20 +168,15 @@ public class PremierLeagueManager implements LeagueManager {
         PremierLeagueManager.success = success;
     }
 
-    public boolean isContain(String clubName) {
-        for (FootballClub f : teamList) {
-            if (f.getClubName().equalsIgnoreCase(clubName)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public List<FootballClub> getTeamList() {
         return teamList;
     }
 
     public List<Match> getMatchList() {
         return matchList;
+    }
+
+    public void setAvailableSlots(int availableSlots) {
+        this.availableSlots = availableSlots;
     }
 }
