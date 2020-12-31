@@ -319,11 +319,7 @@ public class ConsoleApplication {
         System.out.print("02 Club location ? : ");
         String clubLocation = sc.next();
 
-        int seasonWins = 0, seasonDefeats = 0, seasonDraws = 0, goalsReceived = 0, goalsScored = 0, pointsGained = 0, matchesPlayed = 0;
-
-        FootballClub footballClub = new FootballClub(clubName, clubLocation, matchesPlayed,
-                seasonWins, seasonDefeats, seasonDraws, goalsReceived, goalsScored, pointsGained);
-
+        FootballClub footballClub = new FootballClub(clubName, clubLocation);
         leagueManager.addClub(footballClub);
 
         leagueManager.saveData(leagueClubs);

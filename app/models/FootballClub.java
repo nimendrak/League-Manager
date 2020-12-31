@@ -10,17 +10,8 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
     private int numOfPointsGained;
     private int goalsDifference;
 
-    public FootballClub(String clubName, String clubLocation, int numOfMatchesPlayed, int seasonWins, int seasonDefeats, int seasonDraws,
-                        int numOfGoalsReceived, int numOfGoalsScored, int numOfPointsGained) {
+    public FootballClub(String clubName, String clubLocation) {
         super(clubName, clubLocation);
-
-        this.numOfMatchesPlayed = numOfMatchesPlayed;
-        this.seasonWins = seasonWins;
-        this.seasonDefeats = seasonDefeats;
-        this.seasonDraws = seasonDraws;
-        this.numOfGoalsReceived = numOfGoalsReceived;
-        this.numOfGoalsScored = numOfGoalsScored;
-        this.numOfPointsGained = numOfPointsGained;
     }
 
     public int getSeasonWins() {

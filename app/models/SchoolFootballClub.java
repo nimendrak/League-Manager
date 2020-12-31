@@ -3,10 +3,9 @@ package models;
 public class SchoolFootballClub extends FootballClub {
     private String schoolName;
 
-    public SchoolFootballClub(String clubName, String clubLocation, int numOfMatchesPlayed, String schoolName, int seasonWins, int seasonDefeats,
-                              int seasonDraws, int numOfGoalsReceived, int numOfGoalsScored, int numOfPointsGained) {
+    public SchoolFootballClub(String clubName, String clubLocation) {
 
-        super(clubName, clubLocation, seasonWins, seasonDefeats, seasonDraws, numOfGoalsReceived, numOfGoalsScored, numOfPointsGained, numOfMatchesPlayed);
+        super(clubName, clubLocation);
 
         this.schoolName = schoolName;
     }

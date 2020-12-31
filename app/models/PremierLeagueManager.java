@@ -6,12 +6,12 @@ import java.util.*;
 
 public class PremierLeagueManager implements LeagueManager {
 
-    final static int MAX_TEAMS = 20;
+    final static int MAX_TEAMS = 3;
     private final List<FootballClub> teamList = new ArrayList<>();
     private final List<Match> matchList = new ArrayList<>();
     private int availableSlots = MAX_TEAMS;
 
-    //  booleans to check specific progress
+    // booleans to check specific progress
     static boolean success = false;
 
     /*
@@ -35,7 +35,7 @@ public class PremierLeagueManager implements LeagueManager {
     }
 
     @Override
-    public void addClub(FootballClub footballClub) {
+    public boolean addClub(FootballClub footballClub) {
 
         if (teamList.contains(footballClub)) {
             System.out.println("\nTeam has been already added to the League!");
@@ -47,26 +47,25 @@ public class PremierLeagueManager implements LeagueManager {
             System.out.println("\nTeam " + footballClub.getClubName() + " from " + footballClub.getClubLocation() + " successfully added to the League!");
         }
         System.out.println("\nThere are " + "\033[1;93m" + availableSlots + " available slots " + "\033[0m" + "in the League");
+        return true;
     }
 
     @Override
-    public void addPlayedMatch(String teamOneName, String teamTwoName, int teamOneGoalsScored, int teamTwoGoalsScored, LocalDate date) {
-        try {
-            Match match = new Match(date, teamOneName, teamTwoName, teamOneGoalsScored, teamTwoGoalsScored, "");
-            match.updateStats("cliApp");
-            matchList.add(match);
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+    public boolean addPlayedMatch(String teamOneName, String teamTwoName, int teamOneGoalsScored, int teamTwoGoalsScored, LocalDate date) {
+        Match match = new Match(date, teamOneName, teamTwoName, teamOneGoalsScored, teamTwoGoalsScored, "");
+        match.updateStats("cliApp");
+        matchList.add(match);
+        return true;
     }
 
     @Override
-    public void deleteClub(String clubName) {
+    public boolean deleteClub(String clubName) {
         if (!teamList.isEmpty()) {
             teamList.removeIf(f -> f.getClubName().equalsIgnoreCase(clubName));
             System.out.println("\nTeam " + "\033[1;93m" + clubName + "\033[0m" + " removed from the League!");
+            return true;
         }
+        return false;
     }
 
     @Override
