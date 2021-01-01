@@ -69,6 +69,9 @@ Both CLI and GUI applications updated their DataSources as they update realtime.
     │   │   ├── app                          # Contains landing page of the web
     │   │   │   ├── abbrev-card              # Abbrevation of the Leaderboard component
     │   │   │   ├── backend-services         # Contains backend services for each componnent
+    │   │   │   │   ├── app-service          # Allows communication between AppComp and backend
+    │   │   │   │   ├── leaderboard-service  # Allows communication between leaderboard and backend
+    │   │   │   │   ├── match-table-service  # Allows communication between match-table and backend
     │   │   │   ├── leaderboard              # Contains standings table component
     │   │   │   ├── random-match-dialog      # Random generated match details component
     │   │   │   ├── view-all-matches         # Contains match table component
