@@ -18,7 +18,7 @@ The project contains combined an Angular Frontend and Play backend which already
     - Search clubs
     
 
-Both CLI and GUI applications updated their DataSources as they updated realtime. 
+Both CLI and GUI applications updated their DataSources as they update realtime. 
 
 ## How to launch the application
 
