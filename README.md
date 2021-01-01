@@ -1,10 +1,29 @@
 ## League Manager
 
-- The project contains combined Angular frontend and Play backend which already configured by a boilerplate.
+The project contains combined an Angular Frontend and Play backend which already configured by a boilerplate. Overview of the League Manager as follows ;
+
+- CLI application has following functions :
+
+    - Add clubs into the League
+    - Delete clubs from the League
+    - Add matches to the League
+    - Show current standings 
+    - Search clubs
+    
+    
+- GUI application has following functions :
+
+    - Add random generated match into league
+    - Show current standings
+    - Search clubs
+    
+
+Both CLI and GUI applications updated their DataSources as they updated realtime. 
 
 ## How to launch the application
 
-Simply run the following command ```sbt run``` in the root directory.
+- Simply run the following command ```sbt run``` in the root directory to run the GUI application.
+- or Run ```app/ConsoleApplication.java```, both Angular client and PlayFramework can be invoked from there as well.
 
 ## Essential Directory Layout
 
@@ -63,3 +82,17 @@ Simply run the following command ```sbt run``` in the root directory.
     │   └── tslint.json                      # Lint rules for the ui
     ├── build.sbt                            # Play application SBT configuration
     └── ui-build.sbt                         # SBT command hooks associated with frontend npm scripts 
+
+* Used any of the following [SBT](http://www.scala-sbt.org/) commands which will intern trigger frontend associated npm scripts.
+
+```
+    sbt clean           # Clean existing build artifacts
+
+    sbt stage           # Build your application from your project’s source directory
+
+    sbt run             # Run both backend and frontend builds in watch mode
+
+    sbt dist            # Build both backend and frontend sources into a single distribution artifact
+
+    sbt test            # Run both backend and frontend unit tests
+```
