@@ -55,7 +55,7 @@ public class LeagueController extends Controller {
     public Result getSearchedMatch(String date) {
         LeagueManagerServices.getInstance().loadData();
         List<Match> result = LeagueManagerServices.getInstance().getSearchedMatch(date);
-        logger.debug("In LeagueController.addRandomMatch(), result is: {}", result.toString());
+        logger.debug("In LeagueController.getSearchedMatch(), result is: {}", result.toString());
         JsonNode jsonObject = Json.toJson(result);
         LeagueManagerServices.getInstance().saveData();
         return created(ApplicationUtil.createResponse(jsonObject, true));
@@ -73,7 +73,7 @@ public class LeagueController extends Controller {
     public Result getRandomMatch() {
         LeagueManagerServices.getInstance().loadData();
         Match result = LeagueManagerServices.getInstance().getRandomMatch();
-        logger.debug("In LeagueController.addRandomMatch(), result is: {}", result.toString());
+        logger.debug("In LeagueController.getRandomMatch(), result is: {}", result.toString());
         JsonNode jsonObject = Json.toJson(result);
         LeagueManagerServices.getInstance().saveData();
         return created(ApplicationUtil.createResponse(jsonObject, true));

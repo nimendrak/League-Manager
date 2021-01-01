@@ -14,12 +14,12 @@ public class LeagueManagerServices {
     List<Match> matchDataArray = new ArrayList<>();
 
     /*
-    * since both CLI application and GUI application
-    * use the same dataSource and, it's the common component
-    * for the both applications.
-    * everytime CLI application get updated all the modified data will
-    * write to the text files and GUI application does the same thing.
-    * */
+     * since both CLI application and GUI application
+     * use the same dataSource and, it's the common component
+     * for the both applications.
+     * everytime CLI application get updated, all the modified data will
+     * write to the text files and GUI application does the same thing.
+     * */
 
     final static String leagueMatches = "DataSource/PremierLeagueMatches.txt";
     final static String leagueClubs = "DataSource/PremierLeagueTeams.txt";
@@ -128,11 +128,8 @@ public class LeagueManagerServices {
     public Match getRandomMatch() {
         Match match = null;
         if (!clubsDataArray.isEmpty()) {
-            if (matchDataArray.size() == 1) {
-                match = matchDataArray.get(0);
-            } else {
-                match = matchDataArray.get(matchDataArray.size() - 1);
-            }
+            match = matchDataArray.get(matchDataArray.size() - 1);
+
         }
         return match;
     }

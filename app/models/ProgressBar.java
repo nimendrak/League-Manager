@@ -8,7 +8,7 @@ public class ProgressBar {
     }
 
     public void update(int done, int total) {
-        char[] workchars = {'|', '/', '-', '\\'};
+        char[] workChars = {'|', '/', '-', '\\'};
         String format = "\r%3d%% %s %c";
 
         int percent = (++done * 100) / total;
@@ -18,7 +18,7 @@ public class ProgressBar {
             progress.append('#');
         }
 
-        System.out.printf(format, percent, progress, workchars[done % workchars.length]);
+        System.out.printf(format, percent, progress, workChars[done % workChars.length]);
 
         if (done == total) {
             System.out.flush();

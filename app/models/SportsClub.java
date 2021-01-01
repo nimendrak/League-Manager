@@ -30,7 +30,16 @@ public abstract class SportsClub implements Serializable {
 
     @Override
     public String toString() {
-        return (clubName.substring(0,3).toUpperCase());
+        String[] clubNameArr = clubName.split(" ");
+        if (clubNameArr.length > 1) {
+            return clubName.split(" ")[1].substring(0, 6).toUpperCase();
+        } else {
+            if (clubName.length() <= 3) {
+                return clubName.substring(0, 3).toUpperCase() + "   ";
+            } else {
+                return clubName.substring(0, 6).toUpperCase();
+            }
+        }
     }
 
     @Override

@@ -21,34 +21,36 @@ public class PremierLeagueManagerTest {
     //  test list to hold the compare return values
     List<FootballClub> teamList = new ArrayList<>();
 
+    //  test dataSources
     final String leagueMatches = "DataSource/test/TestDataMatches.txt";
     final String leagueClubs = "DataSource/test/TestDataTeams.txt";
 
+    //  new club add to the league
     @Test
     void addClubVariationOne() {
-//      new club add to the league
         assertTrue(premierLeagueManagerTest.addClub(fTest));
         resetData();
     }
 
+    //  check whether club is already added or not
     @Test
     void addClubVariationTwo() {
         premierLeagueManagerTest.addClub(fTest);
-//      check whether club is already added or not
         assertTrue(premierLeagueManagerTest.addClub(fTest));
         resetData();
     }
 
+    //  if club count is exceeds limit of 3, no club will added to the league
     @Test
     void addClubVariationThree() {
         premierLeagueManagerTest.addClub(fTest1);
         premierLeagueManagerTest.addClub(fTest2);
         premierLeagueManagerTest.addClub(fTest3);
-//      if club count is exceeds limit of 3, no club will added to the league
         assertTrue(premierLeagueManagerTest.addClub(fTest));
         resetData();
     }
 
+    //  in order to test the add match method, already added two clubs will be used
     @Test
     void addPlayedMatch() {
         java.time.LocalDate date = java.time.LocalDate.of(2020, 12, 31);
@@ -62,6 +64,7 @@ public class PremierLeagueManagerTest {
         resetData();
     }
 
+    //  test already added club got deleted or not
     @Test
     void deleteClubVariationOne() {
         premierLeagueManagerTest.addClub(fTest);
@@ -69,12 +72,13 @@ public class PremierLeagueManagerTest {
         resetData();
     }
 
+    //  if team list is empty deleteClub returns false
     @Test
     void deleteClubVariationTwo() {
-//      if team list is empty deleteClub returns false
         assertFalse(premierLeagueManagerTest.deleteClub("Real Madrid"));
     }
 
+    //  if the passed clubName is already in the league, test case will return its toString()
     @Test
     void displaySingleClubVariationOne() {
         premierLeagueManagerTest.addClub(fTest);
@@ -82,25 +86,28 @@ public class PremierLeagueManagerTest {
         resetData();
     }
 
+    //  if the passed clubName is not in the league, null value will return
     @Test
     void displaySingleClubVariationTwo() {
         assertNull(premierLeagueManagerTest.displaySingleClub("Real Madrid"));
     }
 
+    //  if teamList is not empty, club array will return
     @Test
     void displayLeagueTableVariationOne() {
         teamList.add(fTest);
         premierLeagueManagerTest.addClub(fTest);
-
         assertEquals(teamList, premierLeagueManagerTest.displayLeagueTable());
         resetData();
     }
 
+    //  if teamList is empty, null value will return
     @Test
     void displayLeagueTableVariationTwo() {
         assertNull(premierLeagueManagerTest.displayLeagueTable());
     }
 
+    //  if passed fileName doesn't found, false will return
     @Test
     void saveTeamsDataVariationOne() {
         premierLeagueManagerTest.addClub(fTest);
@@ -109,6 +116,7 @@ public class PremierLeagueManagerTest {
         resetData();
     }
 
+    //  if saved method successfully executed, true will return
     @Test
     void saveTeamsDataVariationTwo() {
         premierLeagueManagerTest.addClub(fTest);
@@ -117,6 +125,7 @@ public class PremierLeagueManagerTest {
         resetData();
     }
 
+    //  if saved method successfully executed, true will return
     @Test
     void saveMatchesData() {
         java.time.LocalDate date = java.time.LocalDate.of(2020, 12, 31);
@@ -132,6 +141,7 @@ public class PremierLeagueManagerTest {
         resetData();
     }
 
+    //  if load method successfully executed, true will return
     @Test
     void loadTeamsDataVariationOne() {
         assertTrue(premierLeagueManagerTest.loadData(leagueClubs));
@@ -139,6 +149,7 @@ public class PremierLeagueManagerTest {
         resetData();
     }
 
+    //  if passed fileName doesn't found, false will return
     @Test
     void loadTeamDataVariationTwo() {
         assertFalse(premierLeagueManagerTest.loadData("/TestDataMatches.txt"));
@@ -146,6 +157,7 @@ public class PremierLeagueManagerTest {
         resetData();
     }
 
+    //  if load method successfully executed, true will return
     @Test
     void loadMatchesData() {
         assertTrue(premierLeagueManagerTest.loadData(leagueMatches));

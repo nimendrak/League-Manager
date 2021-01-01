@@ -18,7 +18,9 @@
 
       <!--  logout button    -->
       <div class="nav navbar-fixed-bottom">
-        <button mat-raised-button color="primary" style="padding: 10px 85px 10px 85px;" (click)="saveData()">Save</button>
+        <button mat-raised-button color="primary"
+                style="padding: 10px 85px 10px 85px;"
+                (click)="openSnackBar('Saving Data..', 'DONE')">Save</button>
       </div>
     </mat-nav-list>
 

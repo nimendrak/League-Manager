@@ -89,7 +89,7 @@ public class FootballClub extends SportsClub implements Comparable<FootballClub>
         if (this.numOfMatchesPlayed != 0 && o.numOfMatchesPlayed != 0) {
             if (this.numOfPointsGained == o.numOfPointsGained) {
 //          if goalsScored same, checking goal difference here
-                if ((this.numOfGoalsScored - this.numOfGoalsReceived) > ((o.numOfGoalsScored - o.numOfGoalsReceived))) {
+                if ((this.goalsDifference) > ((o.goalsDifference))) {
                     return 1;
                 } else {
                     return -1;

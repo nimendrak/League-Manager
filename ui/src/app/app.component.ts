@@ -40,13 +40,19 @@ export class AppComponent implements OnInit, OnDestroy {
 
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 1500,
+    });
+  }
+
   /**
    * This method is used to test the post request
    */
   public generateRandomMatch(): void {
     this.navService.postRandomMatch().subscribe((data: any) => {
       this.postRequestResponse = data.content;
-    })
+    });
   }
 
   // set a time out till the backend responses
