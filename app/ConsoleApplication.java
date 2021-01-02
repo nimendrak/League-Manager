@@ -145,6 +145,7 @@ public class ConsoleApplication {
 
             leagueManager.saveData(teamData);
             leagueManager.saveData(matchData);
+            TimeUnit.SECONDS.sleep(1);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
