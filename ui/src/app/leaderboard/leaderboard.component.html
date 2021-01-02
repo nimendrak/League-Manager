@@ -37,7 +37,7 @@
 
           <li *ngIf="selectedProfileOne || selectedProfileTwo">
             <button mat-raised-button color="primary"
-                    style="padding: 7px; margin-top: 3px"
+                    style="width: 75px; height: 55px; border-radius: 20px"
                     (click)="onSortAction(selectedProfileOne.value, selectedProfileTwo.value)"
                     [disabled]="!dropdownOne && !dropdownTwo"
             >Go

@@ -43,13 +43,12 @@ public class LeagueManagerServices {
     public List<FootballClub> getLeaderboard() {
         if (!clubsDataArray.isEmpty()) {
             Collections.sort(clubsDataArray, Collections.reverseOrder());
-            return clubsDataArray;
         }
-        return null;
+        return clubsDataArray;
     }
 
     public List<FootballClub> getSortedLeaderboard(String type, String order) {
-        //      get a copy of current list and sorting the copy
+//      get a copy of current list and sorting the copy
         List<FootballClub> sortedList = clubsDataArray;
 
 //      initialize three different comparators according to the sorting requirement
@@ -146,7 +145,7 @@ public class LeagueManagerServices {
                 }
             }
         } catch (Exception e) {
-            return null;
+            return searchResults;
         }
         return searchResults;
     }

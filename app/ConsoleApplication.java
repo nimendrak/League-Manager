@@ -20,6 +20,7 @@ public class ConsoleApplication {
         System.out.println("*********** " + "\033[1;93m" + "Football Premier League Manager " + "\033[0m" + "**********");
         System.out.println("******************************************************");
 
+//      load data into the program once its initiated
         System.out.println("\nIndexing Premier League Data..");
         loadAllData(premierLeagueManager, leagueClubs, leagueMatches);
 

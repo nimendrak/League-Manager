@@ -24,8 +24,16 @@
             <!--  search bar -->
           </li>
           <li>
-            <button mat-raised-button color="primary" style="padding: 7px; margin-top: 3px"
+            <button mat-raised-button color="primary" style="margin-top: 3px; width: 125px; height: 55px; border-radius: 20px"
             (click)="sendSearchStr()">Search</button>
+          </li>
+          <li>
+            <button mat-raised-button color="accent" style="margin-top: 3px; width: 90px; height: 55px; border-radius: 20px"
+                    (click)="searchedValue=''">Clear</button>
+          </li>
+          <li>
+            <button mat-raised-button color="accent" style="margin-top: 3px; width: 90px; height: 55px; border-radius: 20px"
+                    (click)="resetTable()">Reset</button>
           </li>
         </ul>
       </div>

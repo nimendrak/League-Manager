@@ -112,7 +112,7 @@ public class PremierLeagueManagerTest {
     void saveTeamsDataVariationOne() {
         premierLeagueManagerTest.addClub(fTest);
 
-        assertFalse(premierLeagueManagerTest.saveData("/TestDataTeams.txt"));
+        assertTrue(premierLeagueManagerTest.saveData("/TestDataTeams.txt"));
         resetData();
     }
 

@@ -1,5 +1,8 @@
 package models;
 
+// reference to the ProgressBar
+// https://masterex.github.io/archive/2011/10/23/java-cli-progress-bar.html
+
 public class ProgressBar {
     private StringBuilder progress;
 

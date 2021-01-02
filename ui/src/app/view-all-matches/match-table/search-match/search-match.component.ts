@@ -24,19 +24,21 @@ export class SearchMatchComponent implements OnInit {
   }
 
   sendSearchStr() {
-    console.log(this.searchedValue);
     const dateReg = /^\d{4}[./-]\d{2}[./-]\d{2}$/;
 
     if (this.searchedValue.match(dateReg)) {
       return this.matchTableService.getSearchResult(this.searchedValue).subscribe((data: any) => {
         this.matchModels = data;
-        // check response
-        console.log("search match table");
-        console.log(data.response);
         this.dataSource = new MatTableDataSource(data.response);
       }, error => console.error(error));
     }
   }
 
-
+  resetTable() {
+    this.matchTableService.getTableData()
+      .subscribe((data: any) => {
+        this.matchModels = data;
+        this.dataSource = new MatTableDataSource(data.response);
+      }, error => console.error(error));
+  }
 }
