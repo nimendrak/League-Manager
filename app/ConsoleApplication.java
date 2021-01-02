@@ -116,7 +116,7 @@ public class ConsoleApplication {
                         // update the progress bar
                         bar.update(i, 2000);
                     }
-                    TimeUnit.SECONDS.sleep(5);
+                    TimeUnit.SECONDS.sleep(10);
                     System.out.println("Process Completed!\n");
 
                     System.out.println("------------------------------------------------------");
