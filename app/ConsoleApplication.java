@@ -411,7 +411,7 @@ public class ConsoleApplication {
         return clubName;
     }
 
-    //  validate function03 -> this method returns specific methods of the PremierLeagueManager
+    //  validate function04 -> this method returns specific methods of the PremierLeagueManager
     //  got executed successfully or not
     private static void isSuccess(String message, String type) {
         if (PremierLeagueManager.isSuccess()) {

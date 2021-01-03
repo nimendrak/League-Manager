@@ -25,7 +25,6 @@ export class ViewAllMatchesComponent implements OnInit {
   ngOnInit(): void {}
 
   onSortAction(p1: string) {
-    console.log(p1);
     this.matchTableService.getSortedTableData(p1)
       .subscribe((data: any) => {
         this.clubModels = data;
