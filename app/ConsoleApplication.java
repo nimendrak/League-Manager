@@ -193,22 +193,27 @@ public class ConsoleApplication {
         System.out.println("\033[1;93m" + "Display Stats for Specific Club" + "\033[0m");
         System.out.println("*******************************\n");
 
-        System.out.print("Name of the Club : ");
-        String clubName = isContain("Name of the Club : ", sc.next());
+        while (true) {
+            System.out.print("Name of the Club : ");
+            String clubName = isContain("Name of the Club : ", sc.nextLine());
 
-        System.out.println("\nClub\t\t\t\tMP  W   L   D   GS  GD  PTS");
-        System.out.println("-----------------------------------------------");
+            System.out.println("\nClub\t\t\t\tMP  W   L   D   GS  GD  PTS");
+            System.out.println("-----------------------------------------------");
 
-        if (clubName != null) {
-            System.out.println(leagueManager.displaySingleClub(clubName).toString());
-            PremierLeagueManager.setSuccess(false);
-        } else {
-            System.out.println("\033[1;93m" + "\t\tPrompted Team does not exist!" + "\033[0m");
+            if (clubName.equals("null")) {
+                System.out.println("\033[1;93m" + "\t\t  Prompted Team does not exist!" + "\033[0m");
+                break;
+            }
+
+            if (!clubName.equalsIgnoreCase("null")) {
+                System.out.println(leagueManager.displaySingleClub(clubName).toString());
+                PremierLeagueManager.setSuccess(false);
+            }
+
+            System.out.println("\n*** Club Name is limited to 6 characters!!! ***\n\nW - Wins | MP - Matches Played\n" +
+                    "L - Loss | GD - Goals Difference\nD - Draw | GS - Goals Scored");
+            break;
         }
-
-        System.out.println("\n*** Club Name is limited to 6 characters!!! ***\n\nW - Wins | MP - Matches Played\n" +
-                "L - Loss | GD - Goals Difference\nD - Draw | GS - Goals Scored");
-
         System.out.println("\n------------------------------------------------------");
         leagueManager.saveData(leagueClubs);
     }
@@ -331,7 +336,7 @@ public class ConsoleApplication {
                 break;
             }
 
-            System.out.print("Do you want remove " + clubName.toUpperCase() + "? (Y/N) : ");
+            System.out.print("Do you want remove Team " + clubName.toUpperCase() + "? (Y/N) : ");
             String option = sc.next();
 
             if (option.equalsIgnoreCase("y")) {
@@ -374,11 +379,11 @@ public class ConsoleApplication {
     //  validate function01 -> this method returns int values
     private static String isInt(String label) {
         while (!sc.hasNextInt()) {
-            System.out.println("Prompt Integers to proceed !\n");
-            System.out.print("Press \"Q\" to return, or enter " + label);
             if (sc.next().equalsIgnoreCase("q")) {
                 return "-1";
             }
+            System.out.println("Prompt Integers to proceed !\n");
+            System.out.print("Press \"Q\" to return, or enter " + label);
         }
         return sc.next();
     }

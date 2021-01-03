@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MatchModel} from "../view-all-matches/match-table/match.model";
-import {AppServices} from "../backend-services/app-services/app-services.service";
+import {Component, OnInit} from '@angular/core';
+import {MatchModel} from '../view-all-matches/match-table/match.model';
+import {AppServices} from '../backend-services/app-services/app-services.service';
 
 @Component({
   selector: 'app-random-match-dialog',
@@ -14,8 +14,8 @@ export class RandomMatchDialogComponent implements OnInit {
   date: string;
   teamOneName: string;
   teamOneScore: number;
-  teamTwoName : string;
-  teamTwoScore : number;
+  teamTwoName: string;
+  teamTwoScore: number;
   matchStats: string;
 
   constructor(private randomMatchService: AppServices) {
