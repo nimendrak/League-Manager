@@ -1,5 +1,0 @@
-[error] /Users/nimendra/Documents/IIT/L5/OOP/CW1/angular-play-app/conf/routes:15:1: value addRandomMatch is not a member of controllers.LeagueController
-[error] did you mean controllers.LeagueController.addRandomMatch? Static Java members belong to companion objects in Scala;
-[error] they are not inherited, even by subclasses defined in Java.
-[error] POST        /api/add/random                      controllers.LeagueController.addRandomMatch()
-[error] one error found

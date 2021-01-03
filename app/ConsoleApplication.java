@@ -2,6 +2,7 @@ import models.ProgressBar;
 import models.FootballClub;
 import models.PremierLeagueManager;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -93,15 +94,17 @@ public class ConsoleApplication {
         System.out.println("------------------------------------------------------");
 
         try {
+            String currentRoot = new File("../").getCanonicalPath();
+
             ProcessBuilder builder = new ProcessBuilder();
             Process process = null;
 
             boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
             if (isWindows) {
-                builder.command("cmd.exe", "/c", "sbt run ./app");
+                builder.command("cmd.exe", "/c", "sbt run").directory(new File(currentRoot));
             } else {
                 if (isRun) {
-                    builder.command("zsh", "-c", "sbt run ./app");
+                    builder.command("zsh", "-c", "sbt run").directory(new File(currentRoot));
                     process = builder.start();
                     System.out.println("\033[1;93m" + "\nGUI application is now Launching..\n" + "\033[0m");
 
@@ -341,6 +344,7 @@ public class ConsoleApplication {
 
         FootballClub footballClub = new FootballClub(clubName, clubLocation);
         leagueManager.addClub(footballClub);
+
         PremierLeagueManager.setSuccess(false);
 
         leagueManager.saveData(leagueClubs);
