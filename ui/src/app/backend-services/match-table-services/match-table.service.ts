@@ -2,8 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
-import {environment} from "../../../environments/environment";
-import {MatchModel} from "../../view-all-matches/match-table/match.model";
+import {environment} from '../../../environments/environment';
+import {MatchModel} from '../../view-all-matches/match-table/match.model';
 
 /**
  * Class representing application service.
@@ -15,6 +15,7 @@ export class MatchTableService {
   appRoot = environment.API_BASE_URL;
 
   private getTableDataUrl = this.appRoot + '/match-table';
+  private getTableSortedDataUrl = this.appRoot + '/match-table';
   private getSearchResultUrl = this.appRoot + '/match-table/search';
 
   constructor(private http: HttpClient) {
@@ -26,5 +27,9 @@ export class MatchTableService {
 
   public getSearchResult(date: string): Observable<MatchModel[]> {
     return this.http.get<MatchModel[]>(this.getSearchResultUrl + "/" + date);
+  }
+
+  public getSortedTableData(order: string): Observable<MatchModel[]> {
+    return this.http.get<MatchModel[]>(this.getTableSortedDataUrl + "/" + order);
   }
 }

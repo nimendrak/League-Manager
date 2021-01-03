@@ -9,6 +9,7 @@ GET         /                                    controllers.FrontendController.
 GET         /api/leaderboard                     controllers.LeagueController.showLeaderboard()
 GET         /api/leaderboard/:sort/:order        controllers.LeagueController.getSortedLeaderboardData(sort:String, order:String)
 GET         /api/match-table                     controllers.LeagueController.showPlayedMatches()
+GET         /api/match-table/:order              controllers.LeagueController.getSortedMatchTableData(order: String)
 GET         /api/match-table/search/:date        controllers.LeagueController.getSearchedMatch(date: String)
 GET         /api/add/get-random                  controllers.LeagueController.getRandomMatch
 

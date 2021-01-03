@@ -65,7 +65,7 @@ public class PremierLeagueManager implements LeagueManager {
     public boolean deleteClub(String clubName) {
         if (!teamList.isEmpty()) {
             teamList.removeIf(f -> f.getClubName().equalsIgnoreCase(clubName));
-            System.out.println("\nTeam " + "\033[1;93m" + clubName + "\033[0m" + " removed from the League!");
+            System.out.println("\nTeam " + "\033[1;93m" + clubName.toUpperCase() + "\033[0m" + " removed from the League!");
             availableSlots += 1;
             success = true;
         }

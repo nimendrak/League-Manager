@@ -1,8 +1,8 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTable, MatTableDataSource} from '@angular/material/table';
 import {MatchModel} from './match.model';
-import {MatchTableService} from "../../backend-services/match-table-services/match-table.service";
+import {MatchTableService} from '../../backend-services/match-table-services/match-table.service';
 
 @Component({
   selector: 'app-match-table',
@@ -13,7 +13,6 @@ export class MatchTableComponent implements AfterViewInit, OnInit {
   paginator: MatPaginator;
 
   table: MatTable<MatchModel>;
-  populate: true;
 
   // table columns
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */

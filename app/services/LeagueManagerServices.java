@@ -151,11 +151,24 @@ public class LeagueManagerServices {
     }
 
     public List<Match> getPlayedMatches() {
+        return matchDataArray;
+    }
+
+    public List<Match> getSortedMatchTable(String order) {
+//      get a copy of current list and sorting the copy
+        List<Match> sortedList = matchDataArray;
+
+//      initialize three different comparators according to the sorting requirement
+//      comparator for dates
         Comparator<Match> compareByDate = Comparator
                 .comparing(Match::getDate)
                 .thenComparing(Match::getDate);
 
-        return matchDataArray.stream().sorted(compareByDate.reversed()).collect(Collectors.toList());
+        if (order.equalsIgnoreCase("ascending")) {
+            return sortedList.stream().sorted(compareByDate).collect(Collectors.toList());
+        } else {
+            return sortedList.stream().sorted(compareByDate.reversed()).collect(Collectors.toList());
+        }
     }
 
     public void loadData() {
@@ -240,4 +253,5 @@ public class LeagueManagerServices {
     public List<FootballClub> getClubsDataArray() {
         return clubsDataArray;
     }
+
 }

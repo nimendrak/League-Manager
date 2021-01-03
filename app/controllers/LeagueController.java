@@ -52,6 +52,16 @@ public class LeagueController extends Controller {
         return ok(ApplicationUtil.createResponse(jsonObject, true));
     }
 
+    public Result getSortedMatchTableData(String order) {
+        LeagueManagerServices.getInstance().loadData();
+        List<Match> result = LeagueManagerServices.getInstance().getSortedMatchTable(order);
+        logger.debug("In LeagueController.getSortedMatchTable(), result is: {}", result.toString());
+
+        JsonNode jsonObject = Json.toJson(result);
+        LeagueManagerServices.getInstance().saveData();
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }
+
     public Result getSearchedMatch(String date) {
         LeagueManagerServices.getInstance().loadData();
         List<Match> result = LeagueManagerServices.getInstance().getSearchedMatch(date);
