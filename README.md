@@ -51,7 +51,6 @@ Both CLI and GUI applications updated their DataSources as they update realtime.
     │   ├── application.conf                 # Play application configuratiion file.
     │   ├── logback.xml                      # Logging configuration
     │   └── routes                           # Routes definition file
-    ├── lib                                  # Contains JUnit jar files   
     ├── logs                                 # Log directory
     ├── project                              # Contains project build configuration and plugins
     │   ├── FrontendCommands.scala           # Frontend build command mapping configuration
