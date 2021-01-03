@@ -11,6 +11,7 @@ GET         /api/leaderboard/:sort/:order        controllers.LeagueController.ge
 GET         /api/match-table                     controllers.LeagueController.showPlayedMatches()
 GET         /api/match-table/:order              controllers.LeagueController.getSortedMatchTableData(order: String)
 GET         /api/match-table/search/:date        controllers.LeagueController.getSearchedMatch(date: String)
+GET         /api/add/validate                    controllers.LeagueController.validateAddRandomMatch()
 GET         /api/add/get-random                  controllers.LeagueController.getRandomMatch
 
 POST        /api/add/random                      controllers.LeagueController.addRandomMatch()

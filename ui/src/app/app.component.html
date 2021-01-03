@@ -14,13 +14,14 @@
 
       <mat-divider></mat-divider>
 
-      <a mat-list-item (click)="generateRandomMatch(); getRandomDataToDialog()">Add Random Match</a>
+      <a mat-list-item (click)="validateRandomMatch()">Add Random Match</a>
 
       <!--  logout button    -->
       <div class="nav navbar-fixed-bottom">
         <button mat-raised-button color="primary"
                 style="padding: 10px 85px 10px 85px;"
-                (click)="openSnackBar('Saving Data..', 'DONE')">Save</button>
+                (click)="openSnackBar('Saving Data..', 'CLOSE')">Save
+        </button>
       </div>
     </mat-nav-list>
 

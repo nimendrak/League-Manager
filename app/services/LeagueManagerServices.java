@@ -125,12 +125,10 @@ public class LeagueManagerServices {
     }
 
     public Match getRandomMatch() {
-        Match match = null;
-        if (!clubsDataArray.isEmpty()) {
-            match = matchDataArray.get(matchDataArray.size() - 1);
-
+        if (clubsDataArray.size() >= 2) {
+            return matchDataArray.get(matchDataArray.size() - 1);
         }
-        return match;
+        return null;
     }
 
     public List<Match> getSearchedMatch(String date) {

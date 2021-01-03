@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import {Observable} from 'rxjs';
-import {environment} from "../../../environments/environment";
+import {environment} from '../../../environments/environment';
 
 /**
  * Class representing application service.
@@ -15,6 +15,7 @@ export class AppServices {
 
   private postRandomMatchUrl = this.appRoot + '/add/random';
   private getRandomMatchUrl = this.appRoot + '/add/get-random';
+  private getClubsArraySizeUrl = this.appRoot + '/add/validate';
 
   constructor(private http: HttpClient) {
   }
@@ -28,6 +29,10 @@ export class AppServices {
 
   public getRandomMatch(): Observable<any> {
     return this.http.get(this.getRandomMatchUrl);
+  }
+
+  public getClubsArraySize(): Observable<any> {
+    return this.http.get(this.getClubsArraySizeUrl);
   }
 
 }

@@ -46,7 +46,6 @@ public class LeagueController extends Controller {
         LeagueManagerServices.getInstance().loadData();
         List<Match> result = LeagueManagerServices.getInstance().getPlayedMatches();
         logger.debug("In LeagueController.showPlayedMatches(), result is: {}", result.toString());
-
         JsonNode jsonObject = Json.toJson(result);
         LeagueManagerServices.getInstance().saveData();
         return ok(ApplicationUtil.createResponse(jsonObject, true));
@@ -56,7 +55,6 @@ public class LeagueController extends Controller {
         LeagueManagerServices.getInstance().loadData();
         List<Match> result = LeagueManagerServices.getInstance().getSortedMatchTable(order);
         logger.debug("In LeagueController.getSortedMatchTable(), result is: {}", result.toString());
-
         JsonNode jsonObject = Json.toJson(result);
         LeagueManagerServices.getInstance().saveData();
         return ok(ApplicationUtil.createResponse(jsonObject, true));
@@ -74,16 +72,34 @@ public class LeagueController extends Controller {
     public Result addRandomMatch() {
         LeagueManagerServices.getInstance().loadData();
         Match result = LeagueManagerServices.getInstance().addRandomMatch();
-        logger.debug("In LeagueController.addRandomMatch(), result is: {}", result.toString());
-        JsonNode jsonObject = Json.toJson(result);
-        LeagueManagerServices.getInstance().saveData();
-        return created(ApplicationUtil.createResponse(jsonObject, true));
+        if (result == null) {
+            LeagueManagerServices.getInstance().saveData();
+            return badRequest();
+        } else {
+            logger.debug("In LeagueController.addRandomMatch(), result is: {}", result.toString());
+            JsonNode jsonObject = Json.toJson(result);
+            LeagueManagerServices.getInstance().saveData();
+            return created(ApplicationUtil.createResponse(jsonObject, true));
+        }
     }
 
     public Result getRandomMatch() {
         LeagueManagerServices.getInstance().loadData();
         Match result = LeagueManagerServices.getInstance().getRandomMatch();
-        logger.debug("In LeagueController.getRandomMatch(), result is: {}", result.toString());
+        if (result == null) {
+            LeagueManagerServices.getInstance().saveData();
+            return badRequest();
+        } else {
+            logger.debug("In LeagueController.getRandomMatch(), result is: {}", result.toString());
+            JsonNode jsonObject = Json.toJson(result);
+            LeagueManagerServices.getInstance().saveData();
+            return created(ApplicationUtil.createResponse(jsonObject, true));
+        }
+    }
+
+    public Result validateAddRandomMatch() {
+        LeagueManagerServices.getInstance().loadData();
+        int result =  LeagueManagerServices.getInstance().getClubsDataArray().size();
         JsonNode jsonObject = Json.toJson(result);
         LeagueManagerServices.getInstance().saveData();
         return created(ApplicationUtil.createResponse(jsonObject, true));
