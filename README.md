@@ -8,14 +8,16 @@ The project contains combined an Angular Frontend and Play backend which already
     - Delete clubs from the League
     - Add matches to the League
     - Show current standings 
-    - Search clubs
-    
-    
+    - Search clubs by their name
+  
+
 - GUI application has following functions :
 
-    - Add random generated match into league
+    - Add random generated matches into league
+    - Sort matches by played date
     - Show current standings
-    - Search clubs
+    - Sort standing by wins/ goals scored/ points 
+    - Search matches by played date
     
 
 Both CLI and GUI applications updated their DataSources as they update realtime. 
